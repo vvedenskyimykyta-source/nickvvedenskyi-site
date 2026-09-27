@@ -17,7 +17,7 @@ const stepTitles: Record<number, { en: string; uk: string }> = {
   5: { en: 'How they pay more', uk: 'Як вони платять більше' },
 };
 
-function renderService(s: Service, idx: number) {
+function renderService(s: Service, _idx: number) {
   return {
     name: s.name,
     step: s.step,
@@ -28,7 +28,6 @@ function renderService(s: Service, idx: number) {
     price: `${t(locale, 'from')} €${s.priceFrom.toLocaleString('en')}`,
     duration: s.duration[locale],
     note: s.note?.[locale],
-    bgClass: typeof s.step === 'number' ? stepColors[idx] : '',
   };
 }
 ---
@@ -46,134 +45,115 @@ function renderService(s: Service, idx: number) {
     {t(locale, 'pipelineIntro')}
   </p>
 
-  <!-- Handwritten hint -->
-  <HandwrittenNote rotate={-2} class="mt-6 text-base md:text-lg">
-    {t(locale, 'pipelineHint')}
-  </HandwrittenNote>
+  <!-- Step pills row -->
+  <div class="mt-10 flex flex-wrap gap-2" id="pipeline-pills">
+    {steps.map((s, i) => (
+      <button
+        class={`pipeline-pill inline-flex items-center gap-2 rounded-full px-4 py-2.5 text-sm font-medium transition-all duration-200 border touch-manipulation ${i === 0 ? 'bg-cobalt text-white border-cobalt shadow-md' : 'bg-paper-2 text-ink border-line hover:border-cobalt'}`}
+        data-step={String(s.step)}
+      >
+        <span class={`flex h-6 w-6 items-center justify-center rounded-full text-xs font-bold font-display ${i === 0 ? 'bg-white/20 text-white' : 'bg-cobalt text-white'}`}>
+          {s.step}
+        </span>
+        {stepTitles[s.step as number]?.[locale]}
+      </button>
+    ))}
+  </div>
 
-  <!-- Pipeline steps -->
-  <div class="mt-8 flex flex-col gap-3 lg:flex-row lg:gap-0 lg:items-start" id="pipeline-container">
+  <!-- Step content panels -->
+  <div class="mt-6" id="pipeline-panels">
     {steps.map((s, i) => {
       const data = renderService(s, i);
       return (
-        <div class="flex flex-col lg:flex-row lg:items-start lg:flex-1" id={`pipeline-step-${s.step}`} style="scroll-margin-top: 5rem;">
-          <!-- Card -->
-          <div class="w-full">
-            <button
-              class={`pipeline-card w-full text-left rounded-2xl border border-line p-5 transition-all duration-200 hover:border-cobalt ${data.bgClass}`}
-              aria-expanded={i === 0 ? 'true' : 'false'}
-              data-pipeline-step={String(s.step)}
-              data-event="pipeline_step_open"
-            >
-              <div class="flex items-center justify-between">
-                <div class="flex items-center gap-3">
-                  <span class="flex h-8 w-8 items-center justify-center rounded-full bg-cobalt text-sm font-bold text-white font-display">
-                    {s.step}
-                  </span>
-                  <span class="font-display text-base font-semibold">{stepTitles[s.step as number]?.[locale]}</span>
-                </div>
-                <svg class="pipeline-chevron h-5 w-5 text-ink-soft transition-transform duration-300" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"/></svg>
+        <div
+          class={`pipeline-panel rounded-2xl border border-line p-6 md:p-8 ${stepColors[i]} ${i === 0 ? '' : 'hidden'}`}
+          data-step={String(s.step)}
+          id={`pipeline-step-${s.step}`}
+          style="scroll-margin-top: 5rem;"
+        >
+          <div class="flex flex-col md:flex-row md:gap-8">
+            <div class="flex-1">
+              <div class="flex flex-wrap items-center gap-2">
+                <span class="font-display text-xl font-semibold">{data.name}</span>
+                {data.tag && (
+                  <span class="rounded-full bg-wine/10 text-wine px-3 py-0.5 text-xs font-medium">{data.tag}</span>
+                )}
               </div>
-              <p class="mt-2 text-sm text-ink-soft">{data.oneLiner}</p>
-            </button>
-
-            <!-- Expanded content -->
-            <div
-              class="pipeline-content overflow-hidden transition-[max-height] duration-300 ease-in-out"
-              style={i === 0 ? 'max-height: 600px;' : 'max-height: 0;'}
-            >
-              <div class="px-5 pb-5 pt-3">
-                <div class="flex flex-wrap items-center gap-2">
-                  <span class="font-display text-lg font-semibold">{data.name}</span>
-                  {data.tag && (
-                    <span class="rounded-full bg-wine/10 text-wine px-3 py-0.5 text-xs font-medium">{data.tag}</span>
-                  )}
-                </div>
-                <p class="mt-3 text-ink-soft leading-relaxed">{data.description}</p>
-                <p class="mt-3"><span class="font-semibold">{t(locale, 'youGet')}:</span> {data.deliverables}</p>
-                <div class="mt-4 border-t border-line pt-3 flex flex-wrap items-center gap-4">
-                  <span class="font-display text-lg font-semibold text-cobalt">{data.price} · {data.duration}</span>
+              <p class="mt-3 text-ink-soft leading-relaxed">{data.description}</p>
+            </div>
+            <div class="mt-4 md:mt-0 md:w-64 shrink-0">
+              <div class="rounded-xl bg-white/60 p-4">
+                <p class="text-sm font-medium text-ink-soft mb-2">{t(locale, 'youGet')}:</p>
+                <p class="text-sm leading-relaxed">{data.deliverables}</p>
+                <div class="mt-3 pt-3 border-t border-line">
+                  <span class="font-display text-base font-semibold text-cobalt">{data.price}</span>
+                  <span class="text-sm text-ink-soft ml-1">· {data.duration}</span>
                 </div>
                 {data.note && (
-                  <p class="mt-2 text-sm text-ink-soft">{data.note}</p>
+                  <p class="mt-2 text-xs text-ink-soft">{data.note}</p>
                 )}
               </div>
             </div>
           </div>
-
-          <!-- Arrow between steps (desktop only, except after last) -->
-          {i < steps.length - 1 && (
-            <div class="hidden lg:flex items-center justify-center w-8 flex-shrink-0 self-start mt-7">
-              <svg class="w-5 h-5 text-ink-soft" viewBox="0 0 20 20" fill="currentColor"><path d="M7 3l7 7-7 7"/></svg>
-            </div>
-          )}
-          {i < steps.length - 1 && (
-            <div class="flex lg:hidden items-center justify-center py-1">
-              <svg class="w-5 h-5 text-ink-soft" viewBox="0 0 20 20" fill="currentColor"><path d="M10 3l0 14M6 13l4 4 4-4"/></svg>
-            </div>
-          )}
         </div>
       );
     })}
   </div>
 
-  <!-- Launch Sprint bar -->
-  <Reveal class="mt-4">
-    <div id="pipeline-step-launch" style="scroll-margin-top: 5rem;">
-      <button
-        class="pipeline-card w-full text-left rounded-2xl bg-cobalt text-white p-5 transition-all duration-200 hover:bg-cobalt-dk"
-        aria-expanded="false"
-        data-pipeline-step="launch"
-        data-event="pipeline_step_open"
-      >
-        <div class="flex items-center justify-between">
-          <div class="flex items-center gap-3">
-            <span class="font-display text-lg font-semibold">{locale === 'en' ? 'The whole path at once' : 'Весь шлях одразу'}</span>
+  <!-- Launch Sprint + Ops Audit: compact row -->
+  <div class="mt-4 grid gap-3 md:grid-cols-2">
+    <Reveal>
+      <div id="pipeline-step-launch" style="scroll-margin-top: 5rem;">
+        <button
+          class="pipeline-card w-full text-left rounded-2xl bg-cobalt text-white p-5 transition-all duration-200 hover:bg-cobalt-dk"
+          aria-expanded="false"
+          data-pipeline-step="launch"
+          data-event="pipeline_step_open"
+        >
+          <div class="flex items-center justify-between">
+            <span class="font-display text-base font-semibold">{locale === 'en' ? 'The whole path at once' : 'Весь шлях одразу'}</span>
+            <svg class="pipeline-chevron h-5 w-5 text-white/60 transition-transform duration-300" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"/></svg>
           </div>
-          <svg class="pipeline-chevron h-5 w-5 text-white/60 transition-transform duration-300" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"/></svg>
-        </div>
-      </button>
-      <div class="pipeline-content overflow-hidden transition-[max-height] duration-300 ease-in-out" style="max-height: 0;">
-        <div class="px-5 pb-5 pt-3">
-          <span class="font-display text-lg font-semibold">{launchSprint.name}</span>
-          <p class="mt-3 text-ink-soft leading-relaxed">{launchSprint.description[locale]}</p>
-          <p class="mt-3"><span class="font-semibold">{t(locale, 'youGet')}:</span> {launchSprint.deliverables[locale]}</p>
-          <div class="mt-4 border-t border-line pt-3">
-            <span class="font-display text-lg font-semibold text-cobalt">{t(locale, 'from')} €{launchSprint.priceFrom.toLocaleString('en')} · {launchSprint.duration[locale]}</span>
+        </button>
+        <div class="pipeline-content overflow-hidden transition-[max-height] duration-300 ease-in-out" style="max-height: 0;">
+          <div class="px-5 pb-5 pt-3 text-white">
+            <span class="font-display text-lg font-semibold">{launchSprint.name}</span>
+            <p class="mt-2 text-white/70 leading-relaxed text-sm">{launchSprint.description[locale]}</p>
+            <p class="mt-2 text-sm"><span class="font-semibold text-white">{t(locale, 'youGet')}:</span> <span class="text-white/70">{launchSprint.deliverables[locale]}</span></p>
+            <div class="mt-3 pt-3 border-t border-white/20">
+              <span class="font-display font-semibold">{t(locale, 'from')} €{launchSprint.priceFrom.toLocaleString('en')} · {launchSprint.duration[locale]}</span>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </Reveal>
+    </Reveal>
 
-  <!-- Ops Audit bar -->
-  <Reveal class="mt-3">
-    <div id="pipeline-step-ops" style="scroll-margin-top: 5rem;">
-      <button
-        class="pipeline-card w-full text-left rounded-2xl bg-paper-2 p-5 border border-line transition-all duration-200 hover:border-cobalt"
-        aria-expanded="false"
-        data-pipeline-step="ops"
-        data-event="pipeline_step_open"
-      >
-        <div class="flex items-center justify-between">
-          <div class="flex items-center gap-3">
-            <span class="font-display text-lg font-semibold">{locale === 'en' ? 'Under the hood' : 'Під капотом'}</span>
+    <Reveal delay={80}>
+      <div id="pipeline-step-ops" style="scroll-margin-top: 5rem;">
+        <button
+          class="pipeline-card w-full text-left rounded-2xl bg-paper-2 p-5 border border-line transition-all duration-200 hover:border-cobalt"
+          aria-expanded="false"
+          data-pipeline-step="ops"
+          data-event="pipeline_step_open"
+        >
+          <div class="flex items-center justify-between">
+            <span class="font-display text-base font-semibold">{locale === 'en' ? 'Under the hood' : 'Під капотом'}</span>
+            <svg class="pipeline-chevron h-5 w-5 text-ink-soft transition-transform duration-300" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"/></svg>
           </div>
-          <svg class="pipeline-chevron h-5 w-5 text-ink-soft transition-transform duration-300" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"/></svg>
-        </div>
-      </button>
-      <div class="pipeline-content overflow-hidden transition-[max-height] duration-300 ease-in-out" style="max-height: 0;">
-        <div class="px-5 pb-5 pt-3">
-          <span class="font-display text-lg font-semibold">{opsAudit.name}</span>
-          <p class="mt-3 text-ink-soft leading-relaxed">{opsAudit.description[locale]}</p>
-          <p class="mt-3"><span class="font-semibold">{t(locale, 'youGet')}:</span> {opsAudit.deliverables[locale]}</p>
-          <div class="mt-4 border-t border-line pt-3">
-            <span class="font-display text-lg font-semibold text-cobalt">{t(locale, 'from')} €{opsAudit.priceFrom.toLocaleString('en')} · {opsAudit.duration[locale]}</span>
+        </button>
+        <div class="pipeline-content overflow-hidden transition-[max-height] duration-300 ease-in-out" style="max-height: 0;">
+          <div class="px-5 pb-5 pt-3">
+            <span class="font-display text-lg font-semibold">{opsAudit.name}</span>
+            <p class="mt-2 text-ink-soft leading-relaxed text-sm">{opsAudit.description[locale]}</p>
+            <p class="mt-2 text-sm"><span class="font-semibold">{t(locale, 'youGet')}:</span> {opsAudit.deliverables[locale]}</p>
+            <div class="mt-3 pt-3 border-t border-line">
+              <span class="font-display font-semibold text-cobalt">{t(locale, 'from')} €{opsAudit.priceFrom.toLocaleString('en')} · {opsAudit.duration[locale]}</span>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </Reveal>
+    </Reveal>
+  </div>
 
   <!-- CTA -->
   <Reveal class="mt-10">
@@ -188,43 +168,67 @@ function renderService(s: Service, idx: number) {
 </Section>
 
 <script>
-  // Pipeline accordion: one open at a time
-  const cards = document.querySelectorAll<HTMLButtonElement>('.pipeline-card');
+  // Step pills: tab-style switching
+  const pills = document.querySelectorAll<HTMLButtonElement>('.pipeline-pill');
+  const panels = document.querySelectorAll<HTMLElement>('.pipeline-panel');
 
+  pills.forEach(pill => {
+    pill.addEventListener('click', () => {
+      const step = pill.dataset.step;
+
+      // Update pills
+      pills.forEach(p => {
+        p.classList.remove('bg-cobalt', 'text-white', 'border-cobalt', 'shadow-md');
+        p.classList.add('bg-paper-2', 'text-ink', 'border-line');
+        const dot = p.querySelector('span');
+        if (dot) {
+          dot.classList.remove('bg-white/20', 'text-white');
+          dot.classList.add('bg-cobalt', 'text-white');
+        }
+      });
+      pill.classList.remove('bg-paper-2', 'text-ink', 'border-line');
+      pill.classList.add('bg-cobalt', 'text-white', 'border-cobalt', 'shadow-md');
+      const activeDot = pill.querySelector('span');
+      if (activeDot) {
+        activeDot.classList.remove('bg-cobalt');
+        activeDot.classList.add('bg-white/20');
+      }
+
+      // Update panels
+      panels.forEach(p => {
+        if (p.dataset.step === step) {
+          p.classList.remove('hidden');
+        } else {
+          p.classList.add('hidden');
+        }
+      });
+
+      // Analytics
+      if (step && window.dataLayer) {
+        window.dataLayer.push({ event: 'pipeline_step_open', step });
+      }
+    });
+  });
+
+  // Accordion for Launch Sprint + Ops Audit
+  const cards = document.querySelectorAll<HTMLButtonElement>('.pipeline-card');
   cards.forEach(card => {
     card.addEventListener('click', () => {
       const isExpanded = card.getAttribute('aria-expanded') === 'true';
       const content = card.nextElementSibling as HTMLElement | null;
-      const step = card.dataset.pipelineStep;
 
-      // Close all
-      cards.forEach(c => {
-        c.setAttribute('aria-expanded', 'false');
-        const chevron = c.querySelector('.pipeline-chevron');
-        if (chevron) (chevron as HTMLElement).style.transform = '';
-        const cont = c.nextElementSibling as HTMLElement | null;
-        if (cont?.classList.contains('pipeline-content')) {
-          cont.style.maxHeight = '0';
-        }
-      });
-
-      // Open clicked (unless it was already open)
-      if (!isExpanded && content?.classList.contains('pipeline-content')) {
-        card.setAttribute('aria-expanded', 'true');
-        content.style.maxHeight = content.scrollHeight + 'px';
-        const chevron = card.querySelector('.pipeline-chevron');
-        if (chevron) (chevron as HTMLElement).style.transform = 'rotate(180deg)';
-
-        // Scroll into view on mobile
-        if (window.innerWidth < 1024) {
-          setTimeout(() => {
-            card.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          }, 100);
-        }
-
-        // Analytics
-        if (step && window.dataLayer) {
-          window.dataLayer.push({ event: 'pipeline_step_open', step });
+      // Toggle
+      if (content?.classList.contains('pipeline-content')) {
+        if (isExpanded) {
+          card.setAttribute('aria-expanded', 'false');
+          content.style.maxHeight = '0';
+          const chevron = card.querySelector('.pipeline-chevron');
+          if (chevron) (chevron as HTMLElement).style.transform = '';
+        } else {
+          card.setAttribute('aria-expanded', 'true');
+          content.style.maxHeight = content.scrollHeight + 'px';
+          const chevron = card.querySelector('.pipeline-chevron');
+          if (chevron) (chevron as HTMLElement).style.transform = 'rotate(180deg)';
         }
       }
     });
@@ -232,21 +236,17 @@ function renderService(s: Service, idx: number) {
 
   // Handle problem links clicking to open a step
   document.querySelectorAll<HTMLAnchorElement>('[data-event="problem_click"]').forEach(link => {
-    link.addEventListener('click', (e) => {
+    link.addEventListener('click', () => {
       const href = link.getAttribute('href');
       if (!href) return;
-      const targetId = href.replace('#', '');
-      const target = document.getElementById(targetId);
-      if (target) {
-        const btn = target.querySelector('.pipeline-card') as HTMLButtonElement | null;
-        if (btn && btn.getAttribute('aria-expanded') !== 'true') {
-          setTimeout(() => btn.click(), 400);
-        }
-      }
+      const step = href.replace('#pipeline-step-', '');
+      setTimeout(() => {
+        const pill = document.querySelector<HTMLButtonElement>(`.pipeline-pill[data-step="${step}"]`);
+        if (pill) pill.click();
+      }, 400);
     });
   });
 
-  // Type for dataLayer
   declare global {
     interface Window {
       dataLayer?: Array<Record<string, unknown>>;
