@@ -5,16 +5,22 @@ import { createHmac } from 'node:crypto';
 
 export const POST: APIRoute = async ({ request }) => {
   try {
+    const contentLength = Number(request.headers.get('content-length') || 0);
+    if (contentLength > 100_000) {
+      return new Response('Payload too large', { status: 413 });
+    }
+
     const body = await request.text();
 
     const secret = import.meta.env.CAL_WEBHOOK_SECRET;
     if (secret) {
       const signature = request.headers.get('x-cal-signature-256');
-      if (signature) {
-        const expected = createHmac('sha256', secret).update(body).digest('hex');
-        if (signature !== expected) {
-          return new Response('Invalid signature', { status: 401 });
-        }
+      if (!signature) {
+        return new Response('Missing signature', { status: 401 });
+      }
+      const expected = createHmac('sha256', secret).update(body).digest('hex');
+      if (signature !== expected) {
+        return new Response('Invalid signature', { status: 401 });
       }
     }
 
