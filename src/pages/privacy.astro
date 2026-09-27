@@ -1,0 +1,85 @@
+---
+/**
+ * Privacy Policy (English)
+ * NOTE: This is not legal advice. Nick should have a lawyer review it before launch.
+ */
+import Layout from '../layouts/Layout.astro';
+import Section from '../components/Section.astro';
+---
+
+<Layout
+  title="Privacy Policy · Nick Vvedenskyi"
+  description="How I handle your data: what I collect, why, where it is stored and your rights."
+>
+  <Section narrow>
+    <h1 class="font-display text-3xl font-semibold md:text-4xl">Privacy Policy</h1>
+    <p class="mt-2 text-sm text-ink-soft">Last updated: September 2026</p>
+
+    <div class="mt-10 space-y-8 text-ink-soft leading-relaxed [&_h2]:font-display [&_h2]:text-xl [&_h2]:font-semibold [&_h2]:text-ink [&_h2]:mt-10 [&_h2]:mb-3 [&_ul]:list-disc [&_ul]:pl-6 [&_ul]:space-y-1 [&_a]:text-cobalt [&_a]:underline [&_a]:underline-offset-2">
+
+      <p>This policy explains what data I collect through nickvvedenskyi.com, why I collect it, where it goes and what rights you have. I keep it in plain language because nobody reads the other kind.</p>
+
+      <h2>Who is responsible</h2>
+      <p>Nick Vvedenskyi (sole proprietor), based in Spain. <!-- TODO(Nick): add contact email --> If you have questions about your data, email me and I will answer personally.</p>
+
+      <h2>What I collect and why</h2>
+
+      <h3 class="font-semibold text-ink mt-6 mb-2">When you fill out the quiz (Tally)</h3>
+      <p>I collect your name, email, company website (optional), LinkedIn (optional), the answers you give and any UTM parameters from the link you used. This goes into my Notion CRM so I can reply to you, and into Brevo so I can send you the follow-up emails described on the site. I read every answer myself.</p>
+      <p>Legal basis: legitimate interest (you asked for advice) and, where I send follow-up emails, your consent via the form submission.</p>
+
+      <h3 class="font-semibold text-ink mt-6 mb-2">When you book a call (Cal.com)</h3>
+      <p>I collect your name, email, company website and what you want to talk about. Cal.com stores the booking, creates a Google Meet link and sends you a calendar invite. Your email also goes into Brevo so I can send a short pre-call email.</p>
+      <p>Legal basis: performance of a contract (you booked a meeting with me).</p>
+
+      <h3 class="font-semibold text-ink mt-6 mb-2">Analytics (only with your consent)</h3>
+      <p>If you accept analytics cookies, Google Analytics 4 (via Google Tag Manager) collects anonymous usage data: pages visited, buttons clicked, scroll depth, referral source. No data is shared with Google for advertising. I use this to understand which parts of the site are useful and which are not.</p>
+      <p>Legal basis: your consent, given through the cookie banner. You can withdraw it at any time via the "Cookie settings" link in the footer.</p>
+
+      <h3 class="font-semibold text-ink mt-6 mb-2">Cookieless analytics (always on)</h3>
+      <p>Vercel Web Analytics counts page views without cookies, without collecting personal data and without tracking individual visitors. It tells me how many people visit, not who they are.</p>
+      <p>Legal basis: legitimate interest (basic traffic counting with no personal data).</p>
+
+      <h2>Where your data is stored</h2>
+      <ul>
+        <li><strong>Tally</strong> (form provider): EU servers. <a href="https://tally.so/help/privacy-policy" target="_blank" rel="noopener noreferrer">Tally privacy policy</a></li>
+        <li><strong>Notion</strong> (CRM): US servers, EU data processing agreement. <a href="https://www.notion.so/privacy" target="_blank" rel="noopener noreferrer">Notion privacy policy</a></li>
+        <li><strong>Brevo</strong> (email): EU servers. <a href="https://www.brevo.com/legal/privacypolicy/" target="_blank" rel="noopener noreferrer">Brevo privacy policy</a></li>
+        <li><strong>Cal.com</strong> (booking): EU servers. <a href="https://cal.com/privacy" target="_blank" rel="noopener noreferrer">Cal.com privacy policy</a></li>
+        <li><strong>Google Analytics</strong>: US servers with EU data processing. Only activated with your consent.</li>
+        <li><strong>Vercel</strong> (hosting and cookieless analytics): global edge network. <a href="https://vercel.com/legal/privacy-policy" target="_blank" rel="noopener noreferrer">Vercel privacy policy</a></li>
+      </ul>
+
+      <h2>How long I keep your data</h2>
+      <p>Quiz and booking data: as long as we have an active business relationship, plus 3 years for accounting and tax purposes as required by Spanish law. Email marketing: until you unsubscribe (every email has an unsubscribe link). Analytics data: 14 months (Google Analytics default), then automatically deleted.</p>
+
+      <h2>Your rights (GDPR)</h2>
+      <p>You have the right to:</p>
+      <ul>
+        <li>Access the data I have about you</li>
+        <li>Correct anything that is wrong</li>
+        <li>Delete your data ("right to be forgotten")</li>
+        <li>Restrict or object to processing</li>
+        <li>Get a copy of your data in a portable format</li>
+        <li>Withdraw consent at any time (for analytics cookies and marketing emails)</li>
+        <li>Lodge a complaint with the Spanish Data Protection Agency (AEPD) or your local authority</li>
+      </ul>
+      <p>To exercise any of these, email me. I will respond within 30 days, usually much faster.</p>
+
+      <h2>Cookies</h2>
+      <p>This site uses only two kinds of cookies:</p>
+      <ul>
+        <li><strong>Necessary</strong>: the cookie that remembers your cookie consent choice. No way around this one.</li>
+        <li><strong>Analytics</strong> (only with your consent): Google Analytics cookies (_ga, _ga_*) that help me understand how people use the site. These are set only after you click "Accept analytics" in the banner.</li>
+      </ul>
+      <p>Vercel Web Analytics does not use cookies at all.</p>
+
+      <h2>Changes to this policy</h2>
+      <p>If I change something meaningful, I will update the date at the top. For major changes I will let you know by email if I have your address.</p>
+
+      <h2>Contact</h2>
+      <p>Nick Vvedenskyi · Spain</p>
+      <p><!-- TODO(Nick): add contact email --></p>
+    </div>
+  </Section>
+</Layout>
