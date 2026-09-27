@@ -115,7 +115,7 @@ function renderService(s: Service, _idx: number) {
             <svg class="pipeline-chevron h-5 w-5 text-white/60 transition-transform duration-300" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"/></svg>
           </div>
         </button>
-        <div class="pipeline-content overflow-hidden transition-[max-height] duration-300 ease-in-out" style="max-height: 0;">
+        <div class="pipeline-content overflow-hidden transition-[max-height] duration-300 ease-in-out bg-cobalt rounded-b-2xl -mt-3" style="max-height: 0;">
           <div class="px-5 pb-5 pt-3 text-white">
             <span class="font-display text-lg font-semibold">{launchSprint.name}</span>
             <p class="mt-2 text-white/70 leading-relaxed text-sm">{launchSprint.description[locale]}</p>

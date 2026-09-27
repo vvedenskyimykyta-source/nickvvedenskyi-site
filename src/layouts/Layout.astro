@@ -64,28 +64,7 @@ const calLink = `${import.meta.env.PUBLIC_CAL_LINK || 'nick-vvedenskyi'}/intro-c
     <StickyMobileCTA />
     <Analytics />
 
-    <!-- Tally popup embed -->
-    <script is:inline src="https://tally.so/widgets/embed.js"></script>
-
-    <!-- Tally embed event listeners -->
-    <script is:inline>
-      window.addEventListener('message', function(e) {
-        if (typeof e.data !== 'string') return;
-        try {
-          var d = JSON.parse(e.data);
-        } catch (_) { return; }
-        var lang = document.documentElement.lang || 'en';
-        if (d.event === 'Tally.FormLoaded') {
-          window.dataLayer = window.dataLayer || [];
-          window.dataLayer.push({ event: 'quiz_started', lang: lang });
-        }
-        if (d.event === 'Tally.FormSubmitted') {
-          window.dataLayer = window.dataLayer || [];
-          window.dataLayer.push({ event: 'quiz_submitted', lang: lang });
-          window.dataLayer.push({ event: 'generate_lead', method: 'tally_quiz', lang: lang });
-        }
-      });
-    </script>
+    <!-- Tally click tracking (form opens on tally.so as a separate page) -->
 
     <!-- Cal.com inline embed -->
     <script is:inline define:vars={{ calLink, locale }}>

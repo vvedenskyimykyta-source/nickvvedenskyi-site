@@ -17,8 +17,16 @@ const gtmId = import.meta.env.PUBLIC_GTM_ID || '';
   });
 </script>
 
-<!-- GTM ID for the consent script -->
-<meta name="gtm-id" content={gtmId} />
+<!-- GTM — loaded immediately; Consent Mode controls data collection -->
+{gtmId && (
+  <script is:inline define:vars={{ gtmId }}>
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer',gtmId);
+  </script>
+)}
 
 <!-- UTM session persistence + dataLayer event listener + Cookie consent (bundled by Vite) -->
 <script>
@@ -50,8 +58,6 @@ const gtmId = import.meta.env.PUBLIC_GTM_ID || '';
     if (typeof cc.run !== 'function') return;
 
     const locale = document.documentElement.lang === 'uk' ? 'uk' : 'en';
-    const gtmId = document.querySelector<HTMLMetaElement>('meta[name="gtm-id"]')?.content || '';
-
     const texts = locale === 'uk' ? {
       desc: 'Я використовую аналітичні cookies, щоб розуміти, які частини сайту корисні, а які ні. Нічого не продається і нічого підозрілого не відбувається. Можеш відмовитись, і все одно все працюватиме.',
       accept: 'Прийняти аналітику',
@@ -80,23 +86,11 @@ const gtmId = import.meta.env.PUBLIC_GTM_ID || '';
       rejectAll: 'Reject all',
     };
 
-    function loadGTM() {
-      if (!gtmId || document.getElementById('gtm-script')) return;
-      const s = document.createElement('script');
-      s.id = 'gtm-script';
-      s.async = true;
-      s.src = `https://www.googletagmanager.com/gtm.js?id=${gtmId}`;
-      document.head.appendChild(s);
-      window.dataLayer = window.dataLayer || [];
-      window.dataLayer.push({ 'gtm.start': Date.now(), event: 'gtm.js' });
-    }
-
     function updateConsent(accepted: boolean) {
       window.dataLayer = window.dataLayer || [];
       (window as any).dataLayer.push(['consent', 'update', {
         analytics_storage: accepted ? 'granted' : 'denied',
       }]);
-      if (accepted) loadGTM();
     }
 
     cc.run({

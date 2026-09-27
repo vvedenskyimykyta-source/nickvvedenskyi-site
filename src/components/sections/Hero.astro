@@ -41,14 +41,16 @@ const locale = getLocale(Astro.currentLocale);
             {t(locale, 'bookCall')}
             <svg class="ml-2 h-4 w-4 arrow-icon transition-transform duration-200" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
           </a>
-          <button
+          <a
+            href={`https://tally.so/r/${locale === 'en' ? import.meta.env.PUBLIC_TALLY_FORM_EN : import.meta.env.PUBLIC_TALLY_FORM_UK}`}
+            target="_blank"
+            rel="noopener noreferrer"
             class="btn-secondary justify-center sm:justify-start"
             data-event="cta_quiz_open"
             data-location="hero"
-            data-tally-open={locale === 'en' ? import.meta.env.PUBLIC_TALLY_FORM_EN : import.meta.env.PUBLIC_TALLY_FORM_UK}
           >
             {t(locale, 'quizCta')}
-          </button>
+          </a>
         </div>
       </div>
 
