@@ -1,0 +1,57 @@
+---
+import { t, getLocale } from '../i18n';
+const locale = getLocale(Astro.currentLocale);
+---
+
+<div
+  id="sticky-mobile-cta"
+  class="fixed bottom-0 left-0 right-0 z-30 translate-y-full transition-transform duration-300 md:hidden"
+  style="padding-bottom: env(safe-area-inset-bottom, 0px);"
+  aria-hidden="true"
+>
+  <div class="bg-paper/95 backdrop-blur-md border-t border-line px-5 py-3">
+    <a
+      href="#book"
+      class="btn-primary w-full justify-center text-center"
+      data-event="cta_book_call"
+      data-location="sticky_mobile"
+    >
+      {t(locale, 'bookCall')}
+    </a>
+  </div>
+</div>
+
+<script>
+  const bar = document.getElementById('sticky-mobile-cta');
+  if (bar && window.matchMedia('(max-width: 767px)').matches) {
+    const hero = document.getElementById('hero');
+    const book = document.getElementById('book');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    let heroPassed = false;
+    let bookVisible = false;
+    let menuOpen = false;
+
+    function updateBar() {
+      const show = heroPassed && !bookVisible && !menuOpen;
+      bar.classList.toggle('translate-y-full', !show);
+      bar.classList.toggle('translate-y-0', show);
+      bar.setAttribute('aria-hidden', String(!show));
+    }
+
+    if (hero) {
+      new IntersectionObserver(([e]) => { heroPassed = !e.isIntersecting; updateBar(); }, { threshold: 0 }).observe(hero);
+    }
+    if (book) {
+      new IntersectionObserver(([e]) => { bookVisible = e.isIntersecting; updateBar(); }, { threshold: 0.1 }).observe(book);
+    }
+
+    // Watch burger menu
+    if (mobileMenu) {
+      new MutationObserver(() => {
+        menuOpen = !mobileMenu.classList.contains('hidden');
+        updateBar();
+      }).observe(mobileMenu, { attributes: true, attributeFilter: ['class'] });
+    }
+  }
+</script>

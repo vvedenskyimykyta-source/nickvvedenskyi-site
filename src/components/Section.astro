@@ -1,0 +1,55 @@
+---
+interface Props {
+  id?: string;
+  class?: string;
+  bg?: 'paper' | 'paper-2' | 'cobalt';
+  slantTop?: boolean;
+  slantBottom?: boolean;
+  narrow?: boolean;
+}
+
+const { id, class: className = '', bg = 'paper', slantTop, slantBottom, narrow } = Astro.props;
+
+const bgClasses = {
+  paper: 'bg-paper',
+  'paper-2': 'bg-paper-2',
+  cobalt: 'bg-cobalt text-white',
+}[bg];
+---
+
+<section
+  id={id}
+  class:list={[
+    'relative py-16 md:py-24',
+    bgClasses,
+    slantTop && 'slant-top',
+    slantBottom && 'slant-bottom',
+    className,
+  ]}
+  style={id ? 'scroll-margin-top: 5rem;' : undefined}
+>
+  <div class:list={['mx-auto px-5 md:px-6', narrow ? 'max-w-3xl' : 'max-w-7xl']}>
+    <slot />
+  </div>
+</section>
+
+<style>
+  .slant-top {
+    clip-path: polygon(0 clamp(24px, 4vw, 48px), 100% 0, 100% 100%, 0 100%);
+    padding-top: calc(clamp(24px, 4vw, 48px) + 4rem);
+  }
+  @media (min-width: 768px) {
+    .slant-top {
+      padding-top: calc(clamp(24px, 4vw, 48px) + 6rem);
+    }
+  }
+  .slant-bottom {
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - clamp(24px, 4vw, 48px)), 0 100%);
+    padding-bottom: calc(clamp(24px, 4vw, 48px) + 4rem);
+  }
+  @media (min-width: 768px) {
+    .slant-bottom {
+      padding-bottom: calc(clamp(24px, 4vw, 48px) + 6rem);
+    }
+  }
+</style>

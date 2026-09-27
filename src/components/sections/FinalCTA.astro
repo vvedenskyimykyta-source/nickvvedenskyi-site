@@ -1,0 +1,72 @@
+---
+import { Image } from 'astro:assets';
+import { t, getLocale } from '../../i18n';
+import SectionTitle from '../SectionTitle.astro';
+import Reveal from '../Reveal.astro';
+import portraitImg from '../../assets/images/nick-portrait.jpg';
+
+const locale = getLocale(Astro.currentLocale);
+---
+
+<section
+  id="book"
+  class="relative bg-cobalt text-white"
+  style="clip-path: polygon(0 clamp(24px, 4vw, 48px), 100% 0, 100% 100%, 0 100%); scroll-margin-top: 0;"
+>
+  <div class="mx-auto max-w-7xl px-5 md:px-6 pt-20 pb-16 md:pt-28 md:pb-20" style={`padding-top: calc(clamp(24px, 4vw, 48px) + 5rem);`}>
+    <div class="flex flex-col gap-10 lg:flex-row lg:gap-12 lg:items-start">
+      <!-- Left: text + portrait -->
+      <div class="flex-1">
+        <SectionTitle class="text-white">{t(locale, 'ctaTitle')}</SectionTitle>
+        <p class="mt-4 text-lg text-white/80 leading-relaxed max-w-xl">
+          {t(locale, 'ctaText')}
+        </p>
+
+        <div class="mt-8 flex items-center gap-4">
+          <Image
+            src={portraitImg}
+            alt="Nick Vvedenskyi"
+            widths={[80, 120]}
+            sizes="60px"
+            class="w-14 h-14 rounded-full object-cover object-top"
+            loading="lazy"
+          />
+          <div>
+            <p class="font-display font-semibold">Nick Vvedenskyi</p>
+            <p class="text-sm text-white/60">{locale === 'en' ? 'Revenue & Marketing for Tech/AI Products' : 'Revenue & Marketing для Tech/AI продуктів'}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Cal.com embed placeholder -->
+      <div class="flex-1 lg:max-w-lg">
+        <div class="rounded-2xl bg-white p-4 md:p-6 min-h-[400px]" id="cal-embed-container">
+          <!-- Cal.com embed will be injected here in Phase 5 -->
+          <div class="flex items-center justify-center h-full text-ink-soft text-center p-8">
+            <div>
+              <p class="font-display text-lg font-semibold text-ink">{locale === 'en' ? 'Calendar loading...' : 'Календар завантажується...'}</p>
+              <p class="mt-2 text-sm">{locale === 'en' ? 'Pick a time that works for you.' : 'Обери зручний час.'}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Under the embed -->
+    <Reveal class="mt-10 border-t border-white/20 pt-8">
+      <p class="text-white/80">
+        {t(locale, 'notReady')}{' '}
+        <button
+          class="underline underline-offset-2 hover:text-white transition-colors touch-manipulation"
+          data-event="cta_quiz_open"
+          data-location="final"
+          data-tally-open={`PUBLIC_TALLY_FORM_${locale.toUpperCase()}`}
+        >
+          {t(locale, 'ctaQuizLink')}
+        </button>
+      </p>
+      <p class="mt-2 text-sm text-white/60">{t(locale, 'ctaQuizNote')}</p>
+      <p class="mt-4 text-sm text-white/60">{t(locale, 'ctaReminder')}</p>
+    </Reveal>
+  </div>
+</section>

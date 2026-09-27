@@ -1,0 +1,61 @@
+---
+/**
+ * Scroll reveal wrapper: fade in + 16px up, once, 500ms.
+ * Cards get staggered with `delay` prop (80ms per card).
+ * With `prefers-reduced-motion`, content is visible immediately.
+ */
+interface Props {
+  class?: string;
+  delay?: number; // ms
+  as?: string;
+}
+
+const { class: className = '', delay = 0, as: Tag = 'div' } = Astro.props;
+---
+
+<Tag
+  class:list={['reveal', className]}
+  style={delay > 0 ? `--reveal-delay: ${delay}ms;` : undefined}
+  data-reveal
+>
+  <slot />
+</Tag>
+
+<style>
+  .reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 500ms ease-out, transform 500ms ease-out;
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+  .reveal.revealed {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  const els = document.querySelectorAll('[data-reveal]');
+  if (els.length > 0) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('revealed');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+    );
+    els.forEach((el) => observer.observe(el));
+  }
+</script>

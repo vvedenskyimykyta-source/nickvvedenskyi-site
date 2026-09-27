@@ -1,0 +1,28 @@
+---
+import { t, getLocale } from '../../i18n';
+import Reveal from '../Reveal.astro';
+
+const locale = getLocale(Astro.currentLocale);
+---
+
+<section class="py-8 md:py-12">
+  <div class="mx-auto max-w-7xl px-5 md:px-6">
+    <Reveal>
+      <div class="rounded-2xl bg-paper-2 border-l-4 border-wine p-6 md:p-10">
+        <h2 class="font-display text-2xl font-semibold md:text-3xl">{t(locale, 'foundingTitle')}</h2>
+        <p class="mt-4 text-lg text-ink-soft leading-relaxed max-w-3xl">
+          {t(locale, 'foundingText')}
+        </p>
+        <a
+          href="#book"
+          class="btn-wine mt-6 inline-flex"
+          data-event="cta_book_call"
+          data-location="founding"
+        >
+          {t(locale, 'foundingButton')}
+          <svg class="ml-2 h-4 w-4 arrow-icon transition-transform duration-200" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+        </a>
+      </div>
+    </Reveal>
+  </div>
+</section>

@@ -1,0 +1,71 @@
+---
+import { t, getLocale } from '../../i18n';
+import { projects } from '../../data/projects';
+import Section from '../Section.astro';
+import SectionTitle from '../SectionTitle.astro';
+import Reveal from '../Reveal.astro';
+
+const locale = getLocale(Astro.currentLocale);
+
+// Generate deterministic random rotations for stickers
+function seededRandom(seed: number) {
+  const x = Math.sin(seed) * 10000;
+  return x - Math.floor(x);
+}
+---
+
+<Section id="projects" bg="paper-2">
+  <SectionTitle>{t(locale, 'projectsTitle')}</SectionTitle>
+
+  {projects.length > 0 ? (
+    <Reveal class="mt-10">
+      <div class="flex flex-wrap justify-center gap-3 md:gap-4">
+        {projects.map((p, i) => {
+          const rotation = (seededRandom(i * 37 + 7) * 6 - 3).toFixed(1);
+          const borderColor = i % 2 === 0 ? 'border-cobalt' : 'border-wine';
+          return (
+            <a
+              href={p.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              class={`project-sticker inline-flex items-center rounded-full bg-paper-2 border ${borderColor} px-4 py-2 font-display text-sm md:text-base font-medium text-ink transition-all duration-200 touch-manipulation min-h-[44px]`}
+              style={`transform: rotate(${rotation}deg);`}
+              data-event="outbound_project"
+              data-name={p.name}
+              data-rotation={rotation}
+            >
+              {p.name}
+              <span class="project-arrow ml-1.5 opacity-0 transition-opacity duration-200">↗</span>
+            </a>
+          );
+        })}
+      </div>
+    </Reveal>
+  ) : (
+    <Reveal class="mt-10">
+      <p class="text-ink-soft text-center">
+        {locale === 'en' ? 'Coming soon.' : 'Скоро з’явиться.'}
+      </p>
+    </Reveal>
+  )}
+</Section>
+
+<style>
+  .project-sticker:hover {
+    transform: rotate(0deg) translateY(-2px) !important;
+    border-color: var(--color-cobalt) !important;
+    box-shadow: 0 4px 8px rgba(47, 79, 168, 0.12);
+  }
+  .project-sticker:hover .project-arrow {
+    opacity: 1;
+  }
+
+  @media (hover: none) {
+    .project-sticker .project-arrow {
+      opacity: 1;
+    }
+    .project-sticker {
+      transform: rotate(0deg) !important;
+    }
+  }
+</style>

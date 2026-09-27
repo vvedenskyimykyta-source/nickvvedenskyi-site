@@ -1,0 +1,30 @@
+---
+import { t, getLocale } from '../../i18n';
+import { cases } from '../../data/cases';
+import Section from '../Section.astro';
+import SectionTitle from '../SectionTitle.astro';
+import Reveal from '../Reveal.astro';
+import HandwrittenNote from '../HandwrittenNote.astro';
+
+const locale = getLocale(Astro.currentLocale);
+---
+
+<Section id="cases" bg="paper-2">
+  <SectionTitle>{t(locale, 'casesTitle')}</SectionTitle>
+
+  <div class="mt-10 grid gap-6 md:grid-cols-2">
+    {cases.map((c, i) => (
+      <Reveal delay={i * 80}>
+        <div class="flex h-full flex-col rounded-2xl border border-line bg-white p-6 transition-all duration-200 hover:border-cobalt hover:-translate-y-0.5 hover:shadow-sm">
+          <span class="text-xs font-medium uppercase tracking-wider text-cobalt">{c.label[locale]}</span>
+          <h3 class="mt-2 font-display text-xl font-semibold">{c.title[locale]}</h3>
+          <p class="mt-3 text-ink-soft leading-relaxed flex-1">{c.story[locale]}</p>
+          <p class="mt-4 font-semibold text-ink">{c.result[locale]}</p>
+          <HandwrittenNote rotate={i % 2 === 0 ? -2 : -3} class="mt-4 text-base">
+            {c.lesson[locale]}
+          </HandwrittenNote>
+        </div>
+      </Reveal>
+    ))}
+  </div>
+</Section>

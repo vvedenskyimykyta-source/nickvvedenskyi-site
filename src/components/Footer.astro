@@ -1,0 +1,76 @@
+---
+import { t, getLocale } from '../i18n';
+import { site } from '../data/site';
+
+const locale = getLocale(Astro.currentLocale);
+---
+
+<footer class="bg-paper-2 border-t border-line">
+  <div class="mx-auto max-w-7xl px-5 md:px-6 py-12 md:py-16">
+    <div class="flex flex-col gap-8">
+      <!-- Top -->
+      <div class="flex flex-col gap-4">
+        <p class="font-display text-lg font-semibold">{site.name} · {t(locale, 'footerTagline')}</p>
+        <div class="flex flex-col gap-3 sm:flex-row sm:gap-6">
+          {site.linkedin && (
+            <a
+              href={site.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-ink-soft hover:text-cobalt transition-colors touch-manipulation min-h-[44px] flex items-center"
+              data-event="outbound_linkedin"
+              data-location="footer"
+            >
+              LinkedIn ↗
+            </a>
+          )}
+          {site.instagram && (
+            <a
+              href={site.instagram}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-ink-soft hover:text-cobalt transition-colors touch-manipulation min-h-[44px] flex items-center"
+              data-event="outbound_instagram"
+            >
+              {t(locale, 'footerInstagram')} ↗
+            </a>
+          )}
+          {site.email && (
+            <a
+              href={`mailto:${site.email}`}
+              class="text-ink-soft hover:text-cobalt transition-colors touch-manipulation min-h-[44px] flex items-center"
+              data-event="click_email"
+            >
+              {site.email}
+            </a>
+          )}
+        </div>
+      </div>
+
+      <!-- Divider -->
+      <hr class="border-line" />
+
+      <!-- Bottom -->
+      <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div class="flex flex-wrap gap-4 sm:gap-6">
+          <a href={locale === 'uk' ? '/uk/privacy' : '/privacy'} class="text-sm text-ink-soft hover:text-ink transition-colors touch-manipulation min-h-[44px] flex items-center">
+            {t(locale, 'footerPrivacy')}
+          </a>
+          <button
+            id="cookie-settings-btn"
+            class="text-sm text-ink-soft hover:text-ink transition-colors touch-manipulation min-h-[44px] flex items-center"
+          >
+            {t(locale, 'footerCookies')}
+          </button>
+          <a
+            href={t(locale, 'langSwitchHref')}
+            class="text-sm font-semibold text-cobalt hover:text-cobalt-dk transition-colors touch-manipulation min-h-[44px] flex items-center"
+          >
+            {t(locale, 'langSwitchLabel')}
+          </a>
+        </div>
+        <p class="text-sm text-ink-soft">{t(locale, 'footerMade')}</p>
+      </div>
+    </div>
+  </div>
+</footer>

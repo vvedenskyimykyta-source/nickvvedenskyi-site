@@ -1,0 +1,255 @@
+---
+import { t, getLocale } from '../../i18n';
+import { steps, launchSprint, opsAudit, type Service } from '../../data/services';
+import Section from '../Section.astro';
+import SectionTitle from '../SectionTitle.astro';
+import HandwrittenNote from '../HandwrittenNote.astro';
+import Reveal from '../Reveal.astro';
+
+const locale = getLocale(Astro.currentLocale);
+
+const stepColors = ['bg-step-1', 'bg-step-2', 'bg-step-3', 'bg-step-4', 'bg-step-5'];
+const stepTitles: Record<number, { en: string; uk: string }> = {
+  1: { en: 'Who buys and why', uk: 'Хто купує і чому' },
+  2: { en: 'Why they pick you', uk: 'Чому обирають тебе' },
+  3: { en: 'How they find you and buy', uk: 'Як вони знаходять тебе і купують' },
+  4: { en: 'Why they stay', uk: 'Чому вони залишаються' },
+  5: { en: 'How they pay more', uk: 'Як вони платять більше' },
+};
+
+function renderService(s: Service, idx: number) {
+  return {
+    name: s.name,
+    step: s.step,
+    tag: s.tag?.[locale],
+    oneLiner: s.oneLiner[locale],
+    description: s.description[locale],
+    deliverables: s.deliverables[locale],
+    price: `${t(locale, 'from')} €${s.priceFrom.toLocaleString('en')}`,
+    duration: s.duration[locale],
+    note: s.note?.[locale],
+    bgClass: typeof s.step === 'number' ? stepColors[idx] : '',
+  };
+}
+---
+
+<Section id="how-i-help">
+  <!-- Divider note -->
+  <Reveal class="mb-12 text-center">
+    <HandwrittenNote rotate={-2} class="mx-auto text-2xl md:text-3xl">
+      {t(locale, 'pipelineDivider')}
+    </HandwrittenNote>
+  </Reveal>
+
+  <SectionTitle>{t(locale, 'pipelineTitle')}</SectionTitle>
+  <p class="mt-4 text-lg text-ink-soft leading-relaxed max-w-3xl">
+    {t(locale, 'pipelineIntro')}
+  </p>
+
+  <!-- Handwritten hint -->
+  <HandwrittenNote rotate={-2} class="mt-6 text-base md:text-lg">
+    {t(locale, 'pipelineHint')}
+  </HandwrittenNote>
+
+  <!-- Pipeline steps -->
+  <div class="mt-8 flex flex-col gap-3 lg:flex-row lg:gap-0 lg:items-start" id="pipeline-container">
+    {steps.map((s, i) => {
+      const data = renderService(s, i);
+      return (
+        <div class="flex flex-col lg:flex-row lg:items-start lg:flex-1" id={`pipeline-step-${s.step}`} style="scroll-margin-top: 5rem;">
+          <!-- Card -->
+          <div class="w-full">
+            <button
+              class={`pipeline-card w-full text-left rounded-2xl border border-line p-5 transition-all duration-200 hover:border-cobalt ${data.bgClass}`}
+              aria-expanded={i === 0 ? 'true' : 'false'}
+              data-pipeline-step={String(s.step)}
+              data-event="pipeline_step_open"
+            >
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                  <span class="flex h-8 w-8 items-center justify-center rounded-full bg-cobalt text-sm font-bold text-white font-display">
+                    {s.step}
+                  </span>
+                  <span class="font-display text-base font-semibold">{stepTitles[s.step as number]?.[locale]}</span>
+                </div>
+                <svg class="pipeline-chevron h-5 w-5 text-ink-soft transition-transform duration-300" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"/></svg>
+              </div>
+              <p class="mt-2 text-sm text-ink-soft">{data.oneLiner}</p>
+            </button>
+
+            <!-- Expanded content -->
+            <div
+              class="pipeline-content overflow-hidden transition-[max-height] duration-300 ease-in-out"
+              style={i === 0 ? 'max-height: 600px;' : 'max-height: 0;'}
+            >
+              <div class="px-5 pb-5 pt-3">
+                <div class="flex flex-wrap items-center gap-2">
+                  <span class="font-display text-lg font-semibold">{data.name}</span>
+                  {data.tag && (
+                    <span class="rounded-full bg-wine/10 text-wine px-3 py-0.5 text-xs font-medium">{data.tag}</span>
+                  )}
+                </div>
+                <p class="mt-3 text-ink-soft leading-relaxed">{data.description}</p>
+                <p class="mt-3"><span class="font-semibold">{t(locale, 'youGet')}:</span> {data.deliverables}</p>
+                <div class="mt-4 border-t border-line pt-3 flex flex-wrap items-center gap-4">
+                  <span class="font-display text-lg font-semibold text-cobalt">{data.price} · {data.duration}</span>
+                </div>
+                {data.note && (
+                  <p class="mt-2 text-sm text-ink-soft">{data.note}</p>
+                )}
+              </div>
+            </div>
+          </div>
+
+          <!-- Arrow between steps (desktop only, except after last) -->
+          {i < steps.length - 1 && (
+            <div class="hidden lg:flex items-center justify-center w-8 flex-shrink-0 self-start mt-7">
+              <svg class="w-5 h-5 text-ink-soft" viewBox="0 0 20 20" fill="currentColor"><path d="M7 3l7 7-7 7"/></svg>
+            </div>
+          )}
+          {i < steps.length - 1 && (
+            <div class="flex lg:hidden items-center justify-center py-1">
+              <svg class="w-5 h-5 text-ink-soft" viewBox="0 0 20 20" fill="currentColor"><path d="M10 3l0 14M6 13l4 4 4-4"/></svg>
+            </div>
+          )}
+        </div>
+      );
+    })}
+  </div>
+
+  <!-- Launch Sprint bar -->
+  <Reveal class="mt-4">
+    <div id="pipeline-step-launch" style="scroll-margin-top: 5rem;">
+      <button
+        class="pipeline-card w-full text-left rounded-2xl bg-cobalt text-white p-5 transition-all duration-200 hover:bg-cobalt-dk"
+        aria-expanded="false"
+        data-pipeline-step="launch"
+        data-event="pipeline_step_open"
+      >
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <span class="font-display text-lg font-semibold">{locale === 'en' ? 'The whole path at once' : 'Весь шлях одразу'}</span>
+          </div>
+          <svg class="pipeline-chevron h-5 w-5 text-white/60 transition-transform duration-300" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"/></svg>
+        </div>
+      </button>
+      <div class="pipeline-content overflow-hidden transition-[max-height] duration-300 ease-in-out" style="max-height: 0;">
+        <div class="px-5 pb-5 pt-3">
+          <span class="font-display text-lg font-semibold">{launchSprint.name}</span>
+          <p class="mt-3 text-ink-soft leading-relaxed">{launchSprint.description[locale]}</p>
+          <p class="mt-3"><span class="font-semibold">{t(locale, 'youGet')}:</span> {launchSprint.deliverables[locale]}</p>
+          <div class="mt-4 border-t border-line pt-3">
+            <span class="font-display text-lg font-semibold text-cobalt">{t(locale, 'from')} €{launchSprint.priceFrom.toLocaleString('en')} · {launchSprint.duration[locale]}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </Reveal>
+
+  <!-- Ops Audit bar -->
+  <Reveal class="mt-3">
+    <div id="pipeline-step-ops" style="scroll-margin-top: 5rem;">
+      <button
+        class="pipeline-card w-full text-left rounded-2xl bg-paper-2 p-5 border border-line transition-all duration-200 hover:border-cobalt"
+        aria-expanded="false"
+        data-pipeline-step="ops"
+        data-event="pipeline_step_open"
+      >
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <span class="font-display text-lg font-semibold">{locale === 'en' ? 'Under the hood' : 'Під капотом'}</span>
+          </div>
+          <svg class="pipeline-chevron h-5 w-5 text-ink-soft transition-transform duration-300" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"/></svg>
+        </div>
+      </button>
+      <div class="pipeline-content overflow-hidden transition-[max-height] duration-300 ease-in-out" style="max-height: 0;">
+        <div class="px-5 pb-5 pt-3">
+          <span class="font-display text-lg font-semibold">{opsAudit.name}</span>
+          <p class="mt-3 text-ink-soft leading-relaxed">{opsAudit.description[locale]}</p>
+          <p class="mt-3"><span class="font-semibold">{t(locale, 'youGet')}:</span> {opsAudit.deliverables[locale]}</p>
+          <div class="mt-4 border-t border-line pt-3">
+            <span class="font-display text-lg font-semibold text-cobalt">{t(locale, 'from')} €{opsAudit.priceFrom.toLocaleString('en')} · {opsAudit.duration[locale]}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </Reveal>
+
+  <!-- CTA -->
+  <Reveal class="mt-10">
+    <HandwrittenNote rotate={-2} withArrow="down" class="mb-4">
+      {t(locale, 'pipelineCallNote')}
+    </HandwrittenNote>
+    <a href="#book" class="btn-primary" data-event="cta_book_call" data-location="pipeline">
+      {t(locale, 'bookCall')}
+      <svg class="ml-2 h-4 w-4 arrow-icon transition-transform duration-200" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+    </a>
+  </Reveal>
+</Section>
+
+<script>
+  // Pipeline accordion: one open at a time
+  const cards = document.querySelectorAll<HTMLButtonElement>('.pipeline-card');
+
+  cards.forEach(card => {
+    card.addEventListener('click', () => {
+      const isExpanded = card.getAttribute('aria-expanded') === 'true';
+      const content = card.nextElementSibling as HTMLElement | null;
+      const step = card.dataset.pipelineStep;
+
+      // Close all
+      cards.forEach(c => {
+        c.setAttribute('aria-expanded', 'false');
+        const chevron = c.querySelector('.pipeline-chevron');
+        if (chevron) (chevron as HTMLElement).style.transform = '';
+        const cont = c.nextElementSibling as HTMLElement | null;
+        if (cont?.classList.contains('pipeline-content')) {
+          cont.style.maxHeight = '0';
+        }
+      });
+
+      // Open clicked (unless it was already open)
+      if (!isExpanded && content?.classList.contains('pipeline-content')) {
+        card.setAttribute('aria-expanded', 'true');
+        content.style.maxHeight = content.scrollHeight + 'px';
+        const chevron = card.querySelector('.pipeline-chevron');
+        if (chevron) (chevron as HTMLElement).style.transform = 'rotate(180deg)';
+
+        // Scroll into view on mobile
+        if (window.innerWidth < 1024) {
+          setTimeout(() => {
+            card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }, 100);
+        }
+
+        // Analytics
+        if (step && window.dataLayer) {
+          window.dataLayer.push({ event: 'pipeline_step_open', step });
+        }
+      }
+    });
+  });
+
+  // Handle problem links clicking to open a step
+  document.querySelectorAll<HTMLAnchorElement>('[data-event="problem_click"]').forEach(link => {
+    link.addEventListener('click', (e) => {
+      const href = link.getAttribute('href');
+      if (!href) return;
+      const targetId = href.replace('#', '');
+      const target = document.getElementById(targetId);
+      if (target) {
+        const btn = target.querySelector('.pipeline-card') as HTMLButtonElement | null;
+        if (btn && btn.getAttribute('aria-expanded') !== 'true') {
+          setTimeout(() => btn.click(), 400);
+        }
+      }
+    });
+  });
+
+  // Type for dataLayer
+  declare global {
+    interface Window {
+      dataLayer?: Array<Record<string, unknown>>;
+    }
+  }
+</script>

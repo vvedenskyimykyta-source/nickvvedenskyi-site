@@ -1,0 +1,70 @@
+---
+import { Image } from 'astro:assets';
+import { t, getLocale } from '../../i18n';
+import Section from '../Section.astro';
+import SectionTitle from '../SectionTitle.astro';
+import Reveal from '../Reveal.astro';
+import lifeImg from '../../assets/images/nick-life.jpg';
+import extra1Img from '../../assets/images/extra-1.jpg';
+
+const locale = getLocale(Astro.currentLocale);
+---
+
+<Section id="about">
+  <div class="flex flex-col gap-10 lg:flex-row lg:gap-16 lg:items-start">
+    <!-- Photos -->
+    <Reveal class="relative flex-shrink-0 lg:w-[340px] xl:w-[380px]">
+      <div class="relative mx-auto w-[260px] sm:w-[300px] lg:w-full">
+        <!-- Extra photo stacked behind, slightly rotated -->
+        <div class="absolute -top-3 -left-3 w-full h-full rounded-2xl overflow-hidden rotate-3 shadow-sm opacity-80 hidden sm:block">
+          <Image
+            src={extra1Img}
+            alt=""
+            widths={[300, 400]}
+            sizes="(max-width: 1024px) 300px, 380px"
+            class="w-full h-full object-cover object-top"
+            loading="lazy"
+          />
+        </div>
+        <!-- Main life photo -->
+        <div class="relative rounded-2xl overflow-hidden shadow-md">
+          <Image
+            src={lifeImg}
+            alt="Nick at a restaurant"
+            widths={[400, 600, 800]}
+            sizes="(max-width: 640px) 260px, (max-width: 1024px) 300px, 380px"
+            class="w-full h-auto object-cover object-[center_25%] aspect-[3/4]"
+            loading="lazy"
+          />
+        </div>
+      </div>
+    </Reveal>
+
+    <!-- Text -->
+    <div class="flex-1">
+      <SectionTitle>{t(locale, 'aboutTitle')}</SectionTitle>
+
+      <Reveal>
+        <p class="mt-6 text-ink-soft leading-relaxed">{t(locale, 'aboutText1')}</p>
+      </Reveal>
+      <Reveal>
+        <p class="mt-4 text-ink-soft leading-relaxed">{t(locale, 'aboutText2')}</p>
+      </Reveal>
+      <Reveal>
+        <p class="mt-4 text-ink-soft leading-relaxed">{t(locale, 'aboutText3')}</p>
+      </Reveal>
+
+      <!-- Belief block -->
+      <Reveal class="mt-10">
+        <blockquote class="border-l-4 border-cobalt pl-6">
+          <p class="font-display text-2xl md:text-3xl font-semibold text-cobalt leading-snug">
+            {t(locale, 'aboutBelief')}
+          </p>
+          <p class="mt-4 text-ink-soft leading-relaxed">
+            {t(locale, 'aboutBeliefSub')}
+          </p>
+        </blockquote>
+      </Reveal>
+    </div>
+  </div>
+</Section>

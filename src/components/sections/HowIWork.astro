@@ -1,0 +1,57 @@
+---
+import { t, getLocale } from '../../i18n';
+import { howSteps, howFacts } from '../../data/howIWork';
+import Section from '../Section.astro';
+import SectionTitle from '../SectionTitle.astro';
+import Reveal from '../Reveal.astro';
+
+const locale = getLocale(Astro.currentLocale);
+---
+
+<Section id="how-i-work">
+  <SectionTitle>{t(locale, 'howTitle')}</SectionTitle>
+
+  <!-- Steps -->
+  <div class="mt-10 relative">
+    <!-- Vertical line (mobile) / horizontal line (desktop) -->
+    <div class="absolute top-0 bottom-0 left-5 w-px bg-line md:hidden" />
+
+    <div class="flex flex-col gap-8 md:grid md:grid-cols-4 md:gap-6">
+      {howSteps.map((step, i) => (
+        <Reveal delay={i * 100}>
+          <div class="relative pl-12 md:pl-0 md:text-center">
+            {/* Number */}
+            <div class="absolute left-0 top-0 md:relative md:left-auto md:mx-auto flex h-10 w-10 items-center justify-center rounded-full bg-cobalt font-display text-lg font-bold text-white">
+              {step.num}
+            </div>
+            {/* Connecting line segment (desktop) */}
+            {i < howSteps.length - 1 && (
+              <div class="hidden md:block absolute top-5 left-[calc(50%+20px)] right-[-50%] h-px bg-line" />
+            )}
+            <h3 class="mt-2 md:mt-4 font-display text-lg font-semibold">{step.title[locale]}</h3>
+            <p class="mt-2 text-ink-soft leading-relaxed text-sm md:text-base">{step.text[locale]}</p>
+          </div>
+        </Reveal>
+      ))}
+    </div>
+  </div>
+
+  <!-- Facts -->
+  <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+    {howFacts.map((fact, i) => (
+      <Reveal delay={i * 80}>
+        <div class="flex items-start gap-3">
+          <div class="flex-shrink-0 mt-1 w-10 h-10 rounded-full bg-cobalt/10 flex items-center justify-center">
+            <svg class="w-5 h-5 text-cobalt" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              {fact.icon === 'badge-euro' && <><circle cx="12" cy="12" r="10"/><path d="M8 12h5M8 9h6M8 15h6M15.5 9.5l-1 5"/></>}
+              {fact.icon === 'mic' && <><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/></>}
+              {fact.icon === 'globe' && <><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></>}
+              {fact.icon === 'folder-check' && <><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/><path d="m9 13 2 2 4-4"/></>}
+            </svg>
+          </div>
+          <p class="text-sm text-ink-soft leading-relaxed">{fact.text[locale]}</p>
+        </div>
+      </Reveal>
+    ))}
+  </div>
+</Section>

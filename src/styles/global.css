@@ -74,3 +74,50 @@ html[lang="uk"] {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Button components */
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center rounded-full bg-cobalt px-6 py-3 text-sm font-semibold text-white transition-all duration-200 touch-manipulation;
+    min-height: 44px;
+  }
+  .btn-primary:hover {
+    @apply bg-cobalt-dk -translate-y-0.5;
+    box-shadow: 0 4px 12px rgba(47, 79, 168, 0.25);
+  }
+  .btn-primary:hover .arrow-icon {
+    transform: translateX(4px);
+  }
+  .btn-primary:active {
+    transform: scale(0.98);
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center rounded-full border-2 border-cobalt px-6 py-3 text-sm font-semibold text-cobalt transition-all duration-200 touch-manipulation;
+    min-height: 44px;
+  }
+  .btn-secondary:hover {
+    @apply bg-paper-2;
+  }
+  .btn-secondary:hover .arrow-icon {
+    transform: translateX(4px);
+  }
+
+  .btn-wine {
+    @apply inline-flex items-center rounded-full bg-wine px-6 py-3 text-sm font-semibold text-white transition-all duration-200 touch-manipulation;
+    min-height: 44px;
+  }
+  .btn-wine:hover {
+    @apply -translate-y-0.5;
+    background: #5a2225;
+    box-shadow: 0 4px 12px rgba(110, 42, 46, 0.25);
+  }
+}
+
+/* Touch devices: tap effects */
+@media (hover: none) {
+  .btn-primary:active .arrow-icon,
+  .btn-secondary:active .arrow-icon {
+    transform: translateX(4px);
+  }
+}

@@ -1,12 +1,33 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Hero from '../components/sections/Hero.astro';
+import Numbers from '../components/sections/Numbers.astro';
+import Problems from '../components/sections/Problems.astro';
+import Pipeline from '../components/sections/Pipeline.astro';
+import FoundingBanner from '../components/sections/FoundingBanner.astro';
+import Cases from '../components/sections/Cases.astro';
+import About from '../components/sections/About.astro';
+import Testimonials from '../components/sections/Testimonials.astro';
+import HowIWork from '../components/sections/HowIWork.astro';
+import Projects from '../components/sections/Projects.astro';
+import FAQ from '../components/sections/FAQ.astro';
+import FinalCTA from '../components/sections/FinalCTA.astro';
 ---
 
-<Layout title="Nick Vvedenskyi · Revenue & Marketing for Tech/AI Products">
-  <main class="mx-auto max-w-3xl px-4 py-20">
-    <p class="text-sm font-medium uppercase tracking-wide text-cobalt">Revenue &amp; Marketing for Tech/AI Products</p>
-    <h1 class="mt-4 text-4xl font-semibold md:text-6xl">You are probably sitting on revenue you are not picking up.</h1>
-    <p class="mt-6 text-ink-soft">Phase 0 placeholder. The real landing page comes in Phase 2.</p>
-    <p class="mt-6 font-hand text-3xl text-wine -rotate-3">this is me, the guy who actually reads your message</p>
-  </main>
+<Layout
+  title="Nick Vvedenskyi · Revenue & Marketing for Tech/AI Products"
+  description="I help tech and AI founders figure out who buys, why they stay and where the money is hiding. Customer discovery, positioning, retention and go-to-market sprints with fixed prices."
+>
+  <Hero />
+  <Numbers />
+  <Problems />
+  <Pipeline />
+  <FoundingBanner />
+  <Cases />
+  <About />
+  <Testimonials />
+  <HowIWork />
+  <Projects />
+  <FAQ />
+  <FinalCTA />
 </Layout>

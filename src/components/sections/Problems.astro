@@ -1,0 +1,39 @@
+---
+import { t, getLocale } from '../../i18n';
+import { problems } from '../../data/problems';
+import Section from '../Section.astro';
+import SectionTitle from '../SectionTitle.astro';
+import Reveal from '../Reveal.astro';
+
+const locale = getLocale(Astro.currentLocale);
+---
+
+<Section>
+  <SectionTitle>{t(locale, 'problemsTitle')}</SectionTitle>
+
+  <div class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+    {problems.map((p, i) => (
+      <Reveal delay={i * 80}>
+        <div class="flex h-full flex-col justify-between rounded-2xl border border-line bg-white p-6 transition-all duration-200 hover:border-cobalt hover:-translate-y-0.5 hover:shadow-sm">
+          <p class="text-lg font-medium leading-snug text-ink">
+            "{p.quote[locale]}"
+          </p>
+          <a
+            href={`#pipeline-step-${p.step}`}
+            class="mt-4 inline-flex items-center text-sm font-medium text-cobalt hover:text-cobalt-dk transition-colors touch-manipulation min-h-[44px]"
+            data-event="problem_click"
+            data-step={String(p.step)}
+          >
+            → {p.linkLabel[locale]}
+          </a>
+        </div>
+      </Reveal>
+    ))}
+  </div>
+
+  <Reveal class="mt-10">
+    <p class="text-lg text-ink-soft leading-relaxed max-w-3xl">
+      {t(locale, 'problemsClosing')}
+    </p>
+  </Reveal>
+</Section>

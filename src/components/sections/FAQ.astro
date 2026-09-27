@@ -1,0 +1,29 @@
+---
+import { t, getLocale } from '../../i18n';
+import { faq } from '../../data/faq';
+import Section from '../Section.astro';
+import SectionTitle from '../SectionTitle.astro';
+import Reveal from '../Reveal.astro';
+
+const locale = getLocale(Astro.currentLocale);
+---
+
+<Section id="faq" narrow>
+  <SectionTitle>{t(locale, 'faqTitle')}</SectionTitle>
+
+  <div class="mt-10 divide-y divide-line">
+    {faq.map((item, i) => (
+      <Reveal delay={i * 60}>
+        <details class="group py-5">
+          <summary class="flex cursor-pointer items-center justify-between gap-4 font-display text-lg font-semibold touch-manipulation min-h-[44px] list-none [&::-webkit-details-marker]:hidden">
+            <span>{item.q[locale]}</span>
+            <svg class="h-5 w-5 flex-shrink-0 text-ink-soft transition-transform duration-200 group-open:rotate-180" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"/>
+            </svg>
+          </summary>
+          <p class="mt-3 text-ink-soft leading-relaxed pr-8">{item.a[locale]}</p>
+        </details>
+      </Reveal>
+    ))}
+  </div>
+</Section>
