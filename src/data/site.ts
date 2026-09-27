@@ -4,7 +4,7 @@ export const site = {
   url: 'https://nickvvedenskyi.com',
   linkedin: 'https://www.linkedin.com/in/nick-vvedenskyi/',
   linkedinRecommendations: 'https://www.linkedin.com/in/nick-vvedenskyi/details/recommendations/',
-  instagram: '', // TODO(Nick)
+  instagram: 'https://www.instagram.com/lagerfeeld_/',
   email: '', // TODO(Nick)
   foundingSpots: 5,
 } as const;

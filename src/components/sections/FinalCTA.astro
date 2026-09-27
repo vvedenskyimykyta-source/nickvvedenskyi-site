@@ -40,9 +40,8 @@ const locale = getLocale(Astro.currentLocale);
 
       <!-- Right: Cal.com embed placeholder -->
       <div class="flex-1 lg:max-w-lg">
-        <div class="rounded-2xl bg-white p-4 md:p-6 min-h-[400px]" id="cal-embed-container">
-          <!-- Cal.com embed will be injected here in Phase 5 -->
-          <div class="flex items-center justify-center h-full text-ink-soft text-center p-8">
+        <div class="rounded-2xl bg-white p-1 md:p-2 min-h-[400px]" id="cal-embed-container">
+          <div class="flex items-center justify-center h-full text-ink-soft text-center p-8" id="cal-loading">
             <div>
               <p class="font-display text-lg font-semibold text-ink">{locale === 'en' ? 'Calendar loading...' : 'Календар завантажується...'}</p>
               <p class="mt-2 text-sm">{locale === 'en' ? 'Pick a time that works for you.' : 'Обери зручний час.'}</p>
@@ -60,7 +59,7 @@ const locale = getLocale(Astro.currentLocale);
           class="underline underline-offset-2 hover:text-white transition-colors touch-manipulation"
           data-event="cta_quiz_open"
           data-location="final"
-          data-tally-open={`PUBLIC_TALLY_FORM_${locale.toUpperCase()}`}
+          data-tally-open={locale === 'en' ? import.meta.env.PUBLIC_TALLY_FORM_EN : import.meta.env.PUBLIC_TALLY_FORM_UK}
         >
           {t(locale, 'ctaQuizLink')}
         </button>

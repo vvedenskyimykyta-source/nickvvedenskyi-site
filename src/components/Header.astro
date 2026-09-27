@@ -41,6 +41,8 @@ const langLabel = t(locale, 'langSwitchLabel');
         href={langHref}
         class="text-sm font-semibold text-cobalt hover:text-cobalt-dk transition-colors touch-manipulation min-w-[44px] min-h-[44px] flex items-center justify-center"
         aria-label={langLabel === 'UA' ? 'Перейти на українську' : 'Switch to English'}
+        data-event="lang_switch"
+        data-location="header"
       >
         {langLabel}
       </a>

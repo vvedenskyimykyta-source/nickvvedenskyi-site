@@ -1,0 +1,149 @@
+---
+import 'vanilla-cookieconsent/dist/cookieconsent.css';
+
+const gtmId = import.meta.env.PUBLIC_GTM_ID || '';
+---
+
+<!-- Consent Mode v2 defaults — must be FIRST, before any GTM/GA -->
+<script is:inline>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {
+    analytics_storage: 'denied',
+    ad_storage: 'denied',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied',
+    wait_for_update: 500
+  });
+</script>
+
+<!-- GTM ID for the consent script -->
+<meta name="gtm-id" content={gtmId} />
+
+<!-- UTM session persistence + dataLayer event listener + Cookie consent (bundled by Vite) -->
+<script>
+  // UTM persistence
+  const params = new URLSearchParams(window.location.search);
+  const utmKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'] as const;
+  for (const key of utmKeys) {
+    const v = params.get(key);
+    if (v) {
+      try { sessionStorage.setItem(key, v); } catch {}
+    }
+  }
+
+  // dataLayer event listener for data-event attributes
+  document.addEventListener('click', (e) => {
+    const el = (e.target as HTMLElement).closest<HTMLElement>('[data-event]');
+    if (!el) return;
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event: el.dataset.event,
+      event_location: el.dataset.location || '',
+      lang: document.documentElement.lang || 'en',
+    });
+  });
+
+  // Cookie consent
+  import('vanilla-cookieconsent').then((mod) => {
+    const cc = mod.default || mod;
+    if (typeof cc.run !== 'function') return;
+
+    const locale = document.documentElement.lang === 'uk' ? 'uk' : 'en';
+    const gtmId = document.querySelector<HTMLMetaElement>('meta[name="gtm-id"]')?.content || '';
+
+    const texts = locale === 'uk' ? {
+      desc: 'Я використовую аналітичні cookies, щоб розуміти, які частини сайту корисні, а які ні. Нічого не продається і нічого підозрілого не відбувається. Можеш відмовитись, і все одно все працюватиме.',
+      accept: 'Прийняти аналітику',
+      decline: 'Ні, дякую',
+      settings: 'Налаштування',
+      mTitle: 'Налаштування cookie',
+      necessary: 'Необхідні',
+      necessaryDesc: 'Cookie, який запам\'ятовує твій вибір щодо cookies.',
+      analytics: 'Аналітика',
+      analyticsDesc: 'Допомагають мені зрозуміти, як люди використовують сайт. Жодних рекламних cookies.',
+      save: 'Зберегти',
+      acceptAll: 'Прийняти все',
+      rejectAll: 'Відхилити все',
+    } : {
+      desc: 'I use analytics cookies to see which parts of this site are useful and which are not. Nothing is sold and nothing creepy happens. You can say no and everything still works.',
+      accept: 'Accept analytics',
+      decline: 'No thanks',
+      settings: 'Settings',
+      mTitle: 'Cookie settings',
+      necessary: 'Necessary',
+      necessaryDesc: 'The cookie that remembers your cookie consent choice.',
+      analytics: 'Analytics',
+      analyticsDesc: 'Help me understand how people use the site. No advertising cookies.',
+      save: 'Save settings',
+      acceptAll: 'Accept all',
+      rejectAll: 'Reject all',
+    };
+
+    function loadGTM() {
+      if (!gtmId || document.getElementById('gtm-script')) return;
+      const s = document.createElement('script');
+      s.id = 'gtm-script';
+      s.async = true;
+      s.src = `https://www.googletagmanager.com/gtm.js?id=${gtmId}`;
+      document.head.appendChild(s);
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({ 'gtm.start': Date.now(), event: 'gtm.js' });
+    }
+
+    function updateConsent(accepted: boolean) {
+      window.dataLayer = window.dataLayer || [];
+      (window as any).dataLayer.push(['consent', 'update', {
+        analytics_storage: accepted ? 'granted' : 'denied',
+      }]);
+      if (accepted) loadGTM();
+    }
+
+    cc.run({
+      guiOptions: {
+        consentModal: { layout: 'bar', position: 'bottom', equalWeightButtons: false },
+        preferencesModal: { layout: 'box' },
+      },
+      categories: {
+        necessary: { enabled: true, readOnly: true },
+        analytics: { enabled: false },
+      },
+      language: {
+        default: locale,
+        translations: {
+          [locale]: {
+            consentModal: {
+              description: texts.desc,
+              acceptAllBtn: texts.accept,
+              acceptNecessaryBtn: texts.decline,
+              showPreferencesBtn: texts.settings,
+            },
+            preferencesModal: {
+              title: texts.mTitle,
+              savePreferencesBtn: texts.save,
+              acceptAllBtn: texts.acceptAll,
+              acceptNecessaryBtn: texts.rejectAll,
+              sections: [
+                { title: texts.necessary, description: texts.necessaryDesc, linkedCategory: 'necessary' },
+                { title: texts.analytics, description: texts.analyticsDesc, linkedCategory: 'analytics' },
+              ],
+            },
+          },
+        },
+      },
+      onFirstConsent: ({ cookie }) => {
+        updateConsent(cookie.categories.includes('analytics'));
+      },
+      onChange: ({ cookie }) => {
+        updateConsent(cookie.categories.includes('analytics'));
+      },
+      onConsent: ({ cookie }) => {
+        if (cookie.categories.includes('analytics')) updateConsent(true);
+      },
+    });
+
+    document.getElementById('cookie-settings-btn')?.addEventListener('click', () => {
+      cc.showPreferences();
+    });
+  });
+</script>

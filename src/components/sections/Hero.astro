@@ -45,7 +45,7 @@ const locale = getLocale(Astro.currentLocale);
             class="btn-secondary justify-center sm:justify-start"
             data-event="cta_quiz_open"
             data-location="hero"
-            data-tally-open={`PUBLIC_TALLY_FORM_${locale.toUpperCase()}`}
+            data-tally-open={locale === 'en' ? import.meta.env.PUBLIC_TALLY_FORM_EN : import.meta.env.PUBLIC_TALLY_FORM_UK}
           >
             {t(locale, 'quizCta')}
           </button>

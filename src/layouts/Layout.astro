@@ -3,6 +3,7 @@ import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import StickyMobileCTA from '../components/StickyMobileCTA.astro';
+import Analytics from '../components/Analytics.astro';
 import { getLocale } from '../i18n';
 
 interface Props {
@@ -17,6 +18,7 @@ const locale = getLocale(Astro.currentLocale);
 const altLocale = locale === 'en' ? 'uk' : 'en';
 const altPath = locale === 'en' ? '/uk/' : '/';
 const canonicalUrl = new URL(Astro.url.pathname, 'https://nickvvedenskyi.com');
+const calLink = `${import.meta.env.PUBLIC_CAL_LINK || 'nick-vvedenskyi'}/intro-call`;
 ---
 
 <!doctype html>
@@ -39,6 +41,19 @@ const canonicalUrl = new URL(Astro.url.pathname, 'https://nickvvedenskyi.com');
     <meta property="og:url" content={canonicalUrl.href} />
     <meta property="og:locale" content={locale === 'uk' ? 'uk_UA' : 'en_US'} />
     <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- JSON-LD -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'Person',
+      name: 'Nick Vvedenskyi',
+      jobTitle: 'Revenue & Marketing Consultant for Tech/AI Products',
+      url: 'https://nickvvedenskyi.com',
+      sameAs: [
+        'https://www.linkedin.com/in/nick-vvedenskyi/',
+        'https://www.instagram.com/lagerfeeld_/'
+      ]
+    })} />
   </head>
   <body>
     {!noHeader && <Header />}
@@ -47,5 +62,86 @@ const canonicalUrl = new URL(Astro.url.pathname, 'https://nickvvedenskyi.com');
     </main>
     {!noFooter && <Footer />}
     <StickyMobileCTA />
+    <Analytics />
+
+    <!-- Tally popup embed -->
+    <script is:inline src="https://tally.so/widgets/embed.js"></script>
+
+    <!-- Tally embed event listeners -->
+    <script is:inline>
+      window.addEventListener('message', function(e) {
+        if (typeof e.data !== 'string') return;
+        try {
+          var d = JSON.parse(e.data);
+        } catch (_) { return; }
+        var lang = document.documentElement.lang || 'en';
+        if (d.event === 'Tally.FormLoaded') {
+          window.dataLayer = window.dataLayer || [];
+          window.dataLayer.push({ event: 'quiz_started', lang: lang });
+        }
+        if (d.event === 'Tally.FormSubmitted') {
+          window.dataLayer = window.dataLayer || [];
+          window.dataLayer.push({ event: 'quiz_submitted', lang: lang });
+          window.dataLayer.push({ event: 'generate_lead', method: 'tally_quiz', lang: lang });
+        }
+      });
+    </script>
+
+    <!-- Cal.com inline embed -->
+    <script is:inline define:vars={{ calLink, locale }}>
+      (function (C, A, L) {
+        let p = function (a, ar) { a.q.push(ar); };
+        let d = C.document;
+        C.Cal = C.Cal || function () {
+          let cal = C.Cal;
+          let ar = arguments;
+          if (!cal.loaded) {
+            cal.ns = {};
+            cal.q = cal.q || [];
+            d.head.appendChild(d.createElement("script")).src = A;
+            cal.loaded = true;
+          }
+          if (ar[0] === L) {
+            const api = function () { p(api, arguments); };
+            const namespace = ar[1];
+            api.q = api.q || [];
+            if (typeof namespace === "string") { cal.ns[namespace] = cal.ns[namespace] || api; p(cal.ns[namespace], ar); p(cal, ["initNamespace", namespace]); } else p(cal, ar);
+            return;
+          }
+          p(cal, ar);
+        };
+      })(window, "https://app.cal.com/embed/embed.js", "init");
+      var container = document.getElementById("cal-embed-container");
+      if (container) {
+        var utmParams = {};
+        try {
+          ['utm_source','utm_medium','utm_campaign','utm_term','utm_content'].forEach(function(k) {
+            var v = sessionStorage.getItem(k);
+            if (v) utmParams[k] = v;
+          });
+        } catch(_) {}
+        Cal("init", { origin: "https://app.cal.com" });
+        Cal("inline", {
+          elementOrSelector: "#cal-embed-container",
+          calLink: calLink,
+          layout: "month_view",
+          config: Object.assign({ lang: locale === "uk" ? "uk" : "en" }, utmParams)
+        });
+        Cal("ui", { hideEventTypeDetails: false, layout: "month_view" });
+        Cal("on", { action: "bookingSuccessful", callback: function() {
+          window.dataLayer = window.dataLayer || [];
+          window.dataLayer.push({ event: 'booking_completed', lang: locale || 'en' });
+        }});
+        var loading = document.getElementById("cal-loading");
+        if (loading) {
+          new MutationObserver(function(_, obs) {
+            if (container.querySelector("iframe")) {
+              loading.style.display = "none";
+              obs.disconnect();
+            }
+          }).observe(container, { childList: true, subtree: true });
+        }
+      }
+    </script>
   </body>
 </html>
