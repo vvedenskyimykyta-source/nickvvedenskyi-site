@@ -1,0 +1,76 @@
+@import "tailwindcss";
+
+/* Fonts. Fraunces and DM Sans have no Cyrillic, so /uk/ pages swap to Lora + Manrope (see html[lang="uk"] below) */
+@import "@fontsource-variable/fraunces/opsz.css";
+@import "@fontsource-variable/dm-sans/wght.css";
+@import "@fontsource-variable/lora/wght.css";
+@import "@fontsource-variable/manrope/wght.css";
+@import "@fontsource/caveat/400.css";
+@import "@fontsource/caveat/600.css";
+
+@theme {
+  --color-paper: #FAF7F2;
+  --color-paper-2: #F2EDE4;
+  --color-ink: #1B1D23;
+  --color-ink-soft: #5B5F6A;
+  --color-cobalt: #2F4FA8;
+  --color-cobalt-dk: #22397D;
+  --color-wine: #6E2A2E;
+  --color-line: #E3DDD2;
+
+  --color-step-1: #E6ECFA;
+  --color-step-2: #F4E4E4;
+  --color-step-3: #F3EAD7;
+  --color-step-4: #E3EFE6;
+  --color-step-5: #EFE6F3;
+
+  --font-display: "Fraunces Variable", Georgia, serif;
+  --font-sans: "DM Sans Variable", system-ui, sans-serif;
+  --font-hand: "Caveat", cursive;
+}
+
+html[lang="uk"] {
+  --font-display: "Lora Variable", Georgia, serif;
+  --font-sans: "Manrope Variable", system-ui, sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+  }
+
+  body {
+    @apply bg-paper text-ink font-sans antialiased;
+    font-size: 1.0625rem;
+    line-height: 1.6;
+  }
+
+  @media (min-width: 768px) {
+    body {
+      font-size: 1.125rem;
+    }
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-display;
+    line-height: 1.15;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-cobalt);
+    outline-offset: 3px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
