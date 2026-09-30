@@ -24,23 +24,16 @@ const tallyUrl = `https://tally.so/r/${locale === 'en' ? import.meta.env.PUBLIC_
 
     <!-- Two options layout -->
     <div class="mt-10 grid gap-6 lg:grid-cols-2 lg:gap-8">
-      <!-- Option A: Book a call -->
+      <!-- Card A: Talk to me -->
       <Reveal>
         <div class="rounded-2xl bg-white text-ink h-full flex flex-col p-6 md:p-8 justify-between">
           <div>
-            <div class="flex items-center gap-3">
-              <span class="flex h-8 w-8 items-center justify-center rounded-full bg-cobalt text-sm font-bold text-white font-display shrink-0">A</span>
-              <p class="font-display text-base font-semibold text-ink">{locale === 'en' ? 'Ready to talk' : 'Готовий поговорити'}</p>
-            </div>
-
-            <h3 class="mt-6 font-display text-2xl md:text-3xl font-bold leading-tight text-ink">
-              {locale === 'en' ? 'Book a free 30-min call' : 'Забронюй безкоштовний 30-хв дзвінок'}
+            <h3 class="font-display text-2xl md:text-3xl font-bold leading-tight text-ink">
+              {t(locale, 'ctaCardATitle')}
             </h3>
 
             <p class="mt-4 text-ink-soft leading-relaxed">
-              {locale === 'en'
-                ? 'Pick a time on my calendar. No pitch, no pressure. We talk about your product, where the money might be hiding, and whether I can actually help.'
-                : 'Обери зручний час у моєму календарі. Без продажів, без тиску. Поговоримо про твій продукт, де можуть ховатися гроші, і чи зможу я реально допомогти.'}
+              {t(locale, 'ctaCardAText')}
             </p>
           </div>
 
@@ -54,33 +47,24 @@ const tallyUrl = `https://tally.so/r/${locale === 'en' ? import.meta.env.PUBLIC_
               data-location="final"
             >
               <span class="flex items-center justify-center gap-2">
-                {locale === 'en' ? 'Pick a time' : 'Обрати час'}
+                {t(locale, 'ctaCardAButton')}
                 <svg class="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z"/></svg>
               </span>
             </a>
-
-            <p class="mt-3 text-center text-xs text-ink-soft">
-              {locale === 'en' ? 'Opens Cal.com in a new tab' : 'Відкриється Cal.com у новій вкладці'}
-            </p>
           </div>
         </div>
       </Reveal>
 
-      <!-- Option B: Quiz -->
+      <!-- Card B: Quiz -->
       <Reveal delay={100}>
         <div class="rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 h-full flex flex-col p-6 md:p-8 justify-between">
           <div>
-            <div class="flex items-center gap-3">
-              <span class="flex h-8 w-8 items-center justify-center rounded-full bg-white text-sm font-bold text-cobalt font-display shrink-0">B</span>
-              <p class="font-display text-base font-semibold">{locale === 'en' ? 'Not ready to talk yet?' : 'Ще не готовий до дзвінка?'}</p>
-            </div>
-
-            <h3 class="mt-6 font-display text-2xl md:text-3xl font-bold leading-tight">
-              {t(locale, 'ctaQuizLink')}
+            <h3 class="font-display text-2xl md:text-3xl font-bold leading-tight">
+              {t(locale, 'ctaCardBTitle')}
             </h3>
 
             <p class="mt-4 text-white/70 leading-relaxed">
-              {t(locale, 'ctaQuizNote')}
+              {t(locale, 'ctaCardBText')}
             </p>
           </div>
 
@@ -94,25 +78,10 @@ const tallyUrl = `https://tally.so/r/${locale === 'en' ? import.meta.env.PUBLIC_
               data-location="final"
             >
               <span class="flex items-center justify-center gap-2">
-                {locale === 'en' ? 'Start the quiz' : 'Почати квіз'}
+                {t(locale, 'ctaCardBButton')}
                 <svg class="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z"/></svg>
               </span>
             </a>
-
-            <div class="mt-6 flex items-center gap-4">
-              <Image
-                src={portraitImg}
-                alt="Nick Vvedenskyi"
-                widths={[80, 120]}
-                sizes="48px"
-                class="w-12 h-12 rounded-full object-cover object-top ring-2 ring-white/30"
-                loading="lazy"
-              />
-              <div>
-                <p class="font-display font-semibold text-sm">Nick Vvedenskyi</p>
-                <p class="text-xs text-white/60">{locale === 'en' ? 'Replies personally within 48h' : 'Відповідає особисто протягом 48 годин'}</p>
-              </div>
-            </div>
           </div>
         </div>
       </Reveal>

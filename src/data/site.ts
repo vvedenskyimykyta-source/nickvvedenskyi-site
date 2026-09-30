@@ -6,7 +6,6 @@ export const site = {
   linkedinRecommendations: 'https://www.linkedin.com/in/nick-vvedenskyi/details/recommendations/',
   instagram: 'https://www.instagram.com/lagerfeeld_/',
   email: 'vvedenskyimykyta@gmail.com',
-  foundingSpots: 5,
 } as const;
 
 export const nav = {

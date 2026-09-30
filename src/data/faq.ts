@@ -2,61 +2,71 @@ export const faq = [
   {
     q: {
       en: 'Why a fixed price and not hourly?',
-      uk: 'Чому фіксована ціна, а не погодинна?',
+      uk: 'Чому фіксована ціна а не погодинна?',
     },
     a: {
-      en: 'Because hourly pricing rewards being slow. With a fixed scope we both focus on the result, and you know the full cost before we start.',
-      uk: 'Тому що погодинна оплата винагороджує за повільність. З фіксованим обсягом ми обидва фокусуємося на результаті, і ти знаєш повну вартість ще до початку.',
+      en: 'Hourly billing pays me for being slow, which is a strange thing to agree on at the start of a relationship. A fixed scope means we both care about the same thing, and you know the whole number before anything begins.',
+      uk: 'Погодинна оплата платить мені за повільність, що є дивною річчю з якою погоджуватись на початку відносин. Фіксований скоуп означає що ми обоє піклуємось про одне й те ж, і ти знаєш повну суму до початку.',
     },
   },
   {
     q: {
-      en: 'Do you run SEO, paid ads or email campaigns?',
-      uk: 'Ти ведеш SEO, рекламу чи email кампанії?',
+      en: 'Do you run SEO, ads or email campaigns?',
+      uk: 'Ти ведеш SEO, рекламу чи email-кампанії?',
     },
     a: {
-      en: 'I use them as tools inside the work, but I do not sell them as standalone services. If you need someone running your ads every day, I am the wrong guy, and I know a few right ones.',
-      uk: 'Я використовую їх як інструменти в роботі, але не продаю як окремі послуги. Якщо тобі потрібен хтось, хто буде вести рекламу щодня, я не та людина, але знаю кілька правильних.',
+      en: 'I have done all of it and I use it inside the work when it makes sense, but I do not sell any of it on its own. If what you need is somebody in your ad account every morning, that is not me, and I can point you at two people it is.',
+      uk: 'Я все це робив і використовую в роботі коли є сенс, але не продаю окремо. Якщо тобі потрібен хтось хто кожного ранку сидить у рекламному кабінеті, це не я, і я можу направити до двох людей для кого це саме те.',
     },
   },
   {
     q: {
-      en: 'What stage should my company be at?',
-      uk: 'На якій стадії має бути моя компанія?',
+      en: 'Who is this not for?',
+      uk: 'Кому це не підходить?',
     },
     a: {
-      en: 'Early stage tech and AI products, anywhere from the first paying customers to a growth plateau you can not seem to break through.',
-      uk: 'Ранній етап tech та AI продуктів, від перших платних клієнтів до плато зростання, яке ніяк не вдається пробити.',
+      en: 'Anyone who wants more leads by Friday. Anyone who already knows exactly what is wrong and just needs hands. And anyone whose real problem is that the product does not work yet, because no amount of positioning fixes that and I would rather tell you now than take your money.',
+      uk: 'Тому хто хоче більше лідів до пʼятниці. Тому хто вже точно знає що не так і просто потребує руки. І тому чия справжня проблема в тому що продукт ще не працює, бо ніяке позиціонування цього не виправить і я краще скажу це зараз ніж візьму твої гроші.',
     },
   },
   {
     q: {
-      en: 'I am not sure which service I need.',
-      uk: 'Я не впевнений, який сервіс мені потрібен.',
+      en: 'What stage should we be at?',
+      uk: 'На якому етапі ми маємо бути?',
     },
     a: {
-      en: 'Most people are not, and that is completely fine. Figuring it out is exactly what the free call is for.',
-      uk: 'Більшість людей теж ні, і це абсолютно нормально. Саме для цього безкоштовний дзвінок.',
+      en: 'Early stage tech and AI products. Somewhere between your first paying customers and a plateau you have been staring at for a few months.',
+      uk: 'Ранні tech та AI продукти. Десь між першими платними клієнтами і плато на яке ти дивишся вже кілька місяців.',
     },
   },
   {
     q: {
-      en: 'How does the founding client deal work?',
-      uk: 'Як працює програма для перших клієнтів?',
+      en: 'I do not know which of these I need.',
+      uk: 'Я не знаю що з цього мені потрібно.',
     },
     a: {
-      en: 'The first five clients get 30% off any engagement. In return you let me write up our work as a case study and give me an honest testimonial. You see and approve the case study before anything goes public.',
-      uk: 'Перші п’ять клієнтів отримують знижку 30% на будь-яку роботу. Натомість ти дозволяєш мені описати нашу роботу як кейс і даєш чесний відгук. Ти бачиш і затверджуєш кейс перед будь-якою публікацією.',
+      en: 'Almost nobody does, and working that out is most of what the first call is for. It is also the reason the call is free.',
+      uk: 'Майже ніхто не знає, і розібратись з цим це більша частина того для чого перший дзвінок. Тому він і безкоштовний.',
     },
   },
   {
     q: {
-      en: 'Which time zone and languages?',
-      uk: 'Який часовий пояс та мови?',
+      en: 'How does the autumn deal work?',
+      uk: 'Як працює осіння пропозиція?',
     },
     a: {
-      en: 'I am in Spain, so Central European Time. I work in English and Ukrainian.',
-      uk: 'Я в Іспанії, тобто Central European Time. Працюю англійською та українською.',
+      en: 'Book before December 1, 2026 and get 30 percent off any engagement. In return I write up the work as a case study, which you read and approve before it goes anywhere, and you give me a testimonial that is honest rather than flattering.',
+      uk: 'Забронюй до 1 грудня 2026 і отримай знижку 30% на будь-який проєкт. Натомість я описую роботу як кейс, який ти читаєш і затверджуєш перед публікацією, і ти даєш чесний відгук.',
+    },
+  },
+  {
+    q: {
+      en: 'Time zone and languages?',
+      uk: 'Часовий пояс та мови?',
+    },
+    a: {
+      en: 'I am in Spain, so Central European Time. English or Ukrainian, whichever is easier for you.',
+      uk: 'Я в Іспанії, центральноєвропейський час. Англійська або українська, що зручніше.',
     },
   },
 ];

@@ -1,89 +1,102 @@
 export const en = {
   // Nav & CTA
-  bookCall: 'Book a 30-min call',
-  bookCallShort: 'Book a call',
-  quizCta: 'Not ready? Get free advice',
+  bookCall: 'Talk to me',
+  bookCallShort: 'Talk to me',
+  quizCta: 'Get free advice',
   langSwitchLabel: 'UA',
   langSwitchHref: '/uk/',
 
   // Hero
-  heroEyebrow: 'Revenue & Marketing for Tech/AI Products',
-  heroH1: 'You are probably sitting on revenue you are not picking up.',
-  heroSub: 'I am Nick. I help tech and AI founders figure out who buys, why they stay and where the money is hiding, and then I help build the system that actually gets it. Seven years, 44 projects, and one stubborn belief: be a friend to your customer.',
-  heroNote: 'this is me, the guy who actually reads your message',
+  heroEyebrow: 'Be a friend to your customer',
+  heroH1: 'I help tech and AI founders build a business that makes money on purpose.',
+  heroSub: 'I do not do growth hacks or funnel tricks. Most growth problems are relationship problems wearing a spreadsheet costume, so I start with the people.',
+  heroNote: 'it is me on the other side, and if I can not help, I will tell you who can',
 
   // Numbers
-  numbersNote: 'plus a stint on cruise ships running a 15-person team, still the best customer service school I have ever been to',
+  numbersNote: '',
 
   // Problems
-  problemsTitle: 'Maybe some of this sounds familiar',
-  problemsClosing: 'Different symptoms, but in my experience it is usually the same thing underneath: somewhere along the way the business stopped really listening to its customers. That part is what I fix.',
+  problemsTitle: 'Six things I keep running into',
+  problemsIntro: 'None of these are my clients yet, they are patterns from seven years of walking into other people’s businesses.',
+  problemsClosing: 'Different symptoms, same cause underneath. Somewhere along the way the business stopped asking its customers anything and started guessing. Guessing is expensive.',
+  problemsCtaTitle: 'Something else?',
+  problemsCtaText: 'Every business has its own version of stuck. Let us figure out yours together.',
+  problemsCtaTag: 'Custom approach',
 
   // Pipeline divider
   pipelineDivider: 'ok, so what do I actually do about it',
   pipelineTitle: 'The whole path, from stranger to a customer who stays',
-  pipelineIntro: 'Most specialists fix one channel and call it a day. I look at the whole path, because the leak is almost never where everyone is looking.',
-  pipelineHint: 'tap a step to see what is inside',
-  pipelineCallNote: 'not sure where your problem sits? that is literally what the first call is for',
+  pipelineIntro: 'Most specialists own one channel and stop at its edges. The problem is that revenue does not respect those edges, so the leak is almost never in the place everyone is staring at.',
+  pipelineHint: 'tap a step to see more',
+  pipelineCallNote: 'no idea which one you need? that is genuinely what the first call is for',
   whereIStart: 'where I usually start',
   youGet: 'You get',
+  whatIsInside: 'What is inside',
   from: 'from',
 
-  // Founding
-  foundingTitle: 'My first 5 clients get 30% off',
-  foundingText: 'I am taking on my first five clients as an independent consultant at 30% off any engagement. In return I ask for two things: permission to write up our work as a case study (you approve it before anything goes public) and an honest testimonial, good or bad. Seems like a fair trade to me.',
-  foundingButton: 'Grab a founding spot',
+  // Founding / Autumn deal
+  foundingTitle: 'Autumn deal: 30% off any engagement',
+  foundingText: 'Book before December 1 and get 30% off. The only thing I ask in return: let me write up our work as a case study (you approve it before anything goes live) and leave an honest review. Fair trade.',
+  foundingButton: 'Talk to me',
 
   // Cases
-  casesTitle: 'A few things that actually happened',
+  casesTitle: 'Work that worked',
 
   // About
   aboutTitle: 'Hi, I am Nick',
-  aboutText1: 'I started in politics of all places, coordinating districts and 30 to 40 field volunteers during campaigns back at university. Then came cruise ships, first as a lifeguard and later running a 15-person team, which teaches you more about people and complaints than any course ever will. After that, factory marketing with cold calls and trade shows, more than three years as a project manager at an agency with 30+ client projects, and now I lead marketing at an AI startup.',
-  aboutText2: 'On paper every role looks different, and it took me a while to see the thread. It was always revenue, the whole chain of how a business finds people, earns their trust and keeps it. I am not a channel specialist and I do not pretend to be one. I am the person who talks to your customers, figures out what they actually want and helps you build around it.',
-  aboutText3: 'Based in Spain, working with founders in Europe and the US, in English and Ukrainian.',
-  aboutBelief: 'Be a friend to your customer.',
-  aboutBeliefSub: 'Not in a cheesy way. In the way where you actually know what they need, you tell them the truth, and they stay because leaving would feel weird.',
+  aboutText1: 'I have always been the person who notices when something is off between a business and its customers. Not in the data, but in the conversations. In the moment someone says “it is fine” but you can hear that it is not. I spent years in marketing and strategy for different companies, and I kept seeing the same pattern: good products, good people, and a gap in the middle where trust was supposed to be. So now I go and sit in that gap.',
+  aboutText2: 'I live in Spain, I work with founders across Europe and the US, in English and Ukrainian.',
+  aboutText3: 'And I do not say clients. I say people. Because that is who I work for.',
+  aboutBelief: 'You are reading this because I believe great businesses deserve trust, and customers deserve to feel heard and cared for.',
+  aboutBeliefSub: '',
 
   // Testimonials
-  testimonialsTitle: 'People who worked with me for years and still say nice things',
-  testimonialsSub: 'Straight from my LinkedIn recommendations. On LinkedIn I am Mykyta, Nick is just shorter.',
+  testimonialsTitle: 'People who worked with me for years and still pick up the phone',
+  testimonialsSub: 'Straight from LinkedIn, nothing edited. On LinkedIn I am Mykyta, Nick is just the version that survives border control.',
+  testimonialsHonest: 'These are colleagues and managers rather than clients, because I am at the beginning of this practice and I would rather say that out loud than arrange the page so you do not notice.',
   readOnLinkedin: 'Read on LinkedIn',
   readMore: 'read more',
   translatedFrom: 'translated from Ukrainian',
 
   // How I work
-  howTitle: 'What working together actually looks like',
+  howTitle: 'What actually happens if you get in touch',
 
   // Projects
-  projectsTitle: 'A few of the 44 projects that taught me all this',
+  projectsTitle: 'A few of the 44 projects that taught me all of this',
+  projectsSub: 'Agency work, in-house work and a couple of things I did as favours. Some of them went well.',
 
   // FAQ
-  faqTitle: 'Questions people usually ask',
+  faqTitle: 'Questions people actually ask',
 
   // Final CTA
   ctaTitle: 'Tell me what is going on',
-  ctaText: 'Thirty minutes, no pitch deck and no pressure. Worst case, you leave with a couple of ideas you did not have before.',
+  ctaText: 'Half an hour, no deck, and no follow-up sequence trying to wear you down afterwards. The worst case here is that you spend thirty minutes and leave with two ideas you did not walk in with.',
+  ctaCardATitle: 'Talk to me',
+  ctaCardAText: 'Pick a slot and tell me roughly what is going on. I will have looked at your site before we talk.',
+  ctaCardAButton: 'Pick a time',
+  ctaCardBTitle: 'Rather write than talk?',
+  ctaCardBText: 'Answer a few questions and I will come back within two days with the one thing I would look at first if this were mine. I write those myself, which is why it takes two days and not two minutes.',
+  ctaCardBButton: 'Get free advice',
   ctaQuizLink: 'Answer a few quick questions and get free advice',
   ctaQuizNote: 'I reply personally within 48 hours with one honest thing I would look at first. Written by me, not a bot.',
-  ctaReminder: 'Reminder: my first five clients get 30% off.',
+  ctaReminder: 'Autumn deal: book before December 1 and get 30% off.',
   notReady: 'Not ready for a call?',
 
   // Footer
   footerTagline: 'Revenue & Marketing for Tech/AI Products',
-  footerInstagram: 'Instagram (the personal side)',
+  footerInstagram: 'Instagram (the unprofessional one)',
   footerPrivacy: 'Privacy',
   footerCookies: 'Cookie settings',
-  footerMade: 'Made in Spain with too much coffee and a stubborn belief that customers are people.',
+  footerMade: 'Built in Spain on too much coffee and the belief that customers are people you can simply go and ask.',
 
   // 404
-  notFoundTitle: 'Well, this page left without telling anyone why',
-  notFoundText: 'Which is exactly the kind of churn I help with. Let us get you back home.',
+  notFoundTitle: 'This page left without filling in the cancellation survey',
+  notFoundText: 'Which is the exact problem I get hired for. Come back to the start and we will pretend this never happened.',
   notFoundButton: 'Back to the homepage',
 
   // Cookie banner
-  cookieText: 'I use analytics cookies to see which parts of this site are useful and which are not. Nothing is sold and nothing creepy happens. You can say no and everything still works.',
-  cookieAccept: 'Accept analytics',
+  cookieText: 'Analytics cookies, so I can see which parts of this page people actually read. Nothing gets sold and nothing follows you around. Saying no changes nothing about how the site works.',
+  cookieAccept: 'Fine by me',
   cookieDecline: 'No thanks',
   cookieSettings: 'Settings',
 } as const;

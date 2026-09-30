@@ -13,6 +13,27 @@ const locale = getLocale(Astro.currentLocale);
         <p class="mt-4 text-lg text-ink-soft leading-relaxed max-w-3xl">
           {t(locale, 'foundingText')}
         </p>
+
+        <!-- Countdown timer -->
+        <div class="mt-6 flex gap-4 md:gap-6" id="countdown" aria-label={locale === 'en' ? 'Time remaining until December 1, 2026' : 'Час до 1 грудня 2026'}>
+          <div class="text-center">
+            <span class="font-display text-3xl md:text-4xl font-bold text-wine" id="cd-days">--</span>
+            <p class="text-xs text-ink-soft mt-1">{locale === 'en' ? 'days' : 'днів'}</p>
+          </div>
+          <div class="text-center">
+            <span class="font-display text-3xl md:text-4xl font-bold text-wine" id="cd-hours">--</span>
+            <p class="text-xs text-ink-soft mt-1">{locale === 'en' ? 'hours' : 'годин'}</p>
+          </div>
+          <div class="text-center">
+            <span class="font-display text-3xl md:text-4xl font-bold text-wine" id="cd-mins">--</span>
+            <p class="text-xs text-ink-soft mt-1">{locale === 'en' ? 'min' : 'хв'}</p>
+          </div>
+          <div class="text-center">
+            <span class="font-display text-3xl md:text-4xl font-bold text-wine" id="cd-secs">--</span>
+            <p class="text-xs text-ink-soft mt-1">{locale === 'en' ? 'sec' : 'сек'}</p>
+          </div>
+        </div>
+
         <a
           href="#book"
           class="btn-wine mt-6 inline-flex"
@@ -26,3 +47,27 @@ const locale = getLocale(Astro.currentLocale);
     </Reveal>
   </div>
 </section>
+
+<script>
+  const deadline = new Date('2026-12-01T00:00:00+01:00').getTime();
+  const days = document.getElementById('cd-days');
+  const hours = document.getElementById('cd-hours');
+  const mins = document.getElementById('cd-mins');
+  const secs = document.getElementById('cd-secs');
+
+  function tick() {
+    const now = Date.now();
+    const diff = Math.max(0, deadline - now);
+    const d = Math.floor(diff / 86400000);
+    const h = Math.floor((diff % 86400000) / 3600000);
+    const m = Math.floor((diff % 3600000) / 60000);
+    const s = Math.floor((diff % 60000) / 1000);
+    if (days) days.textContent = String(d);
+    if (hours) hours.textContent = String(h).padStart(2, '0');
+    if (mins) mins.textContent = String(m).padStart(2, '0');
+    if (secs) secs.textContent = String(s).padStart(2, '0');
+  }
+
+  tick();
+  setInterval(tick, 1000);
+</script>

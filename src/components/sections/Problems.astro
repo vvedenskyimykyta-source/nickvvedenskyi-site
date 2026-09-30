@@ -11,24 +11,49 @@ const locale = getLocale(Astro.currentLocale);
 <Section>
   <SectionTitle>{t(locale, 'problemsTitle')}</SectionTitle>
 
+  <p class="mt-4 text-lg text-ink-soft leading-relaxed max-w-3xl">
+    {t(locale, 'problemsIntro')}
+  </p>
+
   <div class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
     {problems.map((p, i) => (
       <Reveal delay={i * 80}>
         <div class="flex h-full flex-col justify-between rounded-2xl border border-line bg-white p-6 transition-all duration-200 hover:border-cobalt hover:-translate-y-0.5 hover:shadow-sm">
-          <p class="text-lg font-medium leading-snug text-ink">
-            "{p.quote[locale]}"
+          <div class="flex justify-end gap-1.5 mb-3">
+            {p.tags.map(tag => (
+              <span class="rounded-full bg-cobalt/10 text-cobalt px-3 py-0.5 text-xs font-medium">{tag}</span>
+            ))}
+          </div>
+          <p class="text-lg font-medium leading-snug text-ink flex-1">
+            {p.quote[locale]}
           </p>
-          <a
-            href={`#pipeline-step-${p.step}`}
-            class="mt-4 inline-flex items-center text-sm font-medium text-cobalt hover:text-cobalt-dk transition-colors touch-manipulation min-h-[44px]"
-            data-event="problem_click"
-            data-step={String(p.step)}
-          >
-            → {p.linkLabel[locale]}
-          </a>
         </div>
       </Reveal>
     ))}
+
+    {/* Card 6: CTA card */}
+    <Reveal delay={problems.length * 80}>
+      <div class="flex h-full flex-col justify-between rounded-2xl border border-cobalt bg-cobalt/5 p-6 transition-all duration-200 hover:border-cobalt hover:-translate-y-0.5 hover:shadow-sm">
+        <div class="flex justify-end gap-1.5 mb-3">
+          <span class="rounded-full bg-cobalt/10 text-cobalt px-3 py-0.5 text-xs font-medium">{t(locale, 'problemsCtaTag')}</span>
+        </div>
+        <div class="flex-1 flex flex-col justify-between">
+          <div>
+            <h3 class="font-display text-xl font-semibold">{t(locale, 'problemsCtaTitle')}</h3>
+            <p class="mt-2 text-ink-soft leading-relaxed">{t(locale, 'problemsCtaText')}</p>
+          </div>
+          <a
+            href="#book"
+            class="btn-primary mt-4 inline-flex self-start"
+            data-event="cta_book_call"
+            data-location="problems"
+          >
+            {t(locale, 'bookCall')}
+            <svg class="ml-2 h-4 w-4 arrow-icon transition-transform duration-200" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+          </a>
+        </div>
+      </div>
+    </Reveal>
   </div>
 
   <Reveal class="mt-10">

@@ -1,8 +1,7 @@
 ---
-import { t, getLocale } from '../../i18n';
+import { getLocale } from '../../i18n';
 import { numbers } from '../../data/numbers';
 import Reveal from '../Reveal.astro';
-import HandwrittenNote from '../HandwrittenNote.astro';
 import Doodles from '../Doodles.astro';
 
 const locale = getLocale(Astro.currentLocale);
@@ -32,11 +31,6 @@ const locale = getLocale(Astro.currentLocale);
       ))}
     </div>
 
-    <Reveal class="mt-8">
-      <HandwrittenNote rotate={-2} class="text-center md:text-left mx-auto md:mx-0">
-        {t(locale, 'numbersNote')}
-      </HandwrittenNote>
-    </Reveal>
   </div>
 </section>
 

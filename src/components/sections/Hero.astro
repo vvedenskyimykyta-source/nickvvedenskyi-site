@@ -14,17 +14,12 @@ const locale = getLocale(Astro.currentLocale);
     <div class="flex flex-col-reverse lg:flex-row lg:items-center lg:gap-12">
       <!-- Text -->
       <div class="flex-1 mt-8 lg:mt-0">
-        <p class="text-sm font-semibold uppercase tracking-wider text-cobalt">
+        <p class="font-hand text-xl md:text-2xl text-wine -rotate-2 origin-left">
           {t(locale, 'heroEyebrow')}
         </p>
 
         <SectionTitle as="h1" class="mt-4 md:mt-6">
-          <Fragment set:html={
-            t(locale, 'heroH1').replace(
-              locale === 'en' ? 'not picking up' : 'не збираєш',
-              `<span class="relative inline-block">${locale === 'en' ? 'not picking up' : 'не збираєш'}<svg class="absolute -bottom-1 left-0 w-full h-3" viewBox="0 0 200 12" preserveAspectRatio="none" fill="none"><path d="M2 8 C40 2, 80 10, 120 6 C160 2, 190 8, 198 4" stroke="var(--color-wine)" stroke-width="2.5" stroke-linecap="round" fill="none"/></svg></span>`
-            )
-          } />
+          {t(locale, 'heroH1')}
         </SectionTitle>
 
         <p class="mt-6 text-lg text-ink-soft leading-relaxed max-w-2xl">

@@ -1,34 +1,34 @@
 export const howSteps = [
   {
     num: 1,
-    title: { en: 'We talk for 30 minutes.', uk: 'Ми розмовляємо 30 хвилин.' },
+    title: { en: 'We talk for half an hour.', uk: 'Ми розмовляємо півгодини.' },
     text: {
-      en: 'It is free. You tell me what is going on, I ask a lot of slightly annoying questions, and we figure out if I am the right person for this. If I am not, I will tell you and probably know who is.',
-      uk: 'Це безкоштовно. Ти розповідаєш, що відбувається, я задаю купу трохи дратівливих питань, і ми з’ясовуємо, чи я правильна людина для цього. Якщо ні, я скажу і, скоріш за все, знаю, хто підійде.',
+      en: 'Free, and I am not going to pitch at you. You explain what is going on, I ask more questions than is strictly polite, and by the end we both know whether this is a thing I can help with. If it is not, I will say so on the call rather than in a follow-up email.',
+      uk: 'Безкоштовно, і я не буду тобі нічого продавати. Ти розповідаєш що відбувається, я задаю більше питань ніж ввічливо, і до кінця ми обидва розуміємо чи я можу тут допомогти. Якщо ні, я скажу це на дзвінку, а не у фолоу-ап листі.',
     },
   },
   {
     num: 2,
-    title: { en: 'You get a proposal within 48 hours.', uk: 'Ти отримуєш пропозицію протягом 48 годин.' },
+    title: { en: 'A proposal lands within two days.', uk: 'Пропозиція протягом двох днів.' },
     text: {
-      en: 'Scope, price, timeline and exactly what you will have at the end, on one or two pages, because nobody reads the forty-page ones.',
-      uk: 'Обсяг, ціна, таймлайн і що саме ти матимеш в кінці, на одній-двох сторінках, бо ніхто не читає сорокасторінкові.',
+      en: 'What I will do, what it costs, how long it takes and what you are holding at the end. One page, maybe two. Nobody has ever read the forty-page version and you will not be the first.',
+      uk: 'Що я зроблю, скільки це коштує, як довго триватиме і що ти тримаєш в руках в кінці. Одна сторінка, може дві. Ніхто ніколи не читав сорокасторінкову версію і ти не будеш першим.',
     },
   },
   {
     num: 3,
-    title: { en: 'We run the sprint.', uk: 'Ми запускаємо спринт.' },
+    title: { en: 'We run it.', uk: 'Ми це робимо.' },
     text: {
-      en: 'Weekly check-ins, and you see the work while it happens instead of waiting for a big reveal at the end.',
-      uk: 'Щотижневі зустрічі, і ти бачиш роботу в процесі замість того, щоб чекати великого відкриття в кінці.',
+      en: 'We talk every week and you watch the work happen. There is no grand reveal at the end, because by then you will have seen most of it already and told me which parts were wrong.',
+      uk: 'Ми спілкуємось кожного тижня і ти бачиш як робота відбувається. Немає великого розкриття в кінці, бо до того часу ти вже бачив більшу частину і сказав мені які частини були неправильними.',
     },
   },
   {
     num: 4,
-    title: { en: 'You keep everything.', uk: 'Ти залишаєш собі все.' },
+    title: { en: 'You keep the results.', uk: 'Ти залишаєш собі результати.' },
     text: {
-      en: 'Documents, systems and next steps your team can run without me, which is kind of the whole point.',
-      uk: 'Документи, системи та наступні кроки, які твоя команда може вести без мене, в чому, власне, і є весь сенс.',
+      en: 'Everything we build is yours. Your team runs it without me, otherwise I sold you a dependency, not a fix.',
+      uk: 'Все що ми будуємо це твоє. Твоя команда запускає це без мене, інакше я продав тобі залежність, а не рішення.',
     },
   },
 ];
@@ -37,29 +37,29 @@ export const howFacts = [
   {
     icon: 'badge-euro',
     text: {
-      en: 'The price is fixed and agreed before we start, I never bill by the hour.',
-      uk: 'Ціна фіксована і погоджена до початку, я ніколи не рахую погодинно.',
+      en: 'The price is agreed before we start. It does not move. I do not bill by the hour.',
+      uk: 'Ціна узгоджується до старту. Вона не змінюється. Я не виставляю рахунки погодинно.',
     },
   },
   {
     icon: 'mic',
     text: {
-      en: 'I talk to your customers myself, not through a survey tool.',
-      uk: 'Я розмовляю з твоїми клієнтами особисто, не через опитування.',
+      en: 'I run the customer conversations myself. It is the part of the work I like most.',
+      uk: 'Я проводжу розмови з клієнтами сам. Це частина роботи яка мені подобається найбільше.',
     },
   },
   {
     icon: 'globe',
     text: {
-      en: 'Remote, Spanish time zone, in English or Ukrainian.',
-      uk: 'Віддалено, іспанський часовий пояс, англійською або українською.',
+      en: 'Remote, Spanish time zone, English or Ukrainian.',
+      uk: 'Віддалено, іспанський часовий пояс, англійська або українська.',
     },
   },
   {
     icon: 'folder-check',
     text: {
-      en: 'Everything I make for you is yours to keep.',
-      uk: 'Все, що я для тебе роблю, залишається тобі.',
+      en: 'Everything I make for you belongs to you.',
+      uk: 'Все що я роблю для тебе належить тобі.',
     },
   },
 ];
