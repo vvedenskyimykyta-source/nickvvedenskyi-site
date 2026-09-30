@@ -13,7 +13,7 @@ const locale = getLocale(Astro.currentLocale);
       <!-- Text -->
       <div class="flex-1 mt-8 lg:mt-0">
         <!-- Eyebrow with cobalt dots -->
-        <div class="flex items-center gap-3">
+        <div class="hero-enter flex items-center gap-3" style="--enter-i: 0;">
           <span class="flex flex-col gap-1" aria-hidden="true">
             <span class="block w-1.5 h-1.5 rounded-full bg-cobalt"></span>
             <span class="block w-1.5 h-1.5 rounded-full bg-cobalt/60"></span>
@@ -24,18 +24,18 @@ const locale = getLocale(Astro.currentLocale);
           </p>
         </div>
 
-        <h1 class="mt-5 md:mt-6 font-display font-bold text-ink text-[clamp(2.5rem,6vw,4.75rem)] leading-[1.05] tracking-tight max-w-[18ch]">
+        <h1 class="hero-enter mt-5 md:mt-6 font-display font-bold text-ink text-[clamp(2.5rem,6vw,4.75rem)] leading-[1.05] tracking-tight max-w-[18ch]" style="--enter-i: 1;">
           {t(locale, 'heroH1')}
         </h1>
 
-        <p class="mt-6 text-lg md:text-xl text-ink-soft leading-relaxed max-w-[58ch]">
+        <p class="hero-enter mt-6 text-lg md:text-xl text-ink-soft leading-relaxed max-w-[58ch]" style="--enter-i: 2;">
           {t(locale, 'heroSub')}
         </p>
 
-        <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-5">
+        <div class="hero-enter mt-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-5" style="--enter-i: 3;">
           <a
             href="#book"
-            class="btn-primary justify-center sm:justify-start text-base px-8 py-3.5"
+            class="btn-primary btn-magnetic justify-center sm:justify-start text-base px-8 py-3.5"
             data-event="cta_book_call"
             data-location="hero"
           >
@@ -57,7 +57,7 @@ const locale = getLocale(Astro.currentLocale);
       </div>
 
       <!-- Photo with blob -->
-      <div class="relative flex-shrink-0 lg:w-[400px] xl:w-[440px]">
+      <div class="hero-enter relative flex-shrink-0 lg:w-[400px] xl:w-[440px]" style="--enter-i: 4;">
         <div class="relative mx-auto w-[280px] sm:w-[320px] lg:w-full">
           <!-- Organic blob behind photo -->
           <div class="hero-blob absolute -inset-6 md:-inset-10" aria-hidden="true">
@@ -67,7 +67,7 @@ const locale = getLocale(Astro.currentLocale);
             </svg>
           </div>
 
-          <div class="relative overflow-hidden rounded-3xl shadow-lg lg:rounded-[2rem]" style="transform: rotate(1.5deg);">
+          <div class="hero-photo relative overflow-hidden rounded-3xl shadow-lg lg:rounded-[2rem]" style="transform: rotate(1.5deg);">
             <Image
               src={heroImg}
               alt="Nick Vvedenskyi"
@@ -88,3 +88,41 @@ const locale = getLocale(Astro.currentLocale);
     </div>
   </div>
 </section>
+
+<style>
+  .hero-enter {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  .hero-enter.entered {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 450ms cubic-bezier(0.2, 0.8, 0.2, 1),
+                transform 450ms cubic-bezier(0.2, 0.8, 0.2, 1);
+    transition-delay: calc(var(--enter-i, 0) * 60ms);
+  }
+  .hero-photo {
+    transform: rotate(1.5deg) scale(1.03);
+  }
+  .hero-enter.entered .hero-photo {
+    transform: rotate(1.5deg) scale(1);
+    transition: transform 500ms cubic-bezier(0.2, 0.8, 0.2, 1);
+    transition-delay: calc(4 * 60ms);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-enter {
+      opacity: 1;
+      transform: none;
+    }
+    .hero-photo {
+      transform: rotate(1.5deg);
+    }
+  }
+</style>
+
+<script>
+  requestAnimationFrame(() => {
+    document.querySelectorAll('.hero-enter').forEach(el => el.classList.add('entered'));
+  });
+</script>

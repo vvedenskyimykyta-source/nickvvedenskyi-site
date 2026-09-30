@@ -30,8 +30,8 @@ function seededRandom(seed: number) {
               href={p.url}
               target="_blank"
               rel="noopener noreferrer"
-              class={`project-sticker inline-flex items-center rounded-full bg-paper-2 border ${borderColor} px-4 py-2 font-display text-sm md:text-base font-medium text-ink transition-all duration-200 touch-manipulation min-h-[44px] ${hiddenOnMobile}`}
-              style={`transform: rotate(${rotation}deg);`}
+              class={`project-sticker inline-flex items-center rounded-full bg-paper border ${borderColor} px-4 py-2 font-display text-sm md:text-base font-medium text-ink touch-manipulation min-h-[44px] ${hiddenOnMobile}`}
+              style={`--sticker-rot: ${rotation}deg;`}
               data-event="outbound_project"
               data-name={p.name}
               data-rotation={rotation}
@@ -64,6 +64,15 @@ function seededRandom(seed: number) {
 </Section>
 
 <style>
+  .project-sticker {
+    opacity: 0;
+    transform: translateY(8px) rotate(var(--sticker-rot, 0deg));
+    transition: opacity 300ms ease, transform 400ms cubic-bezier(0.2, 0.8, 0.2, 1), border-color 200ms, box-shadow 200ms;
+  }
+  .project-sticker.sticker-in {
+    opacity: 1;
+    transform: rotate(var(--sticker-rot, 0deg));
+  }
   .project-sticker:hover {
     transform: rotate(0deg) translateY(-2px) !important;
     border-color: var(--color-cobalt) !important;
@@ -77,8 +86,16 @@ function seededRandom(seed: number) {
     .project-sticker .project-arrow {
       opacity: 1;
     }
-    .project-sticker {
+    .project-sticker.sticker-in {
       transform: rotate(0deg) !important;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .project-sticker {
+      opacity: 1;
+      transform: rotate(var(--sticker-rot, 0deg));
+      transition: border-color 200ms, box-shadow 200ms;
     }
   }
 
@@ -93,12 +110,35 @@ function seededRandom(seed: number) {
 </style>
 
 <script>
+  // Sticker drop-in animation
+  const stickers = document.querySelectorAll<HTMLElement>('.project-sticker');
+  if (stickers.length && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const container = entry.target;
+        container.querySelectorAll<HTMLElement>('.project-sticker').forEach((s, i) => {
+          setTimeout(() => s.classList.add('sticker-in'), i * 40);
+        });
+        obs.unobserve(container);
+      });
+    }, { threshold: 0.1 });
+    const cloud = document.getElementById('projects-cloud');
+    if (cloud) obs.observe(cloud);
+  } else {
+    stickers.forEach(s => s.classList.add('sticker-in'));
+  }
+
   const toggle = document.getElementById('projects-toggle');
   const cloud = document.getElementById('projects-cloud');
   const wrap = document.getElementById('projects-toggle-wrap');
   if (toggle && cloud) {
     toggle.addEventListener('click', () => {
       cloud.classList.add('projects-expanded');
+      const extras = cloud.querySelectorAll<HTMLElement>('.projects-extra');
+      extras.forEach((s, i) => {
+        setTimeout(() => s.classList.add('sticker-in'), i * 40);
+      });
       if (wrap) wrap.style.display = 'none';
     });
   }
