@@ -42,4 +42,5 @@ export const projects: { name: string; url: string }[] = [
   { name: 'Binariks', url: 'https://binariks.com/' },
   { name: 'ForteGRP', url: 'https://www.fortegrp.com/' },
   { name: 'Livepage', url: 'https://livepage.ua/' },
+  { name: 'Dneprotyazhmash', url: 'https://www.facebook.com/Dneprotyazhmash/' },
 ];

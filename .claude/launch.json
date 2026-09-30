@@ -5,6 +5,7 @@
       "name": "dev",
       "runtimeExecutable": "npx",
       "runtimeArgs": ["astro", "dev", "--port", "4321", "--ignore-lock"],
+      "env": { "ASTRO_TELEMETRY_DISABLED": "1" },
       "port": 4321
     }
   ]

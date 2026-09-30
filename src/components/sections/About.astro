@@ -20,7 +20,8 @@ const locale = getLocale(Astro.currentLocale);
           <Image
             src={extra1Img}
             alt=""
-            widths={[300, 400]}
+            aria-hidden="true"
+            widths={[300, 400, 600, 760]}
             sizes="(max-width: 1024px) 300px, 380px"
             class="w-full h-full object-cover object-top"
             loading="lazy"
@@ -31,7 +32,7 @@ const locale = getLocale(Astro.currentLocale);
           <Image
             src={lifeImg}
             alt="Nick at a restaurant"
-            widths={[400, 600, 800]}
+            widths={[260, 300, 380, 520, 600, 760]}
             sizes="(max-width: 640px) 260px, (max-width: 1024px) 300px, 380px"
             class="w-full h-auto object-cover object-[center_25%] aspect-[3/4]"
             loading="lazy"
