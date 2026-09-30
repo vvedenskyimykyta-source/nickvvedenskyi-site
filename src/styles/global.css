@@ -130,7 +130,6 @@ html[lang="uk"] {
   .btn-wine:active {
     transform: scale(0.98);
   }
-}
 
   /* Body text link underline animation */
   .prose a, section p a:not(.btn-primary):not(.btn-secondary):not(.btn-wine) {
