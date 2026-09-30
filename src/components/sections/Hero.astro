@@ -1,35 +1,41 @@
 ---
 import { Image } from 'astro:assets';
 import { t, getLocale } from '../../i18n';
-import SectionTitle from '../SectionTitle.astro';
 import HandwrittenNote from '../HandwrittenNote.astro';
-import Doodles from '../Doodles.astro';
 import heroImg from '../../assets/images/nick-hero.jpg';
 
 const locale = getLocale(Astro.currentLocale);
 ---
 
 <section id="hero" class="relative overflow-hidden" style="scroll-margin-top: 5rem;">
-  <div class="mx-auto max-w-7xl px-5 md:px-6 py-8 md:py-16 lg:py-20">
-    <div class="flex flex-col-reverse lg:flex-row lg:items-center lg:gap-12">
+  <div class="mx-auto max-w-7xl px-5 md:px-6 py-10 md:py-20 lg:py-24">
+    <div class="flex flex-col-reverse lg:flex-row lg:items-center lg:gap-16">
       <!-- Text -->
       <div class="flex-1 mt-8 lg:mt-0">
-        <p class="font-hand text-xl md:text-2xl text-wine -rotate-2 origin-left">
-          {t(locale, 'heroEyebrow')}
-        </p>
+        <!-- Eyebrow with cobalt dots -->
+        <div class="flex items-center gap-3">
+          <span class="flex flex-col gap-1" aria-hidden="true">
+            <span class="block w-1.5 h-1.5 rounded-full bg-cobalt"></span>
+            <span class="block w-1.5 h-1.5 rounded-full bg-cobalt/60"></span>
+            <span class="block w-1.5 h-1.5 rounded-full bg-cobalt/30"></span>
+          </span>
+          <p class="font-hand text-xl md:text-2xl text-wine -rotate-2 origin-left">
+            {t(locale, 'heroEyebrow')}
+          </p>
+        </div>
 
-        <SectionTitle as="h1" class="mt-4 md:mt-6">
+        <h1 class="mt-5 md:mt-6 font-display font-bold text-ink text-[clamp(2.5rem,6vw,4.75rem)] leading-[1.05] tracking-tight max-w-[18ch]">
           {t(locale, 'heroH1')}
-        </SectionTitle>
+        </h1>
 
-        <p class="mt-6 text-lg text-ink-soft leading-relaxed max-w-2xl">
+        <p class="mt-6 text-lg md:text-xl text-ink-soft leading-relaxed max-w-[58ch]">
           {t(locale, 'heroSub')}
         </p>
 
-        <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:gap-4">
+        <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-5">
           <a
             href="#book"
-            class="btn-primary justify-center sm:justify-start"
+            class="btn-primary justify-center sm:justify-start text-base px-8 py-3.5"
             data-event="cta_book_call"
             data-location="hero"
           >
@@ -40,24 +46,33 @@ const locale = getLocale(Astro.currentLocale);
             href={`https://tally.so/r/${locale === 'en' ? import.meta.env.PUBLIC_TALLY_FORM_EN : import.meta.env.PUBLIC_TALLY_FORM_UK}`}
             target="_blank"
             rel="noopener noreferrer"
-            class="btn-secondary justify-center sm:justify-start"
+            class="group inline-flex items-center text-sm font-semibold text-cobalt hover:text-cobalt-dk transition-colors touch-manipulation min-h-[44px]"
             data-event="cta_quiz_open"
             data-location="hero"
           >
             {t(locale, 'quizCta')}
+            <svg class="ml-1.5 h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
           </a>
         </div>
       </div>
 
-      <!-- Photo -->
-      <div class="relative flex-shrink-0 lg:w-[380px] xl:w-[420px]">
+      <!-- Photo with blob -->
+      <div class="relative flex-shrink-0 lg:w-[400px] xl:w-[440px]">
         <div class="relative mx-auto w-[280px] sm:w-[320px] lg:w-full">
-          <div class="overflow-hidden rounded-3xl">
+          <!-- Organic blob behind photo -->
+          <div class="hero-blob absolute -inset-6 md:-inset-10" aria-hidden="true">
+            <svg viewBox="0 0 500 500" class="w-full h-full" preserveAspectRatio="none">
+              <path d="M440,300Q410,410,300,440Q190,470,110,380Q30,290,70,180Q110,70,220,50Q330,30,400,130Q470,230,440,300Z" fill="var(--color-wine)" opacity="0.08"/>
+              <path d="M420,280Q380,380,280,420Q180,460,100,360Q20,260,80,160Q140,60,250,60Q360,60,400,160Q440,260,420,280Z" fill="var(--color-cobalt)" opacity="0.06" transform="translate(20,10)"/>
+            </svg>
+          </div>
+
+          <div class="relative overflow-hidden rounded-3xl shadow-lg lg:rounded-[2rem]" style="transform: rotate(1.5deg);">
             <Image
               src={heroImg}
               alt="Nick Vvedenskyi"
-              widths={[280, 320, 420, 560, 640, 840]}
-              sizes="(max-width: 640px) 280px, (max-width: 1024px) 320px, 420px"
+              widths={[280, 320, 440, 560, 640, 880]}
+              sizes="(max-width: 640px) 280px, (max-width: 1024px) 320px, 440px"
               class="w-full h-auto object-cover object-top max-h-[35dvh] sm:max-h-[45dvh] lg:max-h-none"
               loading="eager"
               fetchpriority="high"

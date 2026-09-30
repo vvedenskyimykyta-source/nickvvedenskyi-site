@@ -5,38 +5,38 @@ import Reveal from '../Reveal.astro';
 const locale = getLocale(Astro.currentLocale);
 ---
 
-<section class="py-8 md:py-12">
+<section class="relative bg-wine/10 py-12 md:py-16">
   <div class="mx-auto max-w-7xl px-5 md:px-6">
     <Reveal>
-      <div class="rounded-2xl bg-paper-2 border-l-4 border-wine p-6 md:p-10">
-        <h2 class="font-display text-2xl font-semibold md:text-3xl">{t(locale, 'foundingTitle')}</h2>
-        <p class="mt-4 text-lg text-ink-soft leading-relaxed max-w-3xl">
+      <div class="relative">
+        <h2 class="font-display text-2xl font-semibold md:text-3xl text-wine">{t(locale, 'foundingTitle')}</h2>
+        <p class="mt-4 text-lg text-ink-soft leading-relaxed max-w-[58ch]">
           {t(locale, 'foundingText')}
         </p>
 
         <!-- Countdown timer -->
         <div class="mt-6 flex gap-4 md:gap-6" id="countdown" aria-label={locale === 'en' ? 'Time remaining until December 1, 2026' : 'Час до 1 грудня 2026'}>
           <div class="text-center">
-            <span class="font-display text-3xl md:text-4xl font-bold text-wine" id="cd-days">--</span>
+            <span class="font-display text-4xl md:text-5xl font-bold text-wine" id="cd-days">--</span>
             <p class="text-xs text-ink-soft mt-1">{locale === 'en' ? 'days' : 'днів'}</p>
           </div>
           <div class="text-center">
-            <span class="font-display text-3xl md:text-4xl font-bold text-wine" id="cd-hours">--</span>
+            <span class="font-display text-4xl md:text-5xl font-bold text-wine" id="cd-hours">--</span>
             <p class="text-xs text-ink-soft mt-1">{locale === 'en' ? 'hours' : 'годин'}</p>
           </div>
           <div class="text-center">
-            <span class="font-display text-3xl md:text-4xl font-bold text-wine" id="cd-mins">--</span>
+            <span class="font-display text-4xl md:text-5xl font-bold text-wine" id="cd-mins">--</span>
             <p class="text-xs text-ink-soft mt-1">{locale === 'en' ? 'min' : 'хв'}</p>
           </div>
           <div class="text-center">
-            <span class="font-display text-3xl md:text-4xl font-bold text-wine" id="cd-secs">--</span>
+            <span class="font-display text-4xl md:text-5xl font-bold text-wine" id="cd-secs">--</span>
             <p class="text-xs text-ink-soft mt-1">{locale === 'en' ? 'sec' : 'сек'}</p>
           </div>
         </div>
 
         <a
           href="#book"
-          class="btn-wine mt-6 inline-flex"
+          class="btn-wine mt-8 inline-flex text-base px-8 py-3.5"
           data-event="cta_book_call"
           data-location="founding"
         >

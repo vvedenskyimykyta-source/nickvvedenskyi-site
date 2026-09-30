@@ -10,31 +10,31 @@ import extra1Img from '../../assets/images/extra-1.jpg';
 const locale = getLocale(Astro.currentLocale);
 ---
 
-<Section id="about">
+<Section id="about" bg="paper-2">
   <div class="flex flex-col gap-10 lg:flex-row lg:gap-16 lg:items-start">
-    <!-- Photos -->
+    <!-- Photos: stacked like prints on a desk -->
     <Reveal class="relative flex-shrink-0 lg:w-[340px] xl:w-[380px]">
-      <div class="relative mx-auto w-[260px] sm:w-[300px] lg:w-full">
-        <!-- Extra photo stacked behind, slightly rotated -->
-        <div class="absolute -top-3 -left-3 w-full h-full rounded-2xl overflow-hidden rotate-3 shadow-sm opacity-80 hidden sm:block">
+      <div class="relative mx-auto w-[260px] sm:w-[300px] lg:w-full" style="padding: 1rem;">
+        <!-- Extra photo behind, rotated -->
+        <div class="absolute top-0 left-0 w-[85%] aspect-[3/4] rounded-lg overflow-hidden shadow-md hidden sm:block" style="transform: rotate(4deg); border: 4px solid white;">
           <Image
             src={extra1Img}
             alt=""
             aria-hidden="true"
-            widths={[300, 400, 600, 760]}
-            sizes="(max-width: 1024px) 300px, 380px"
+            widths={[250, 340, 500, 680]}
+            sizes="(max-width: 1024px) 250px, 320px"
             class="w-full h-full object-cover object-top"
             loading="lazy"
           />
         </div>
-        <!-- Main life photo -->
-        <div class="relative rounded-2xl overflow-hidden shadow-md">
+        <!-- Main life photo in front -->
+        <div class="relative w-[90%] ml-auto aspect-[3/4] rounded-lg overflow-hidden shadow-lg" style="transform: rotate(-2deg); border: 4px solid white;">
           <Image
             src={lifeImg}
             alt="Nick at a restaurant"
             widths={[260, 300, 380, 520, 600, 760]}
             sizes="(max-width: 640px) 260px, (max-width: 1024px) 300px, 380px"
-            class="w-full h-auto object-cover object-[center_25%] aspect-[3/4]"
+            class="w-full h-full object-cover object-[center_25%]"
             loading="lazy"
           />
         </div>
@@ -46,23 +46,23 @@ const locale = getLocale(Astro.currentLocale);
       <SectionTitle>{t(locale, 'aboutTitle')}</SectionTitle>
 
       <Reveal>
-        <p class="mt-6 text-ink-soft leading-relaxed">{t(locale, 'aboutText1')}</p>
+        <p class="mt-6 text-ink-soft leading-relaxed max-w-[58ch]">{t(locale, 'aboutText1')}</p>
       </Reveal>
       <Reveal>
-        <p class="mt-4 text-ink-soft leading-relaxed">{t(locale, 'aboutText2')}</p>
+        <p class="mt-4 text-ink-soft leading-relaxed max-w-[58ch]">{t(locale, 'aboutText2')}</p>
       </Reveal>
       <Reveal>
-        <p class="mt-4 text-ink-soft leading-relaxed">{t(locale, 'aboutText3')}</p>
-      </Reveal>
-
-      <!-- Belief block -->
-      <Reveal class="mt-10">
-        <blockquote class="border-l-4 border-cobalt pl-6">
-          <p class="font-display text-2xl md:text-3xl font-semibold text-cobalt leading-snug">
-            {t(locale, 'aboutBelief')}
-          </p>
-        </blockquote>
+        <p class="mt-4 text-ink-soft leading-relaxed max-w-[58ch]">{t(locale, 'aboutText3')}</p>
       </Reveal>
     </div>
   </div>
+
+  <!-- Belief block: biggest type after H1 -->
+  <Reveal class="mt-16 md:mt-20">
+    <div class="rounded-2xl bg-wine/10 p-8 md:p-12">
+      <p class="font-display text-[clamp(1.75rem,3.5vw,2.75rem)] font-semibold text-wine leading-[1.15] max-w-[30ch]">
+        {t(locale, 'aboutBelief')}
+      </p>
+    </div>
+  </Reveal>
 </Section>

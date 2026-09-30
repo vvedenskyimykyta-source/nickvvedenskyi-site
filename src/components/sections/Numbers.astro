@@ -2,40 +2,36 @@
 import { getLocale } from '../../i18n';
 import { numbers } from '../../data/numbers';
 import Reveal from '../Reveal.astro';
-import Doodles from '../Doodles.astro';
 
 const locale = getLocale(Astro.currentLocale);
 ---
 
-<section class="relative bg-paper-2" style="clip-path: polygon(0 clamp(24px, 4vw, 48px), 100% 0, 100% 100%, 0 100%); scroll-margin-top: 5rem;">
-  <div class="mx-auto max-w-7xl px-5 md:px-6 pt-16 pb-10 md:pt-24 md:pb-16" style={`padding-top: calc(clamp(24px, 4vw, 48px) + 4rem);`}>
+<section class="relative bg-cobalt" style="clip-path: polygon(0 clamp(24px, 4vw, 48px), 100% 0, 100% calc(100% - clamp(24px, 4vw, 48px)), 0 100%); scroll-margin-top: 5rem;">
+  <div class="mx-auto max-w-7xl px-5 md:px-6 py-16 md:py-20" style={`padding-top: calc(clamp(24px, 4vw, 48px) + 3rem); padding-bottom: calc(clamp(24px, 4vw, 48px) + 3rem);`}>
     <div class="grid grid-cols-2 gap-8 md:grid-cols-4 md:gap-12">
       {numbers.map((n, i) => (
         <Reveal delay={i * 80}>
-          <div class="text-center md:text-left">
+          <div class="text-center">
             <div class="relative inline-flex items-baseline">
               <span
-                class="font-display text-[clamp(2.5rem,6vw,4rem)] font-bold text-cobalt leading-none"
+                class="font-display text-[clamp(3rem,8vw,6rem)] font-bold text-paper leading-none"
                 data-count-to={n.value}
               >
                 {n.value}
               </span>
               {n.suffix && (
-                <span class="font-display text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-cobalt">{n.suffix}</span>
+                <span class="font-display text-[clamp(1.5rem,3vw,3rem)] font-bold text-paper">{n.suffix}</span>
               )}
-              {i === 0 && <Doodles type="burst" class="absolute -top-3 -right-6 w-7 h-7" />}
             </div>
-            <p class="mt-2 text-sm text-ink-soft leading-snug">{n.label[locale]}</p>
+            <p class="mt-2 text-sm text-white/60 uppercase tracking-wider leading-snug">{n.label[locale]}</p>
           </div>
         </Reveal>
       ))}
     </div>
-
   </div>
 </section>
 
 <script>
-  // Count-up animation
   function animateCountUp() {
     const els = document.querySelectorAll<HTMLElement>('[data-count-to]');
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -54,7 +50,7 @@ const locale = getLocale(Astro.currentLocale);
         function tick(now: number) {
           const elapsed = now - start;
           const progress = Math.min(elapsed / duration, 1);
-          const eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+          const eased = 1 - Math.pow(1 - progress, 3);
           el.textContent = String(Math.round(eased * target));
           if (progress < 1) requestAnimationFrame(tick);
         }

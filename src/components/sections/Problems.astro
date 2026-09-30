@@ -6,34 +6,48 @@ import SectionTitle from '../SectionTitle.astro';
 import Reveal from '../Reveal.astro';
 
 const locale = getLocale(Astro.currentLocale);
+
+const tagColors: Record<string, string> = {
+  Discovery: 'border-t-cobalt',
+  Positioning: 'border-t-wine',
+  GTM: 'border-t-[#B8860B]',
+  Sales: 'border-t-[#2E7D6F]',
+  Retention: 'border-t-[#8B5CF6]',
+};
 ---
 
 <Section>
   <SectionTitle>{t(locale, 'problemsTitle')}</SectionTitle>
 
-  <p class="mt-4 text-lg text-ink-soft leading-relaxed max-w-3xl">
+  <p class="mt-4 text-lg text-ink-soft leading-relaxed max-w-[58ch]">
     {t(locale, 'problemsIntro')}
   </p>
 
   <div class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-    {problems.map((p, i) => (
-      <Reveal delay={i * 80}>
-        <div class="flex h-full flex-col justify-between rounded-2xl border border-line bg-white p-6 transition-all duration-200 hover:border-cobalt hover:-translate-y-0.5 hover:shadow-sm">
-          <div class="flex justify-end gap-1.5 mb-3">
-            {p.tags.map(tag => (
-              <span class="rounded-full bg-cobalt/10 text-cobalt px-3 py-0.5 text-xs font-medium">{tag}</span>
-            ))}
+    {problems.map((p, i) => {
+      const borderClass = tagColors[p.tags[0]] || 'border-t-cobalt';
+      return (
+        <Reveal delay={i * 80}>
+          <div class={`problem-card relative flex h-full flex-col justify-between rounded-2xl border border-line border-t-[3px] ${borderClass} bg-white p-6 transition-all duration-200`}>
+            <span class="absolute top-4 left-5 font-display text-5xl font-bold text-ink/[0.04] leading-none select-none" aria-hidden="true">
+              {String(i + 1).padStart(2, '0')}
+            </span>
+            <div class="flex justify-end gap-1.5 mb-3">
+              {p.tags.map(tag => (
+                <span class="rounded-full bg-cobalt/10 text-cobalt px-3 py-0.5 text-xs font-medium">{tag}</span>
+              ))}
+            </div>
+            <p class="text-lg font-medium leading-snug text-ink flex-1">
+              {p.quote[locale]}
+            </p>
           </div>
-          <p class="text-lg font-medium leading-snug text-ink flex-1">
-            {p.quote[locale]}
-          </p>
-        </div>
-      </Reveal>
-    ))}
+        </Reveal>
+      );
+    })}
 
     {/* Card 6: CTA card */}
     <Reveal delay={problems.length * 80}>
-      <div class="flex h-full flex-col justify-between rounded-2xl border border-cobalt bg-cobalt/5 p-6 transition-all duration-200 hover:border-cobalt hover:-translate-y-0.5 hover:shadow-sm">
+      <div class="problem-card relative flex h-full flex-col justify-between rounded-2xl border-2 border-cobalt bg-cobalt/5 p-6 transition-all duration-200">
         <div class="flex justify-end gap-1.5 mb-3">
           <span class="rounded-full bg-cobalt/10 text-cobalt px-3 py-0.5 text-xs font-medium">{t(locale, 'problemsCtaTag')}</span>
         </div>
@@ -57,8 +71,16 @@ const locale = getLocale(Astro.currentLocale);
   </div>
 
   <Reveal class="mt-10">
-    <p class="text-lg text-ink-soft leading-relaxed max-w-3xl">
+    <p class="text-lg text-ink-soft leading-relaxed max-w-[58ch]">
       {t(locale, 'problemsClosing')}
     </p>
   </Reveal>
 </Section>
+
+<style>
+  .problem-card:hover {
+    border-color: var(--color-cobalt);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(47, 79, 168, 0.1);
+  }
+</style>

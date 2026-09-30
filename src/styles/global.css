@@ -47,6 +47,16 @@ html[lang="uk"] {
     line-height: 1.6;
   }
 
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
   @media (min-width: 768px) {
     body {
       font-size: 1.125rem;
@@ -79,18 +89,21 @@ html[lang="uk"] {
 /* Button components */
 @layer components {
   .btn-primary {
-    @apply inline-flex items-center rounded-full bg-cobalt px-6 py-3 text-sm font-semibold text-white transition-all duration-200 touch-manipulation;
-    min-height: 44px;
+    @apply inline-flex items-center rounded-full bg-cobalt px-7 py-3.5 text-base font-semibold text-white transition-all duration-200 touch-manipulation;
+    min-height: 48px;
+    box-shadow: 0 2px 8px rgba(47, 79, 168, 0.2);
   }
   .btn-primary:hover {
-    @apply bg-cobalt-dk -translate-y-0.5;
-    box-shadow: 0 4px 12px rgba(47, 79, 168, 0.25);
+    @apply bg-cobalt-dk;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(47, 79, 168, 0.3);
   }
   .btn-primary:hover .arrow-icon {
     transform: translateX(4px);
   }
   .btn-primary:active {
     transform: scale(0.98);
+    box-shadow: 0 2px 8px rgba(47, 79, 168, 0.2);
   }
 
   .btn-secondary {
@@ -105,13 +118,17 @@ html[lang="uk"] {
   }
 
   .btn-wine {
-    @apply inline-flex items-center rounded-full bg-wine px-6 py-3 text-sm font-semibold text-white transition-all duration-200 touch-manipulation;
-    min-height: 44px;
+    @apply inline-flex items-center rounded-full bg-wine px-7 py-3.5 text-base font-semibold text-white transition-all duration-200 touch-manipulation;
+    min-height: 48px;
+    box-shadow: 0 2px 8px rgba(110, 42, 46, 0.2);
   }
   .btn-wine:hover {
-    @apply -translate-y-0.5;
     background: #5a2225;
-    box-shadow: 0 4px 12px rgba(110, 42, 46, 0.25);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(110, 42, 46, 0.3);
+  }
+  .btn-wine:active {
+    transform: scale(0.98);
   }
 }
 

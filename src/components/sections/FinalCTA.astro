@@ -1,9 +1,7 @@
 ---
-import { Image } from 'astro:assets';
 import { t, getLocale } from '../../i18n';
 import SectionTitle from '../SectionTitle.astro';
 import Reveal from '../Reveal.astro';
-import portraitImg from '../../assets/images/nick-portrait.jpg';
 
 const locale = getLocale(Astro.currentLocale);
 const calLink = `${import.meta.env.PUBLIC_CAL_LINK || 'nick-vvedenskyi'}/intro-call`;
@@ -13,12 +11,15 @@ const tallyUrl = `https://tally.so/r/${locale === 'en' ? import.meta.env.PUBLIC_
 
 <section
   id="book"
-  class="relative bg-cobalt text-white"
+  class="relative bg-cobalt text-white overflow-hidden"
   style="clip-path: polygon(0 clamp(24px, 4vw, 48px), 100% 0, 100% 100%, 0 100%); scroll-margin-top: 0;"
 >
-  <div class="mx-auto max-w-7xl px-5 md:px-6 pt-20 pb-16 md:pt-28 md:pb-20" style={`padding-top: calc(clamp(24px, 4vw, 48px) + 5rem);`}>
+  <!-- Subtle dot pattern -->
+  <div class="absolute inset-0 opacity-[0.04]" aria-hidden="true" style="background-image: radial-gradient(circle, white 1px, transparent 1px); background-size: 24px 24px;"></div>
+
+  <div class="relative mx-auto max-w-7xl px-5 md:px-6 pt-20 pb-16 md:pt-28 md:pb-20" style={`padding-top: calc(clamp(24px, 4vw, 48px) + 5rem);`}>
     <SectionTitle class="text-white">{t(locale, 'ctaTitle')}</SectionTitle>
-    <p class="mt-4 text-lg text-white/80 leading-relaxed max-w-2xl">
+    <p class="mt-4 text-lg text-white/80 leading-relaxed max-w-[50ch]">
       {t(locale, 'ctaText')}
     </p>
 
@@ -26,7 +27,7 @@ const tallyUrl = `https://tally.so/r/${locale === 'en' ? import.meta.env.PUBLIC_
     <div class="mt-10 grid gap-6 lg:grid-cols-2 lg:gap-8">
       <!-- Card A: Talk to me -->
       <Reveal>
-        <div class="rounded-2xl bg-white text-ink h-full flex flex-col p-6 md:p-8 justify-between">
+        <div class="rounded-2xl bg-paper text-ink h-full flex flex-col p-6 md:p-8 justify-between shadow-lg">
           <div>
             <h3 class="font-display text-2xl md:text-3xl font-bold leading-tight text-ink">
               {t(locale, 'ctaCardATitle')}
@@ -42,7 +43,7 @@ const tallyUrl = `https://tally.so/r/${locale === 'en' ? import.meta.env.PUBLIC_
               href={calUrl}
               target="_blank"
               rel="noopener noreferrer"
-              class="group block w-full rounded-2xl bg-cobalt text-white font-display font-semibold text-lg py-4 px-6 text-center transition-all duration-300 hover:bg-cobalt-dk hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 touch-manipulation"
+              class="group block w-full rounded-2xl bg-cobalt text-white font-display font-semibold text-lg py-4 px-6 text-center transition-all duration-300 hover:bg-cobalt-dk hover:shadow-lg hover:-translate-y-0.5 active:scale-[0.98] touch-manipulation"
               data-event="cta_book_call"
               data-location="final"
             >
@@ -57,13 +58,13 @@ const tallyUrl = `https://tally.so/r/${locale === 'en' ? import.meta.env.PUBLIC_
 
       <!-- Card B: Quiz -->
       <Reveal delay={100}>
-        <div class="rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 h-full flex flex-col p-6 md:p-8 justify-between">
+        <div class="rounded-2xl bg-paper text-ink h-full flex flex-col p-6 md:p-8 justify-between shadow-lg">
           <div>
-            <h3 class="font-display text-2xl md:text-3xl font-bold leading-tight">
+            <h3 class="font-display text-2xl md:text-3xl font-bold leading-tight text-ink">
               {t(locale, 'ctaCardBTitle')}
             </h3>
 
-            <p class="mt-4 text-white/70 leading-relaxed">
+            <p class="mt-4 text-ink-soft leading-relaxed">
               {t(locale, 'ctaCardBText')}
             </p>
           </div>
@@ -73,7 +74,7 @@ const tallyUrl = `https://tally.so/r/${locale === 'en' ? import.meta.env.PUBLIC_
               href={tallyUrl}
               target="_blank"
               rel="noopener noreferrer"
-              class="quiz-cta group block w-full rounded-2xl bg-white text-cobalt font-display font-semibold text-lg py-4 px-6 text-center transition-all duration-300 hover:bg-cream hover:shadow-lg hover:shadow-white/20 hover:-translate-y-0.5 active:translate-y-0 touch-manipulation"
+              class="quiz-cta group block w-full rounded-2xl border-2 border-cobalt text-cobalt font-display font-semibold text-lg py-4 px-6 text-center transition-all duration-300 hover:bg-cobalt hover:text-white hover:shadow-lg hover:-translate-y-0.5 active:scale-[0.98] touch-manipulation"
               data-event="cta_quiz_open"
               data-location="final"
             >
