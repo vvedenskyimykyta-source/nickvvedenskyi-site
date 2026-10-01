@@ -70,7 +70,7 @@ const locale = getLocale(Astro.currentLocale);
           <div class="hero-photo relative overflow-hidden rounded-3xl shadow-lg lg:rounded-[2rem]" style="transform: rotate(1.5deg);">
             <Image
               src={heroImg}
-              alt="Nick Vvedenskyi"
+              alt={locale === 'uk' ? 'Nick Vvedenskyi, консультант з revenue та маркетингу для tech та AI продуктів' : 'Nick Vvedenskyi, revenue and marketing consultant for tech and AI products'}
               widths={[280, 320, 440, 560, 640, 880]}
               sizes="(max-width: 640px) 280px, (max-width: 1024px) 320px, 440px"
               class="w-full h-auto object-cover object-top max-h-[35dvh] sm:max-h-[45dvh] lg:max-h-none"

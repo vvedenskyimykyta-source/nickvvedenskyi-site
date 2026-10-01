@@ -10,7 +10,7 @@ import extra1Img from '../../assets/images/extra-1.jpg';
 const locale = getLocale(Astro.currentLocale);
 ---
 
-<Section id="about" bg="paper-2">
+<Section id="about" bg="paper-2" ariaLabelledby="about-heading">
   <div class="flex flex-col gap-10 lg:flex-row lg:gap-16 lg:items-start">
     <!-- Photos: stacked like prints on a desk -->
     <Reveal class="relative flex-shrink-0 lg:w-[340px] xl:w-[380px]">
@@ -31,7 +31,7 @@ const locale = getLocale(Astro.currentLocale);
         <div class="relative w-[90%] ml-auto aspect-[3/4] rounded-lg overflow-hidden shadow-lg" style="transform: rotate(-2deg); border: 4px solid white;">
           <Image
             src={lifeImg}
-            alt="Nick at a restaurant"
+            alt="Nick Vvedenskyi"
             widths={[260, 300, 380, 520, 600, 760]}
             sizes="(max-width: 640px) 260px, (max-width: 1024px) 300px, 380px"
             class="w-full h-full object-cover object-[center_25%]"
@@ -43,7 +43,7 @@ const locale = getLocale(Astro.currentLocale);
 
     <!-- Text -->
     <div class="flex-1">
-      <SectionTitle>{t(locale, 'aboutTitle')}</SectionTitle>
+      <SectionTitle id="about-heading">{t(locale, 'aboutTitle')}</SectionTitle>
 
       <Reveal>
         <p class="mt-6 text-ink-soft leading-relaxed max-w-[58ch]">{t(locale, 'aboutText1')}</p>

@@ -5,7 +5,7 @@ import Reveal from '../Reveal.astro';
 const locale = getLocale(Astro.currentLocale);
 ---
 
-<section class="relative bg-wine/10 py-12 md:py-16">
+<aside class="relative bg-wine/10 py-12 md:py-16" aria-label={locale === 'en' ? 'Founding client offer' : 'Пропозиція для перших клієнтів'}>
   <div class="mx-auto max-w-7xl px-5 md:px-6">
     <Reveal>
       <div class="relative">
@@ -16,6 +16,7 @@ const locale = getLocale(Astro.currentLocale);
 
         <!-- Countdown timer -->
         <div class="mt-6 flex gap-4 md:gap-6" id="countdown" aria-label={locale === 'en' ? 'Time remaining until December 1, 2026' : 'Час до 1 грудня 2026'}>
+          <time datetime="2026-12-01T00:00:00+01:00" class="sr-only">{locale === 'en' ? 'December 1, 2026' : '1 грудня 2026'}</time>
           <div class="text-center">
             <span class="font-display text-4xl md:text-5xl font-bold text-wine" id="cd-days">--</span>
             <p class="text-xs text-ink-soft mt-1">{locale === 'en' ? 'days' : 'днів'}</p>
@@ -46,7 +47,7 @@ const locale = getLocale(Astro.currentLocale);
       </div>
     </Reveal>
   </div>
-</section>
+</aside>
 
 <script>
   const deadline = new Date('2026-12-01T00:00:00+01:00').getTime();

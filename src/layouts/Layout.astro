@@ -5,19 +5,161 @@ import Footer from '../components/Footer.astro';
 import StickyMobileCTA from '../components/StickyMobileCTA.astro';
 import Analytics from '../components/Analytics.astro';
 import { getLocale } from '../i18n';
+import { faq } from '../data/faq';
 
 interface Props {
   title: string;
   description?: string;
   noHeader?: boolean;
   noFooter?: boolean;
+  noindex?: boolean;
+  showFaqSchema?: boolean;
 }
 
-const { title, description, noHeader, noFooter } = Astro.props;
+const { title, description, noHeader, noFooter, noindex, showFaqSchema } = Astro.props;
 const locale = getLocale(Astro.currentLocale);
 const altLocale = locale === 'en' ? 'uk' : 'en';
 const altPath = locale === 'en' ? '/uk/' : '/';
 const canonicalUrl = new URL(Astro.url.pathname, 'https://nickvvedenskyi.com');
+
+const jsonLdGraph: Record<string, unknown>[] = [
+  {
+    '@type': 'Person',
+    '@id': 'https://nickvvedenskyi.com/#person',
+    name: 'Nick Vvedenskyi',
+    alternateName: 'Mykyta Vvedenskyi',
+    jobTitle: 'Revenue & Marketing Consultant',
+    description: 'I help tech and AI founders figure out who buys, why they stay and where the money is hiding.',
+    url: 'https://nickvvedenskyi.com',
+    image: 'https://nickvvedenskyi.com/images/nick-portrait.jpg',
+    sameAs: [
+      'https://www.linkedin.com/in/nick-vvedenskyi/',
+      'https://www.instagram.com/lagerfeeld_/'
+    ],
+    knowsLanguage: ['en', 'uk'],
+    workLocation: {
+      '@type': 'Place',
+      name: 'Spain'
+    }
+  },
+  {
+    '@type': 'ProfessionalService',
+    '@id': 'https://nickvvedenskyi.com/#business',
+    name: 'Nick Vvedenskyi · Revenue & Marketing',
+    description: 'Revenue and marketing consulting for tech and AI products. Customer discovery, positioning, retention, go-to-market and monetization.',
+    url: 'https://nickvvedenskyi.com',
+    founder: { '@id': 'https://nickvvedenskyi.com/#person' },
+    areaServed: ['Europe', 'United States'],
+    serviceType: 'Marketing Consulting',
+    priceRange: '€1,000 - €7,000',
+    hasOfferCatalog: {
+      '@type': 'OfferCatalog',
+      name: 'Consulting Services',
+      itemListElement: [
+        {
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            '@id': 'https://nickvvedenskyi.com/#buyer-sprint',
+            name: 'Buyer Sprint',
+            description: 'Customer discovery through 10-12 interviews. You get ICP cards, buyer language map, top segments, and clear next steps.',
+            provider: { '@id': 'https://nickvvedenskyi.com/#person' },
+            serviceType: 'Customer Discovery'
+          },
+          price: '1500',
+          priceCurrency: 'EUR',
+          priceSpecification: {
+            '@type': 'PriceSpecification',
+            price: '1500',
+            priceCurrency: 'EUR',
+            valueAddedTaxIncluded: true,
+            description: 'Starting from. Fixed price agreed before work begins.'
+          }
+        },
+        {
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            '@id': 'https://nickvvedenskyi.com/#brand-market-fit',
+            name: 'Brand-Market Fit',
+            description: 'Positioning and messaging so people understand why they should pick you. You get positioning, messaging matrix, elevator pitch, brand guidelines lite.',
+            provider: { '@id': 'https://nickvvedenskyi.com/#person' },
+            serviceType: 'Brand Positioning'
+          },
+          price: '1500',
+          priceCurrency: 'EUR'
+        },
+        {
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            '@id': 'https://nickvvedenskyi.com/#pipeline-audit',
+            name: 'Pipeline Audit',
+            description: 'Funnel and sales process audit. Lost deal analysis and prioritized list of fixes.',
+            provider: { '@id': 'https://nickvvedenskyi.com/#person' },
+            serviceType: 'Sales Audit'
+          },
+          price: '2000',
+          priceCurrency: 'EUR'
+        },
+        {
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            '@id': 'https://nickvvedenskyi.com/#grow-through-customers',
+            name: 'Grow Through Your Customers',
+            description: 'Retention and expansion. Churn interviews, retention playbook, customer health signals, expansion map.',
+            provider: { '@id': 'https://nickvvedenskyi.com/#person' },
+            serviceType: 'Customer Retention Consulting'
+          },
+          price: '3000',
+          priceCurrency: 'EUR'
+        },
+        {
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            '@id': 'https://nickvvedenskyi.com/#revenue-unlock',
+            name: 'Revenue Unlock',
+            description: 'Pricing, packaging, upsells and monetization review. Revenue structure review, pricing recommendations, quick wins, test plan.',
+            provider: { '@id': 'https://nickvvedenskyi.com/#person' },
+            serviceType: 'Revenue Optimization'
+          },
+          price: '2000',
+          priceCurrency: 'EUR'
+        },
+        {
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            '@id': 'https://nickvvedenskyi.com/#launch-sprint',
+            name: 'Launch Sprint',
+            description: 'Full go-to-market: research, interviews, ICP, messaging, channel plan with CAC math, launch and experiments map.',
+            provider: { '@id': 'https://nickvvedenskyi.com/#person' },
+            serviceType: 'Go-to-Market Strategy'
+          },
+          price: '7000',
+          priceCurrency: 'EUR'
+        }
+      ]
+    }
+  }
+];
+
+if (showFaqSchema) {
+  jsonLdGraph.push({
+    '@type': 'FAQPage',
+    '@id': 'https://nickvvedenskyi.com/#faq',
+    mainEntity: faq.map(item => ({
+      '@type': 'Question',
+      name: item.q[locale],
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: item.a[locale]
+      }
+    }))
+  });
+}
 ---
 
 <!doctype html>
@@ -25,11 +167,18 @@ const canonicalUrl = new URL(Astro.url.pathname, 'https://nickvvedenskyi.com');
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#FAF7F2" />
+    <meta name="color-scheme" content="light" />
+    <meta name="author" content="Nick Vvedenskyi" />
+    {noindex && <meta name="robots" content="noindex, follow" />}
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
     <link rel="canonical" href={canonicalUrl.href} />
     <link rel="alternate" hreflang={locale} href={canonicalUrl.href} />
     <link rel="alternate" hreflang={altLocale} href={new URL(altPath, 'https://nickvvedenskyi.com').href} />
     <link rel="alternate" hreflang="x-default" href="https://nickvvedenskyi.com/" />
+    <link rel="alternate" type="text/markdown" href="/llms-full.txt" />
     <title>{title}</title>
     {description && <meta name="description" content={description} />}
 
@@ -51,14 +200,7 @@ const canonicalUrl = new URL(Astro.url.pathname, 'https://nickvvedenskyi.com');
     <!-- JSON-LD -->
     <script type="application/ld+json" set:html={JSON.stringify({
       '@context': 'https://schema.org',
-      '@type': 'Person',
-      name: 'Nick Vvedenskyi',
-      jobTitle: 'Revenue & Marketing Consultant for Tech/AI Products',
-      url: 'https://nickvvedenskyi.com',
-      sameAs: [
-        'https://www.linkedin.com/in/nick-vvedenskyi/',
-        'https://www.instagram.com/lagerfeeld_/'
-      ]
+      '@graph': jsonLdGraph
     })} />
   </head>
   <body>

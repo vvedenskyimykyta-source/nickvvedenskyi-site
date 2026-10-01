@@ -8,8 +8,8 @@ import Reveal from '../Reveal.astro';
 const locale = getLocale(Astro.currentLocale);
 ---
 
-<Section id="how-i-work" bg="paper-2">
-  <SectionTitle>{t(locale, 'howTitle')}</SectionTitle>
+<Section id="how-i-work" bg="paper-2" ariaLabelledby="how-i-work-heading">
+  <SectionTitle id="how-i-work-heading">{t(locale, 'howTitle')}</SectionTitle>
 
   <!-- Steps -->
   <div class="mt-10 relative">

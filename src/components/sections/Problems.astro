@@ -16,8 +16,8 @@ const tagColors: Record<string, string> = {
 };
 ---
 
-<Section>
-  <SectionTitle>{t(locale, 'problemsTitle')}</SectionTitle>
+<Section id="problems" ariaLabelledby="problems-heading">
+  <SectionTitle id="problems-heading">{t(locale, 'problemsTitle')}</SectionTitle>
 
   <p class="mt-4 text-lg text-ink-soft leading-relaxed max-w-[58ch]">
     {t(locale, 'problemsIntro')}

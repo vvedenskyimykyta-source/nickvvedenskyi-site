@@ -9,13 +9,13 @@ import HandwrittenNote from '../HandwrittenNote.astro';
 const locale = getLocale(Astro.currentLocale);
 ---
 
-<Section id="cases">
-  <SectionTitle>{t(locale, 'casesTitle')}</SectionTitle>
+<Section id="cases" ariaLabelledby="cases-heading">
+  <SectionTitle id="cases-heading">{t(locale, 'casesTitle')}</SectionTitle>
 
   <div class="mt-10 grid gap-6 md:grid-cols-2">
     {cases.map((c, i) => (
       <Reveal delay={i * 80}>
-        <div class="case-card relative flex h-full flex-col rounded-2xl border border-line bg-white p-6 md:p-8 overflow-hidden transition-all duration-200">
+        <article class="case-card relative flex h-full flex-col rounded-2xl border border-line bg-white p-6 md:p-8 overflow-hidden transition-all duration-200">
           <!-- Faded number -->
           <span class="absolute -top-2 -right-2 font-display text-[6rem] md:text-[8rem] font-bold text-ink/[0.03] leading-none select-none" aria-hidden="true">
             {String(i + 1).padStart(2, '0')}
@@ -33,7 +33,7 @@ const locale = getLocale(Astro.currentLocale);
           <HandwrittenNote rotate={i % 2 === 0 ? -2 : -3} class="relative mt-4 text-base">
             {c.lesson[locale]}
           </HandwrittenNote>
-        </div>
+        </article>
       </Reveal>
     ))}
   </div>

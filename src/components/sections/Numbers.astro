@@ -6,7 +6,7 @@ import Reveal from '../Reveal.astro';
 const locale = getLocale(Astro.currentLocale);
 ---
 
-<section class="relative bg-cobalt" style="clip-path: polygon(0 clamp(24px, 4vw, 48px), 100% 0, 100% calc(100% - clamp(24px, 4vw, 48px)), 0 100%); scroll-margin-top: 5rem;">
+<section class="relative bg-cobalt" aria-label={locale === 'en' ? 'Key numbers' : 'Ключові цифри'} style="clip-path: polygon(0 clamp(24px, 4vw, 48px), 100% 0, 100% calc(100% - clamp(24px, 4vw, 48px)), 0 100%); scroll-margin-top: 5rem;">
   <div class="mx-auto max-w-7xl px-5 md:px-6 py-16 md:py-20" style={`padding-top: calc(clamp(24px, 4vw, 48px) + 3rem); padding-bottom: calc(clamp(24px, 4vw, 48px) + 3rem);`}>
     <div class="grid grid-cols-2 gap-8 md:grid-cols-4 md:gap-12">
       {numbers.map((n, i) => (

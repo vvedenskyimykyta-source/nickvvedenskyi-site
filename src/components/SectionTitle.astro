@@ -1,13 +1,15 @@
 ---
 interface Props {
+  id?: string;
   class?: string;
   as?: 'h1' | 'h2' | 'h3';
 }
 
-const { class: className = '', as: Tag = 'h2' } = Astro.props;
+const { id, class: className = '', as: Tag = 'h2' } = Astro.props;
 ---
 
 <Tag
+  id={id}
   class:list={[
     'font-display font-semibold text-ink',
     Tag === 'h1'

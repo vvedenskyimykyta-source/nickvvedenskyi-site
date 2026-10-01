@@ -6,9 +6,10 @@ interface Props {
   slantTop?: boolean;
   slantBottom?: boolean;
   narrow?: boolean;
+  ariaLabelledby?: string;
 }
 
-const { id, class: className = '', bg = 'paper', slantTop, slantBottom, narrow } = Astro.props;
+const { id, class: className = '', bg = 'paper', slantTop, slantBottom, narrow, ariaLabelledby } = Astro.props;
 
 const bgClasses = {
   paper: 'bg-paper',
@@ -19,6 +20,7 @@ const bgClasses = {
 
 <section
   id={id}
+  aria-labelledby={ariaLabelledby}
   class:list={[
     'relative py-16 md:py-24',
     bgClasses,
