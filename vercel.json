@@ -1,12 +1,5 @@
 {
-  "redirects": [
-    {
-      "source": "/(.*)",
-      "has": [{ "type": "host", "value": "www.nickvvedenskyi.com" }],
-      "destination": "https://nickvvedenskyi.com/$1",
-      "permanent": true
-    }
-  ],
+  "redirects": [],
   "headers": [
     {
       "source": "/(.*)",
