@@ -5,12 +5,12 @@ import Reveal from '../Reveal.astro';
 const locale = getLocale(Astro.currentLocale);
 ---
 
-<aside class="relative bg-wine/10 py-12 md:py-16" aria-label={locale === 'en' ? 'Founding client offer' : 'Пропозиція для перших клієнтів'}>
+<aside class="relative bg-cobalt py-12 md:py-16" aria-label={locale === 'en' ? 'Founding client offer' : 'Пропозиція для перших клієнтів'}>
   <div class="mx-auto max-w-7xl px-5 md:px-6">
     <Reveal>
       <div class="relative">
-        <h2 class="font-display text-2xl font-semibold md:text-3xl text-wine">{t(locale, 'foundingTitle')}</h2>
-        <p class="mt-4 text-lg text-ink-soft leading-relaxed max-w-[58ch]">
+        <h2 class="font-display text-2xl font-semibold md:text-3xl text-white">{t(locale, 'foundingTitle')}</h2>
+        <p class="mt-4 text-lg text-white/80 leading-relaxed max-w-[58ch]">
           {t(locale, 'foundingText')}
         </p>
 
@@ -18,26 +18,26 @@ const locale = getLocale(Astro.currentLocale);
         <div class="mt-6 flex gap-4 md:gap-6" id="countdown" aria-label={locale === 'en' ? 'Time remaining until December 1, 2026' : 'Час до 1 грудня 2026'}>
           <time datetime="2026-12-01T00:00:00+01:00" class="sr-only">{locale === 'en' ? 'December 1, 2026' : '1 грудня 2026'}</time>
           <div class="text-center">
-            <span class="font-display text-4xl md:text-5xl font-bold text-wine" id="cd-days">--</span>
-            <p class="text-xs text-ink-soft mt-1">{locale === 'en' ? 'days' : 'днів'}</p>
+            <span class="font-display text-4xl md:text-5xl font-bold text-white" id="cd-days">--</span>
+            <p class="text-xs text-white/60 mt-1">{locale === 'en' ? 'days' : 'днів'}</p>
           </div>
           <div class="text-center">
-            <span class="font-display text-4xl md:text-5xl font-bold text-wine" id="cd-hours">--</span>
-            <p class="text-xs text-ink-soft mt-1">{locale === 'en' ? 'hours' : 'годин'}</p>
+            <span class="font-display text-4xl md:text-5xl font-bold text-white" id="cd-hours">--</span>
+            <p class="text-xs text-white/60 mt-1">{locale === 'en' ? 'hours' : 'годин'}</p>
           </div>
           <div class="text-center">
-            <span class="font-display text-4xl md:text-5xl font-bold text-wine" id="cd-mins">--</span>
-            <p class="text-xs text-ink-soft mt-1">{locale === 'en' ? 'min' : 'хв'}</p>
+            <span class="font-display text-4xl md:text-5xl font-bold text-white" id="cd-mins">--</span>
+            <p class="text-xs text-white/60 mt-1">{locale === 'en' ? 'min' : 'хв'}</p>
           </div>
           <div class="text-center">
-            <span class="font-display text-4xl md:text-5xl font-bold text-wine" id="cd-secs">--</span>
-            <p class="text-xs text-ink-soft mt-1">{locale === 'en' ? 'sec' : 'сек'}</p>
+            <span class="font-display text-4xl md:text-5xl font-bold text-white" id="cd-secs">--</span>
+            <p class="text-xs text-white/60 mt-1">{locale === 'en' ? 'sec' : 'сек'}</p>
           </div>
         </div>
 
         <a
           href="#book"
-          class="btn-wine btn-magnetic mt-8 inline-flex text-base px-8 py-3.5"
+          class="btn-magnetic mt-8 inline-flex text-base px-8 py-3.5 rounded-full bg-white text-cobalt font-display font-semibold transition-all duration-300 hover:bg-white/90 hover:shadow-lg"
           data-event="cta_book_call"
           data-location="founding"
         >

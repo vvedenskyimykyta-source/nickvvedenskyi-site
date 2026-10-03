@@ -9,25 +9,25 @@ import HandwrittenNote from '../HandwrittenNote.astro';
 const locale = getLocale(Astro.currentLocale);
 ---
 
-<Section id="cases" ariaLabelledby="cases-heading">
+<Section id="cases" bg="deep" ariaLabelledby="cases-heading">
   <SectionTitle id="cases-heading">{t(locale, 'casesTitle')}</SectionTitle>
 
   <div class="mt-10 grid gap-6 md:grid-cols-2">
     {cases.map((c, i) => (
       <Reveal delay={i * 80}>
-        <article class="case-card relative flex h-full flex-col rounded-2xl border border-line bg-white p-6 md:p-8 overflow-hidden transition-all duration-200">
+        <article class="case-card glass-card-dark relative flex h-full flex-col rounded-2xl p-6 md:p-8 overflow-hidden transition-all duration-200">
           <!-- Faded number -->
-          <span class="absolute -top-2 -right-2 font-display text-[6rem] md:text-[8rem] font-bold text-ink/[0.03] leading-none select-none" aria-hidden="true">
+          <span class="absolute -top-2 -right-2 font-display text-[6rem] md:text-[8rem] font-bold text-white/[0.05] leading-none select-none" aria-hidden="true">
             {String(i + 1).padStart(2, '0')}
           </span>
 
           <span class="relative text-xs font-medium uppercase tracking-wider text-cobalt">{c.label[locale]}</span>
-          <h3 class="relative mt-2 font-display text-xl font-semibold">{c.title[locale]}</h3>
-          <p class="relative mt-3 text-ink-soft leading-relaxed flex-1">{c.story[locale]}</p>
+          <h3 class="relative mt-2 font-display text-xl font-semibold text-white">{c.title[locale]}</h3>
+          <p class="relative mt-3 text-text-on-dark-muted leading-relaxed flex-1">{c.story[locale]}</p>
 
           <!-- Result line -->
-          <div class="relative mt-4 rounded-lg bg-cobalt/5 px-4 py-3">
-            <p class="font-display text-lg font-semibold text-cobalt">{c.result[locale]}</p>
+          <div class="relative mt-4 rounded-lg bg-cobalt/10 px-4 py-3">
+            <p class="font-display text-lg font-semibold text-green-light">{c.result[locale]}</p>
           </div>
 
           <HandwrittenNote rotate={i % 2 === 0 ? -2 : -3} class="relative mt-4 text-base">
@@ -42,11 +42,6 @@ const locale = getLocale(Astro.currentLocale);
 <style>
   .case-card:hover {
     border-color: var(--color-cobalt);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
-  }
-  @media (hover: hover) {
-    .case-card:hover {
-      transform: rotate(-0.5deg);
-    }
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
   }
 </style>

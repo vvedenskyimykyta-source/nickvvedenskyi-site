@@ -10,7 +10,7 @@ const locale = getLocale(Astro.currentLocale);
 const cardBgs = ['bg-paper', 'bg-paper-2'];
 ---
 
-<Section id="testimonials" ariaLabelledby="testimonials-heading">
+<Section id="testimonials" bg="paper-2" ariaLabelledby="testimonials-heading">
   <SectionTitle id="testimonials-heading">{t(locale, 'testimonialsTitle')}</SectionTitle>
   <p class="mt-3 text-sm text-ink-soft max-w-[58ch]">{t(locale, 'testimonialsSub')}</p>
   <p class="mt-2 text-xs text-ink-soft max-w-[58ch]">{t(locale, 'testimonialsHonest')}</p>

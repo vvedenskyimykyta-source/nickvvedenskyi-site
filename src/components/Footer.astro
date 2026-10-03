@@ -5,19 +5,19 @@ import { site } from '../data/site';
 const locale = getLocale(Astro.currentLocale);
 ---
 
-<footer class="bg-paper-2 border-t border-line">
+<footer class="bg-deep border-t border-white/10">
   <div class="mx-auto max-w-7xl px-5 md:px-6 py-12 md:py-16">
     <div class="flex flex-col gap-8">
       <!-- Top -->
       <div class="flex flex-col gap-4">
-        <p class="font-display text-lg font-semibold">{site.name} · {t(locale, 'footerTagline')}</p>
+        <p class="font-display text-lg font-semibold text-white">{site.name} · {t(locale, 'footerTagline')}</p>
         <address class="not-italic flex gap-4 items-center">
           {site.linkedin && (
             <a
               href={site.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              class="text-ink-soft hover:text-cobalt transition-colors touch-manipulation min-w-[44px] min-h-[44px] flex items-center justify-center"
+              class="text-white/60 hover:text-cobalt transition-colors touch-manipulation min-w-[44px] min-h-[44px] flex items-center justify-center"
               data-event="outbound_linkedin"
               data-location="footer"
               aria-label="LinkedIn"
@@ -30,7 +30,7 @@ const locale = getLocale(Astro.currentLocale);
               href={site.instagram}
               target="_blank"
               rel="noopener noreferrer"
-              class="text-ink-soft hover:text-cobalt transition-colors touch-manipulation min-h-[44px] flex items-center gap-2"
+              class="text-white/60 hover:text-cobalt transition-colors touch-manipulation min-h-[44px] flex items-center gap-2"
               data-event="outbound_instagram"
               data-location="footer"
             >
@@ -41,7 +41,7 @@ const locale = getLocale(Astro.currentLocale);
           {site.email && (
             <a
               href={`mailto:${site.email}`}
-              class="text-ink-soft hover:text-cobalt transition-colors touch-manipulation min-w-[44px] min-h-[44px] flex items-center justify-center"
+              class="text-white/60 hover:text-cobalt transition-colors touch-manipulation min-w-[44px] min-h-[44px] flex items-center justify-center"
               data-event="click_email"
               data-location="footer"
               aria-label="Email"
@@ -53,17 +53,17 @@ const locale = getLocale(Astro.currentLocale);
       </div>
 
       <!-- Divider -->
-      <hr class="border-line" />
+      <hr class="border-white/10" />
 
       <!-- Bottom -->
       <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div class="flex flex-wrap gap-4 sm:gap-6">
-          <a href={locale === 'uk' ? '/uk/privacy' : '/privacy'} class="text-sm text-ink-soft hover:text-ink transition-colors touch-manipulation min-h-[44px] flex items-center">
+          <a href={locale === 'uk' ? '/uk/privacy' : '/privacy'} class="text-sm text-white/60 hover:text-white transition-colors touch-manipulation min-h-[44px] flex items-center">
             {t(locale, 'footerPrivacy')}
           </a>
           <button
             id="cookie-settings-btn"
-            class="text-sm text-ink-soft hover:text-ink transition-colors touch-manipulation min-h-[44px] flex items-center"
+            class="text-sm text-white/60 hover:text-white transition-colors touch-manipulation min-h-[44px] flex items-center"
           >
             {t(locale, 'footerCookies')}
           </button>
@@ -76,7 +76,7 @@ const locale = getLocale(Astro.currentLocale);
             {t(locale, 'langSwitchLabel')}
           </a>
         </div>
-        <p class="text-sm text-ink-soft">{t(locale, 'footerMade')}</p>
+        <p class="text-sm text-white/60">{t(locale, 'footerMade')}</p>
       </div>
     </div>
   </div>
