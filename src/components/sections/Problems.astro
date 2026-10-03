@@ -7,13 +7,6 @@ import Reveal from '../Reveal.astro';
 
 const locale = getLocale(Astro.currentLocale);
 
-const tagColors: Record<string, string> = {
-  Discovery: 'border-t-cobalt',
-  Positioning: 'border-t-wine',
-  GTM: 'border-t-[#B8860B]',
-  Sales: 'border-t-[#2E7D6F]',
-  Retention: 'border-t-[#8B5CF6]',
-};
 ---
 
 <Section id="problems" bg="paper-2" ariaLabelledby="problems-heading">
@@ -25,10 +18,9 @@ const tagColors: Record<string, string> = {
 
   <div class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
     {problems.map((p, i) => {
-      const borderClass = tagColors[p.tags[0]] || 'border-t-cobalt';
       return (
         <Reveal delay={i * 80}>
-          <div class={`problem-card relative flex h-full flex-col justify-between rounded-2xl border border-line border-t-[3px] ${borderClass} bg-white p-6 transition-all duration-200`}>
+          <div class={`problem-card glass-card relative flex h-full flex-col justify-between p-6`}>
             <span class="absolute top-4 left-5 font-display text-5xl font-bold text-ink/[0.04] leading-none select-none" aria-hidden="true">
               {String(i + 1).padStart(2, '0')}
             </span>
@@ -47,7 +39,7 @@ const tagColors: Record<string, string> = {
 
     {/* Card 6: CTA card */}
     <Reveal delay={problems.length * 80}>
-      <div class="problem-card relative flex h-full flex-col justify-between rounded-2xl border-2 border-cobalt bg-cobalt/5 p-6 transition-all duration-200">
+      <div class="problem-card glass-card relative flex h-full flex-col justify-between p-6 !border-2 !border-dashed !border-cobalt">
         <div class="flex justify-end gap-1.5 mb-3">
           <span class="rounded-full bg-cobalt/10 text-cobalt px-3 py-0.5 text-xs font-medium">{t(locale, 'problemsCtaTag')}</span>
         </div>
@@ -78,9 +70,7 @@ const tagColors: Record<string, string> = {
 </Section>
 
 <style>
-  .problem-card:hover {
-    border-color: var(--color-cobalt);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(47, 79, 168, 0.1);
+  .problem-card {
+    cursor: default;
   }
 </style>

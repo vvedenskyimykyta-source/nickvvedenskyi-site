@@ -11,7 +11,7 @@ const locale = getLocale(Astro.currentLocale);
     <div class="grid grid-cols-2 gap-8 md:grid-cols-4 md:gap-12">
       {numbers.map((n, i) => (
         <Reveal delay={i * 80}>
-          <div class="text-center">
+          <div class="text-center rounded-2xl p-6 transition-all duration-300 hover:bg-white/[0.06] hover:shadow-[0_0_30px_rgba(110,195,25,0.1)]">
             <div class="relative inline-flex items-baseline">
               <span
                 class="font-display text-[clamp(3rem,8vw,5rem)] font-bold text-green-light leading-none tracking-[-0.03em]"

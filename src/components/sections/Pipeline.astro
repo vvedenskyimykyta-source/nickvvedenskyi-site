@@ -8,7 +8,6 @@ import Reveal from '../Reveal.astro';
 
 const locale = getLocale(Astro.currentLocale);
 
-const stepColors = ['bg-step-1', 'bg-step-2', 'bg-step-3', 'bg-step-4', 'bg-step-5', 'bg-step-6'];
 ---
 
 <Section id="how-i-help" class="pt-20 md:pt-28" ariaLabelledby="how-i-help-heading">
@@ -36,7 +35,7 @@ const stepColors = ['bg-step-1', 'bg-step-2', 'bg-step-3', 'bg-step-4', 'bg-step
     {services.map((s, i) => (
       <Reveal delay={i * 80}>
         <div
-          class={`pipeline-card rounded-2xl border border-line transition-all duration-300 ${stepColors[i]}`}
+          class="pipeline-card glass-card transition-all duration-300"
           data-step={String(s.step)}
         >
           <button
@@ -112,13 +111,11 @@ const stepColors = ['bg-step-1', 'bg-step-2', 'bg-step-3', 'bg-step-4', 'bg-step
 
 <style>
   .pipeline-card {
-    opacity: 0.7;
+    opacity: 0.85;
   }
   .pipeline-card.pipeline-active {
     opacity: 1;
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-    border-color: var(--color-cobalt);
+    border-left: 4px solid var(--color-cobalt);
   }
 </style>
 

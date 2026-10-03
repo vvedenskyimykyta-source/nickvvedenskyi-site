@@ -14,22 +14,24 @@ const locale = getLocale(Astro.currentLocale);
   <!-- Steps -->
   <div class="mt-10 relative">
     <!-- Vertical line (mobile) / horizontal line (desktop) -->
-    <div class="absolute top-0 bottom-0 left-5 w-px bg-line md:hidden" />
+    <div class="absolute top-0 bottom-0 left-5 w-px border-l border-dashed border-line md:hidden" />
 
     <div class="flex flex-col gap-8 md:grid md:grid-cols-4 md:gap-6">
       {howSteps.map((step, i) => (
         <Reveal delay={i * 100}>
-          <div class="relative pl-12 md:pl-0 md:text-center">
-            {/* Number */}
-            <div class="absolute left-0 top-0 md:relative md:left-auto md:mx-auto flex h-10 w-10 items-center justify-center rounded-full bg-cobalt font-display text-lg font-bold text-white">
-              {step.num}
+          <div class="relative pl-12 md:pl-0">
+            <div class="glass-card p-5 md:text-center">
+              {/* Number */}
+              <div class="absolute left-0 top-5 md:relative md:left-auto md:mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-cobalt font-display text-lg font-bold text-white">
+                {step.num}
+              </div>
+              {/* Connecting line segment (desktop) */}
+              {i < howSteps.length - 1 && (
+                <div class="hidden md:block absolute top-6 left-[calc(50%+24px)] right-[-50%] border-t border-dashed border-line" />
+              )}
+              <h3 class="mt-2 md:mt-4 font-display text-lg font-semibold">{step.title[locale]}</h3>
+              <p class="mt-2 text-ink-soft leading-relaxed text-sm md:text-base">{step.text[locale]}</p>
             </div>
-            {/* Connecting line segment (desktop) */}
-            {i < howSteps.length - 1 && (
-              <div class="hidden md:block absolute top-5 left-[calc(50%+20px)] right-[-50%] h-px bg-line" />
-            )}
-            <h3 class="mt-2 md:mt-4 font-display text-lg font-semibold">{step.title[locale]}</h3>
-            <p class="mt-2 text-ink-soft leading-relaxed text-sm md:text-base">{step.text[locale]}</p>
           </div>
         </Reveal>
       ))}

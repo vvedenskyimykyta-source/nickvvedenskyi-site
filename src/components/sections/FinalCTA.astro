@@ -15,8 +15,8 @@ const tallyUrl = `https://tally.so/r/${locale === 'en' ? import.meta.env.PUBLIC_
   class="relative bg-deep text-white overflow-hidden"
   style="scroll-margin-top: 0;"
 >
-  <!-- Subtle dot pattern -->
-  <div class="absolute inset-0 opacity-[0.04]" aria-hidden="true" style="background-image: radial-gradient(circle, white 1px, transparent 1px); background-size: 24px 24px;"></div>
+  <!-- Decorative blob -->
+  <div class="deco-blob absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-20 w-[600px] h-[600px]" aria-hidden="true"></div>
 
   <div class="relative mx-auto max-w-7xl px-5 md:px-6 pt-20 pb-16 md:pt-28 md:pb-20">
     <SectionTitle id="book-heading" class="text-white">{t(locale, 'ctaTitle')}</SectionTitle>
@@ -28,13 +28,13 @@ const tallyUrl = `https://tally.so/r/${locale === 'en' ? import.meta.env.PUBLIC_
     <div class="mt-10 grid gap-6 lg:grid-cols-2 lg:gap-8">
       <!-- Card A: Talk to me -->
       <Reveal>
-        <div class="rounded-2xl bg-paper text-ink h-full flex flex-col p-6 md:p-8 justify-between shadow-lg">
+        <div class="glass-card-dark h-full flex flex-col p-6 md:p-8 justify-between border-t-4 border-t-cobalt">
           <div>
-            <h3 class="font-display text-2xl md:text-3xl font-bold leading-tight text-ink">
+            <h3 class="font-display text-2xl md:text-3xl font-bold leading-tight text-white">
               {t(locale, 'ctaCardATitle')}
             </h3>
 
-            <p class="mt-4 text-ink-soft leading-relaxed">
+            <p class="mt-4 text-text-on-dark-muted leading-relaxed">
               {t(locale, 'ctaCardAText')}
             </p>
           </div>
@@ -59,13 +59,13 @@ const tallyUrl = `https://tally.so/r/${locale === 'en' ? import.meta.env.PUBLIC_
 
       <!-- Card B: Quiz -->
       <Reveal delay={100}>
-        <div class="rounded-2xl bg-paper text-ink h-full flex flex-col p-6 md:p-8 justify-between shadow-lg">
+        <div class="glass-card-dark h-full flex flex-col p-6 md:p-8 justify-between border-t-4 border-t-amber">
           <div>
-            <h3 class="font-display text-2xl md:text-3xl font-bold leading-tight text-ink">
+            <h3 class="font-display text-2xl md:text-3xl font-bold leading-tight text-white">
               {t(locale, 'ctaCardBTitle')}
             </h3>
 
-            <p class="mt-4 text-ink-soft leading-relaxed">
+            <p class="mt-4 text-text-on-dark-muted leading-relaxed">
               {t(locale, 'ctaCardBText')}
             </p>
           </div>
