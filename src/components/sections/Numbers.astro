@@ -6,24 +6,24 @@ import Reveal from '../Reveal.astro';
 const locale = getLocale(Astro.currentLocale);
 ---
 
-<section class="relative bg-cobalt" aria-label={locale === 'en' ? 'Key numbers' : 'Ключові цифри'} style="clip-path: polygon(0 clamp(24px, 4vw, 48px), 100% 0, 100% calc(100% - clamp(24px, 4vw, 48px)), 0 100%); scroll-margin-top: 5rem;">
-  <div class="mx-auto max-w-7xl px-5 md:px-6 py-16 md:py-20" style={`padding-top: calc(clamp(24px, 4vw, 48px) + 3rem); padding-bottom: calc(clamp(24px, 4vw, 48px) + 3rem);`}>
+<section class="relative bg-deep" aria-label={locale === 'en' ? 'Key numbers' : 'Ключові цифри'} style="scroll-margin-top: 5rem;">
+  <div class="mx-auto max-w-7xl px-5 md:px-6 py-16 md:py-24">
     <div class="grid grid-cols-2 gap-8 md:grid-cols-4 md:gap-12">
       {numbers.map((n, i) => (
         <Reveal delay={i * 80}>
           <div class="text-center">
             <div class="relative inline-flex items-baseline">
               <span
-                class="font-display text-[clamp(3rem,8vw,6rem)] font-bold text-paper leading-none"
+                class="font-display text-[clamp(3rem,8vw,5rem)] font-bold text-green-light leading-none tracking-[-0.03em]"
                 data-count-to={n.value}
               >
                 {n.value}
               </span>
               {n.suffix && (
-                <span class="font-display text-[clamp(1.5rem,3vw,3rem)] font-bold text-paper">{n.suffix}</span>
+                <span class="font-display text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-green-light">{n.suffix}</span>
               )}
             </div>
-            <p class="mt-2 text-sm text-white/60 uppercase tracking-wider leading-snug">{n.label[locale]}</p>
+            <p class="mt-2 text-sm text-text-on-dark-muted uppercase tracking-wider leading-snug">{n.label[locale]}</p>
           </div>
         </Reveal>
       ))}
