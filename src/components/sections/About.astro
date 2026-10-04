@@ -1,123 +1,57 @@
 ---
 import { Image } from 'astro:assets';
 import { t, getLocale } from '../../i18n';
-import Section from '../Section.astro';
-import SectionTitle from '../SectionTitle.astro';
-import Reveal from '../Reveal.astro';
 import lifeImg from '../../assets/images/nick-life.jpg';
 
 const locale = getLocale(Astro.currentLocale);
-const panels = [t(locale, 'aboutPanel0'), t(locale, 'aboutPanel1'), t(locale, 'aboutPanel2')];
 ---
 
-<Section id="about" bg="bg" ariaLabelledby="about-heading">
-  <div class="flex flex-col gap-10 lg:flex-row lg:gap-16 lg:items-start">
-    <!-- Photo -->
-    <Reveal class="relative flex-shrink-0 lg:w-[340px] xl:w-[380px]">
-      <div class="relative mx-auto w-[260px] sm:w-[300px] lg:w-full">
-        <div class="relative w-full aspect-[3/4] rounded-3xl overflow-hidden shadow-lg">
-          <Image
-            src={lifeImg}
-            alt="Nick Vvedenskyi"
-            widths={[260, 300, 380, 520, 600, 760]}
-            sizes="(max-width: 640px) 260px, (max-width: 1024px) 300px, 380px"
-            class="w-full h-full object-cover object-[center_25%]"
-            loading="lazy"
-          />
+<section id="about" class="py-24 md:py-28" style="background: #F4F4F4; scroll-margin-top: 72px;" aria-labelledby="about-heading">
+  <div class="mx-auto max-w-[1240px] px-4 md:px-8">
+    <div class="flex flex-col gap-10 lg:flex-row lg:gap-16 lg:items-start">
+      <!-- Photo -->
+      <div class="relative flex-shrink-0 lg:w-[340px] xl:w-[380px] lg:sticky lg:top-[90px]">
+        <div class="relative mx-auto w-[260px] sm:w-[300px] lg:w-full">
+          <div class="relative w-full rounded-[32px] overflow-hidden" style="aspect-ratio: 4/5; box-shadow: 0 30px 60px -30px rgba(26,32,54,0.3);">
+            <Image
+              src={lifeImg}
+              alt="Nick Vvedenskyi"
+              widths={[260, 300, 380, 520, 600, 760]}
+              sizes="(max-width: 640px) 260px, (max-width: 1024px) 300px, 380px"
+              class="w-full h-full object-cover object-[center_25%]"
+              loading="lazy"
+            />
+          </div>
         </div>
       </div>
-    </Reveal>
 
-    <!-- Text -->
-    <div class="flex-1">
-      <div class="flex flex-wrap gap-2 mb-4">
-        <span class="rounded-full bg-white px-3 py-1 text-sm font-medium text-dark-alt border border-dark/5">{t(locale, 'aboutTag1')}</span>
-        <span class="rounded-full bg-white px-3 py-1 text-sm font-medium text-dark-alt border border-dark/5">{t(locale, 'aboutTag2')}</span>
-        <span class="rounded-full bg-white px-3 py-1 text-sm font-medium text-dark-alt border border-dark/5">{t(locale, 'aboutTag3')}</span>
+      <!-- Text -->
+      <div class="flex-1">
+        <p class="font-mono text-xs uppercase tracking-[0.15em] text-text-secondary mb-4">{t(locale, 'aboutTitle')}</p>
+        <div class="flex flex-wrap gap-2 mb-4">
+          <span class="rounded-full bg-white px-3 py-1 text-sm font-medium text-dark border border-dark/[0.06]">{t(locale, 'aboutTag1')}</span>
+          <span class="rounded-full bg-white px-3 py-1 text-sm font-medium text-dark border border-dark/[0.06]">{t(locale, 'aboutTag2')}</span>
+          <span class="rounded-full bg-white px-3 py-1 text-sm font-medium text-dark border border-dark/[0.06]">{t(locale, 'aboutTag3')}</span>
+        </div>
+
+        <h2 id="about-heading" class="font-display text-[clamp(2rem,4vw,2.5rem)] font-bold text-dark tracking-[-0.035em]">{t(locale, 'aboutSub')}</h2>
+
+        <div class="mt-6 space-y-4">
+          <p class="text-text-secondary leading-relaxed max-w-[58ch]">{t(locale, 'aboutPanel0')}</p>
+          <p class="text-text-secondary leading-relaxed max-w-[58ch]">{t(locale, 'aboutPanel1')}</p>
+          <p class="text-text-secondary leading-relaxed max-w-[58ch]">{t(locale, 'aboutPanel2')}</p>
+        </div>
       </div>
+    </div>
 
-      <SectionTitle id="about-heading">{t(locale, 'aboutSub')}</SectionTitle>
-
-      <!-- Rotating panels -->
-      <div class="mt-6 relative" id="about-panels">
-        {panels.map((text, i) => (
-          <p
-            class={`about-panel text-text-secondary leading-relaxed max-w-[58ch] transition-opacity duration-500 ${i === 0 ? '' : 'absolute top-0 left-0 opacity-0 pointer-events-none'}`}
-            data-panel={i}
-          >
-            {text}
-          </p>
-        ))}
-      </div>
-
-      <!-- Dot indicators -->
-      <div class="flex gap-2 mt-6" id="about-dots">
-        {panels.map((_, i) => (
-          <button
-            class={`about-dot w-2.5 h-2.5 rounded-full transition-all duration-300 cursor-pointer ${i === 0 ? 'bg-green scale-125' : 'bg-dark/15'}`}
-            data-dot={i}
-            aria-label={`Panel ${i + 1}`}
-          />
-        ))}
+    <!-- Belief block -->
+    <div class="mt-16 md:mt-20">
+      <div class="rounded-[28px] p-8 md:p-12" style="background: linear-gradient(135deg, #B1F171 0%, #99D4FF 100%);">
+        <p class="font-display text-[clamp(1.75rem,3.5vw,2.75rem)] font-bold text-dark leading-[1.15] max-w-[30ch]">
+          {t(locale, 'aboutBelief')}
+        </p>
+        <p class="mt-3 text-dark/70 max-w-[48ch]">{t(locale, 'aboutBeliefSub')}</p>
       </div>
     </div>
   </div>
-
-  <!-- Belief block -->
-  <Reveal class="mt-16 md:mt-20">
-    <div class="card !bg-white p-8 md:p-12">
-      <p class="font-display text-[clamp(1.75rem,3.5vw,2.75rem)] font-bold text-dark leading-[1.15] max-w-[30ch]">
-        {t(locale, 'aboutBelief')}
-      </p>
-      <p class="mt-3 text-text-secondary max-w-[48ch]">{t(locale, 'aboutBeliefSub')}</p>
-    </div>
-  </Reveal>
-</Section>
-
-<script>
-  const panelEls = document.querySelectorAll<HTMLElement>('.about-panel');
-  const dotEls = document.querySelectorAll<HTMLElement>('.about-dot');
-  let current = 0;
-  let timer: ReturnType<typeof setInterval>;
-
-  function showPanel(index: number) {
-    current = index;
-    panelEls.forEach((p, i) => {
-      const isActive = i === index;
-      p.classList.toggle('opacity-0', !isActive);
-      p.classList.toggle('pointer-events-none', !isActive);
-      if (isActive) {
-        p.classList.remove('absolute');
-        p.style.position = '';
-      } else {
-        p.classList.add('absolute');
-      }
-    });
-    dotEls.forEach((d, i) => {
-      d.classList.toggle('bg-green', i === index);
-      d.classList.toggle('scale-125', i === index);
-      d.classList.toggle('bg-dark/15', i !== index);
-    });
-  }
-
-  function startAutoRotate() {
-    clearInterval(timer);
-    timer = setInterval(() => {
-      showPanel((current + 1) % panelEls.length);
-    }, 5000);
-  }
-
-  dotEls.forEach(d => {
-    d.addEventListener('click', () => {
-      const i = Number(d.dataset.dot);
-      if (!isNaN(i)) {
-        showPanel(i);
-        startAutoRotate();
-      }
-    });
-  });
-
-  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    startAutoRotate();
-  }
-</script>
+</section>

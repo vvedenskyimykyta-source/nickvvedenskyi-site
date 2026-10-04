@@ -3,59 +3,76 @@ import { t, getLocale } from '../i18n';
 
 const locale = getLocale(Astro.currentLocale);
 const langHref = t(locale, 'langSwitchHref');
-const langLabel = t(locale, 'langSwitchLabel');
 ---
 
 <header
   id="site-header"
-  class="fixed top-0 left-0 right-0 z-50 h-16 transition-shadow duration-200"
+  class="sticky top-0 left-0 right-0 z-50 transition-all duration-200"
   data-header
 >
-  <div class="mx-auto flex h-full max-w-[1240px] items-center justify-between px-4 md:px-8">
+  <div class="mx-auto flex h-[66px] max-w-[1240px] items-center justify-between px-4 md:px-8">
     <!-- Logo -->
-    <a href={locale === 'uk' ? '/uk/' : '/'} class="font-display text-lg font-bold text-dark whitespace-nowrap touch-manipulation">
+    <a href={locale === 'uk' ? '/uk/' : '/'} class="font-display text-lg font-bold text-dark whitespace-nowrap touch-manipulation" style="letter-spacing: -0.02em;">
       Nick Vvedenskyi
     </a>
 
     <!-- Desktop nav -->
-    <nav class="hidden items-center gap-6 lg:flex" aria-label="Main navigation">
+    <nav class="hidden items-center gap-7 lg:flex" aria-label="Main navigation">
       {[
         { href: '#how-i-help', label: locale === 'en' ? 'How I help' : 'Чим допомагаю' },
         { href: '#cases', label: locale === 'en' ? 'Cases' : 'Кейси' },
         { href: '#about', label: locale === 'en' ? 'About' : 'Про мене' },
-        { href: '#faq', label: 'FAQ' },
       ].map(item => (
         <a
           href={item.href}
-          class="text-sm font-medium text-text-secondary transition-colors hover:text-dark touch-manipulation"
+          class="text-[15px] font-medium text-text-secondary transition-colors hover:text-dark touch-manipulation"
         >
           {item.label}
         </a>
       ))}
     </nav>
 
-    <!-- Right side -->
-    <div class="flex items-center gap-3">
-      <!-- Lang switcher -->
-      <a
-        href={langHref}
-        class="text-sm font-bold text-green hover:text-green-hover transition-colors touch-manipulation min-w-[44px] min-h-[44px] flex items-center justify-center"
-        aria-label={langLabel === 'UA' ? 'Перейти на українську' : 'Switch to English'}
-        data-event="lang_switch"
-        data-location="header"
-      >
-        {langLabel}
-      </a>
+    <!-- Right side: socials + lang -->
+    <div class="flex items-center gap-4">
+      <!-- Social icons (desktop) -->
+      <div class="hidden md:flex items-center gap-3">
+        <a href="https://www.linkedin.com/in/nick-vvedenskyi/" target="_blank" rel="noopener noreferrer" class="text-text-secondary hover:text-dark transition-colors" aria-label="LinkedIn">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        </a>
+        <a href="mailto:vvedenskyimykyta@gmail.com" class="text-text-secondary hover:text-dark transition-colors" aria-label="Email">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+        </a>
+        <a href="https://www.instagram.com/lagerfeeld_/" target="_blank" rel="noopener noreferrer" class="text-text-secondary hover:text-dark transition-colors" aria-label="Instagram">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg>
+        </a>
+      </div>
 
-      <!-- CTA button (desktop) -->
-      <a
-        href="#book"
-        class="hidden lg:inline-flex btn-primary text-sm px-5 py-2"
-        data-event="cta_book_call"
-        data-location="header"
-      >
-        {t(locale, 'bookCallShort')}
-      </a>
+      <!-- Divider (desktop) -->
+      <div class="hidden md:block w-px h-5 bg-dark/10"></div>
+
+      <!-- Lang switcher -->
+      <div class="flex items-center gap-1">
+        <a
+          href="/"
+          class:list={[
+            "text-sm font-semibold px-2.5 py-1 rounded-full transition-colors touch-manipulation",
+            locale === 'en' ? 'bg-dark text-white' : 'text-text-secondary hover:text-dark'
+          ]}
+          aria-label="English"
+        >
+          EN
+        </a>
+        <a
+          href="/uk/"
+          class:list={[
+            "text-sm font-semibold px-2.5 py-1 rounded-full transition-colors touch-manipulation",
+            locale === 'uk' ? 'bg-dark text-white' : 'text-text-secondary hover:text-dark'
+          ]}
+          aria-label="Українська"
+        >
+          UA
+        </a>
+      </div>
 
       <!-- Burger button (mobile) -->
       <button
@@ -85,7 +102,6 @@ const langLabel = t(locale, 'langSwitchLabel');
       { href: '#how-i-help', label: locale === 'en' ? 'How I help' : 'Чим допомагаю' },
       { href: '#cases', label: locale === 'en' ? 'Cases' : 'Кейси' },
       { href: '#about', label: locale === 'en' ? 'About' : 'Про мене' },
-      { href: '#faq', label: 'FAQ' },
     ].map(item => (
       <a
         href={item.href}
@@ -94,7 +110,7 @@ const langLabel = t(locale, 'langSwitchLabel');
         {item.label}
       </a>
     ))}
-    <div class="mt-4 pt-4 border-t border-dark/5">
+    <div class="mt-4 pt-4 border-t border-dark/5 flex flex-col gap-3">
       <a
         href="#book"
         class="mobile-nav-link btn-primary w-full text-center text-base py-3"
@@ -103,32 +119,35 @@ const langLabel = t(locale, 'langSwitchLabel');
       >
         {t(locale, 'bookCall')}
       </a>
+      <!-- Mobile socials -->
+      <div class="flex items-center justify-center gap-4 pt-2">
+        <a href="https://www.linkedin.com/in/nick-vvedenskyi/" target="_blank" rel="noopener noreferrer" class="text-text-secondary" aria-label="LinkedIn">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        </a>
+        <a href="mailto:vvedenskyimykyta@gmail.com" class="text-text-secondary" aria-label="Email">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+        </a>
+        <a href="https://www.instagram.com/lagerfeeld_/" target="_blank" rel="noopener noreferrer" class="text-text-secondary" aria-label="Instagram">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg>
+        </a>
+      </div>
     </div>
   </nav>
 </div>
 
 <style>
   [data-header] {
-    background: transparent;
-  }
-  [data-header].scrolled {
-    background: rgba(255, 255, 255, 0.9);
-    border-bottom: 1px solid rgba(26, 32, 54, 0.05);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    background: rgba(255, 255, 255, 0.82);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
   }
 </style>
 
 <script>
-  const header = document.getElementById('site-header')!;
   const burger = document.getElementById('burger-btn')!;
   const menu = document.getElementById('mobile-menu')!;
   const burgerIcon = burger.querySelector('.burger-icon')!;
   const closeIcon = burger.querySelector('.close-icon')!;
-
-  const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 40);
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
 
   function toggleMenu(open?: boolean) {
     const isOpen = open ?? menu.classList.contains('hidden');

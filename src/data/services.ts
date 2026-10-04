@@ -2,6 +2,7 @@ export interface Service {
   name: string;
   slug: string;
   step: number;
+  subtitle: { en: string; uk: string };
   oneLiner: { en: string; uk: string };
   timeline: { en: string; uk: string };
   whatIsInside: { en: string[]; uk: string[] };
@@ -15,6 +16,7 @@ export const services: Service[] = [
     name: 'Buyer Sprint',
     slug: 'buyer-sprint',
     step: 1,
+    subtitle: { en: 'Who buys and why', uk: 'Хто купує і чому' },
     tag: { en: 'Where I usually start', uk: 'Звідси зазвичай починаю' },
     oneLiner: { en: 'Talking to your buyers until a pattern shows up.', uk: 'Розмови з покупцями, поки не зʼявиться патерн.' },
     timeline: { en: '4 weeks', uk: '4 тижні' },
@@ -32,6 +34,7 @@ export const services: Service[] = [
     name: 'Brand-Market Fit',
     slug: 'brand-market-fit',
     step: 2,
+    subtitle: { en: 'Why they pick you', uk: 'Чому обирають тебе' },
     oneLiner: { en: 'Making the market understand what you are.', uk: 'Зробити так, щоб ринок зрозумів хто ти.' },
     timeline: { en: '3 weeks', uk: '3 тижні' },
     whatIsInside: {
@@ -48,6 +51,7 @@ export const services: Service[] = [
     name: 'Pipeline Audit',
     slug: 'pipeline-audit',
     step: 3,
+    subtitle: { en: 'How they find you and buy', uk: 'Як знаходять і купують' },
     oneLiner: { en: 'Finding where the deals quietly die.', uk: 'Знайти де угоди тихо помирають.' },
     timeline: { en: '2 weeks', uk: '2 тижні' },
     whatIsInside: {
@@ -64,6 +68,7 @@ export const services: Service[] = [
     name: 'Grow Through Your Customers',
     slug: 'grow-through-customers',
     step: 4,
+    subtitle: { en: 'Why they stay', uk: 'Чому залишаються' },
     oneLiner: { en: 'Giving people a reason not to leave.', uk: 'Дати людям причину не йти.' },
     timeline: { en: '4 weeks', uk: '4 тижні' },
     whatIsInside: {
@@ -80,6 +85,7 @@ export const services: Service[] = [
     name: 'Revenue Unlock',
     slug: 'revenue-unlock',
     step: 5,
+    subtitle: { en: 'How they pay more', uk: 'Як платять більше' },
     oneLiner: { en: 'Picking up money that is already lying there.', uk: 'Підібрати гроші, які вже лежать на столі.' },
     timeline: { en: '2 weeks', uk: '2 тижні' },
     whatIsInside: {
@@ -96,6 +102,7 @@ export const services: Service[] = [
     name: 'Launch Sprint',
     slug: 'launch-sprint',
     step: 6,
+    subtitle: { en: 'The whole path at once', uk: 'Весь шлях одразу' },
     oneLiner: { en: 'Taking something new to market, or an existing product to a new audience.', uk: 'Вивести щось нове на ринок, або існуючий продукт для нової аудиторії.' },
     timeline: { en: '2 months', uk: '2 місяці' },
     whatIsInside: {

@@ -4,7 +4,7 @@ export const cases = [
     tagBg: '#CCE9FF',
     title: { en: 'A pile of traffic and nobody paying for it', uk: 'Купа трафіку і ніхто за це не платить' },
     story: {
-      en: 'I was there to run content and SEO, and I did, but the thing I could not stop thinking about was that hundreds of thousands of people were showing up every month and the company made nothing from any of them. Nobody had put monetization on my plate. I built the partner commission model anyway and we shipped it with the team.',
+      en: 'I was there to run content and SEO team, and I did, but the thing I could not stop thinking about was that hundreds of thousands of people were showing up every month and the company made nothing from any of them. Nobody had put monetization on my plate. I built the partner commission model anyway and we shipped it with the team.',
       uk: 'Мене найняли для контенту та SEO, і я це робив, але не міг перестати думати про те, що сотні тисяч людей заходять кожного місяця, а компанія не заробляє на цьому нічого. Ніхто не ставив монетизацію мені в задачі. Я побудував модель партнерських комісій і ми запустили її з командою.',
     },
     result: {
@@ -38,7 +38,7 @@ export const cases = [
     tagBg: '#FDF1DC',
     title: { en: 'Two years of a client staying while the numbers disappointed everyone', uk: 'Два роки утримання клієнта поки цифри розчаровували всіх' },
     story: {
-      en: 'The organic results were worse than any of us wanted, and I am not going to dress that up. They stayed for more than two years anyway. Every month they knew exactly what had happened, what had not worked, and what we were doing about it, because I told them before they had to ask.',
+      en: 'The organic results were worse than any of us wanted, and I am not going to dress that up. They stayed for more than two years anyway. Every month they knew exactly what had happened, what had not worked, and what we were doing about it, because I told them before they had to ask. By year two we got to the numbers everyone wanted, but the road there was rough and the only reason we made it is because we never lost the client along the way.',
       uk: 'Органічні результати були гіршими ніж хотілось будь-кому, і я не буду це прикрашати. Вони залишались більше двох років. Кожного місяця вони знали що саме сталось, що не спрацювало, і що ми з цим робимо, бо я казав їм раніше ніж вони мусили питати.',
     },
     result: {
@@ -55,7 +55,7 @@ export const cases = [
     tagBg: '#CCE9FF',
     title: { en: 'Six months of ad spend and not a single angle anyone could explain', uk: 'Шість місяців витрат на рекламу і жодного підходу який хтось міг пояснити' },
     story: {
-      en: 'I inherited an ad account with six months of spend and no testing structure at all. Nobody could explain which angles had been tested, which had worked, or why the current creative was running. I rebuilt the testing framework from scratch and ran systematic angle tests until we found messaging that consistently landed.',
+      en: 'The team had been running paid campaigns for half a year. Meta, Google, a bit of Reddit. Every month the report said "testing in progress" and every month the cost per lead stayed the same. I came in and the first thing I did was stop everything. Then we rebuilt the testing from scratch: one variable at a time, clear kill criteria, weekly decisions. Within two months we had three angles that actually converted and could explain why each one worked.',
       uk: 'Я отримав рекламний кабінет з шістьма місяцями витрат і без жодної структури тестування. Ніхто не міг пояснити які підходи тестували, які спрацювали, і чому поточний креатив крутиться. Я перебудував фреймворк тестування з нуля і запускав систематичні тести підходів поки не знайшли меседжинг який стабільно працював.',
     },
     result: {
@@ -89,7 +89,7 @@ export const cases = [
     tagBg: '#FDF1DC',
     title: { en: '$300K/month across five channels and nobody knew which ones were paying for themselves', uk: '$300K на місяць по пʼяти каналах і ніхто не знав які окупаються' },
     story: {
-      en: 'I consolidated the channels into one view, audited unit economics per channel, killed two underperformers that had been running for a year, and restructured the paywall and pricing based on what the numbers actually said rather than what the team assumed.',
+      en: 'The budget was big enough that nobody wanted to touch it. Every channel had a team, every team had a dashboard, and none of the dashboards agreed with each other. I pulled everything into one view, killed two channels that were eating margin, doubled down on the one with the best payback window, and restructured the paywall so the users who stayed actually paid more over time.',
       uk: 'Я зібрав канали в одну картину, провів аудит unit-економіки по кожному каналу, вимкнув два неефективних які крутились рік, та перебудував paywall і ціноутворення на основі того що показували цифри, а не того що команда припускала.',
     },
     result: {
@@ -106,7 +106,7 @@ export const cases = [
     tagBg: '#CCE9FF',
     title: { en: 'A product idea everyone loved until we talked to the people who were supposed to pay for it', uk: 'Ідея продукту яку всі любили поки ми не поговорили з людьми які мали за неї платити' },
     story: {
-      en: 'Thirty customer interviews revealed that the original concept would not sell the way it was packaged. We pivoted the packaging and positioning, ran five paying pilots before writing a single line of production code, and validated with real money rather than enthusiasm.',
+      en: 'The founders had a concept, a pitch deck, and a lot of excitement from other founders. What they did not have was a single conversation with an actual buyer. I ran the discovery: thirty interviews in three weeks, mapped the patterns, and the thing we found was that the problem was real but the solution they had in mind solved it for people who would never pay. We pivoted the packaging before writing a line of code and validated the new version with five paying pilots.',
       uk: 'Тридцять інтервʼю з клієнтами показали що оригінальна концепція не продаватиметься в такому пакуванні. Ми змінили пакування та позиціонування, провели пʼять платних пілотів до написання першого рядка продакшн коду, і валідували реальними грошима а не ентузіазмом.',
     },
     result: {

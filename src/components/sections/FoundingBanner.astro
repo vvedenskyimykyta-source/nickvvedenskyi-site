@@ -1,39 +1,35 @@
 ---
 import { t, getLocale } from '../../i18n';
-import HandwrittenNote from '../HandwrittenNote.astro';
-import Reveal from '../Reveal.astro';
 
 const locale = getLocale(Astro.currentLocale);
 ---
 
-<aside class="relative bg-green py-12 md:py-16" aria-label={locale === 'en' ? 'Founding client offer' : 'Пропозиція для перших клієнтів'}>
+<aside class="relative overflow-hidden py-16 md:py-20" style="background: linear-gradient(115deg, #F6B955 0%, #F8C673 55%, #FAD493 100%);" aria-label={locale === 'en' ? 'Founding client offer' : 'Пропозиція для перших клієнтів'}>
   <div class="mx-auto max-w-[1240px] px-4 md:px-8">
-    <Reveal>
-      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-8">
-        <div class="flex-1">
-          <span class="inline-block rounded-full bg-white text-green font-display font-bold text-lg px-4 py-1 mb-4">
-            {t(locale, 'foundingBadge')}
-          </span>
-          <h2 class="font-display text-2xl font-bold md:text-3xl text-white">{t(locale, 'foundingTitle')}</h2>
-          <p class="mt-4 text-lg text-white/80 leading-relaxed max-w-[58ch]">
-            {t(locale, 'foundingText')}
-          </p>
-          <a
-            href="#book"
-            class="mt-6 inline-flex text-base px-8 py-3.5 rounded-full bg-white text-green font-display font-bold transition-all duration-300 hover:bg-white/90 hover:shadow-lg"
-            data-event="cta_book_call"
-            data-location="founding"
-          >
-            {t(locale, 'foundingButton')}
-            <svg class="ml-2 h-4 w-4 arrow-icon transition-transform duration-200" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-          </a>
-        </div>
-        <div class="md:text-right">
-          <HandwrittenNote rotate={-3} class="text-lg md:text-xl !text-white/80">
-            {t(locale, 'foundingNote')}
-          </HandwrittenNote>
-        </div>
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-8">
+      <div class="flex-1">
+        <span class="inline-block font-display text-[clamp(4rem,10vw,7rem)] font-bold leading-none tracking-[-0.03em] text-white/30">
+          {t(locale, 'foundingBadge')}
+        </span>
+        <h2 class="mt-2 font-display text-2xl md:text-3xl font-bold text-dark">{t(locale, 'foundingTitle')}</h2>
+        <p class="mt-4 text-lg text-dark/70 leading-relaxed max-w-[58ch]">
+          {t(locale, 'foundingText')}
+        </p>
+        <a
+          href="#book"
+          class="mt-6 inline-flex items-center gap-2 text-base px-7 py-3.5 rounded-full bg-dark text-white font-display font-bold transition-all duration-300 hover:bg-dark/90 hover:shadow-lg hover:-translate-y-0.5"
+          data-event="cta_book_call"
+          data-location="founding"
+        >
+          {t(locale, 'foundingButton')}
+          <svg class="h-4 w-4" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+        </a>
       </div>
-    </Reveal>
+      <div class="md:text-right">
+        <p class="font-hand text-xl text-dark/60" style="transform: rotate(-3deg);">
+          {t(locale, 'foundingNote')}
+        </p>
+      </div>
+    </div>
   </div>
 </aside>

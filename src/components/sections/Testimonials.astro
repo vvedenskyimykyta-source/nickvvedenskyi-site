@@ -2,24 +2,24 @@
 import { t, getLocale } from '../../i18n';
 import { testimonials } from '../../data/testimonials';
 import { site } from '../../data/site';
-import Section from '../Section.astro';
-import SectionTitle from '../SectionTitle.astro';
-import Reveal from '../Reveal.astro';
 
 const locale = getLocale(Astro.currentLocale);
 ---
 
-<Section id="testimonials" bg="white" ariaLabelledby="testimonials-heading">
-  <SectionTitle id="testimonials-heading">{t(locale, 'testimonialsTitle')}</SectionTitle>
-  <p class="mt-3 text-sm text-text-secondary max-w-[58ch]">{t(locale, 'testimonialsSub')}</p>
+<section id="testimonials" class="py-24 md:py-28" style="background: #F4F4F4;" aria-labelledby="testimonials-heading">
+  <div class="mx-auto max-w-[1240px] px-4 md:px-8">
+    <h2 id="testimonials-heading" class="font-display text-[clamp(2rem,4vw,2.5rem)] font-bold text-dark tracking-[-0.035em] max-w-[28ch]">{t(locale, 'testimonialsTitle')}</h2>
+    <p class="mt-3 text-sm text-text-secondary max-w-[58ch]">{t(locale, 'testimonialsSub')}</p>
+  </div>
 
   <!-- Testimonials scroll container -->
   <div class="mt-10 relative">
     <div
       id="testimonials-scroll"
-      class="flex gap-5 overflow-x-auto snap-x snap-mandatory pb-4 scrollbar-hide"
+      class="flex gap-5 overflow-x-auto snap-x snap-mandatory pb-4 px-4 md:px-8 scrollbar-hide"
       style="-webkit-overflow-scrolling: touch;"
     >
+      <div class="shrink-0 w-0 md:w-[calc((100vw-1240px)/2)]" aria-hidden="true"></div>
       {testimonials.map((item, i) => {
         const quote = item.quote[locale] || item.quote.en;
         const initials = item.name
@@ -28,18 +28,15 @@ const locale = getLocale(Astro.currentLocale);
 
         return (
           <div class="flex-shrink-0 snap-start w-[85vw] max-w-sm md:w-[380px]">
-            <article class="card relative flex h-full flex-col p-6">
-              {/* Large green quote mark */}
+            <article class="relative flex h-full flex-col rounded-3xl bg-white border border-dark/[0.06] p-6">
               <span class="font-display text-[56px] leading-none text-green font-bold select-none" aria-hidden="true">"</span>
 
-              {/* Translated tag */}
               {item.translated && locale === 'en' && (
-                <span class="mb-2 inline-flex self-start rounded-full bg-amber/20 text-dark-alt px-3 py-0.5 text-xs font-medium">
+                <span class="mb-2 inline-flex self-start rounded-full bg-amber/20 text-dark px-3 py-0.5 text-xs font-medium">
                   {t(locale, 'translatedFrom')}
                 </span>
               )}
 
-              {/* Quote */}
               <blockquote cite={site.linkedinRecommendations} class="testimonial-quote flex-1">
                 <p class="text-text-secondary leading-relaxed line-clamp-6 testimonial-text whitespace-pre-line text-sm">{quote}</p>
                 <button class="testimonial-expand mt-2 text-sm font-medium text-green hover:text-green-hover touch-manipulation hidden">
@@ -47,10 +44,9 @@ const locale = getLocale(Astro.currentLocale);
                 </button>
               </blockquote>
 
-              {/* Author */}
-              <footer class="mt-4 pt-4 border-t border-dark/5 flex items-center gap-3">
+              <footer class="mt-4 pt-4 border-t border-dark/[0.06] flex items-center gap-3">
                 <div
-                  class="w-9 h-9 rounded-full flex items-center justify-center text-sm font-bold text-dark-alt shrink-0"
+                  class="w-9 h-9 rounded-full flex items-center justify-center text-sm font-bold text-dark shrink-0"
                   style={`background: ${item.avatarBg || '#CCE9FF'}`}
                 >
                   {initials}
@@ -79,6 +75,7 @@ const locale = getLocale(Astro.currentLocale);
           </div>
         );
       })}
+      <div class="shrink-0 w-4 md:w-[calc((100vw-1240px)/2)]" aria-hidden="true"></div>
     </div>
 
     <!-- Scroll dots -->
@@ -92,10 +89,10 @@ const locale = getLocale(Astro.currentLocale);
     </div>
   </div>
 
-  <Reveal class="mt-8">
+  <div class="mx-auto max-w-[1240px] px-4 md:px-8 mt-8">
     <p class="text-sm text-text-secondary max-w-[58ch]">{t(locale, 'testimonialsBottom')}</p>
-  </Reveal>
-</Section>
+  </div>
+</section>
 
 <script>
   document.querySelectorAll('.testimonial-quote').forEach(container => {
@@ -104,7 +101,6 @@ const locale = getLocale(Astro.currentLocale);
     if (!text || !btn) return;
 
     const readMoreText = btn.textContent || '';
-    const readLessText = btn.closest('article')?.querySelector('[data-read-less]')?.textContent || '↑';
 
     requestAnimationFrame(() => {
       if (text.scrollHeight > text.clientHeight + 2) {
@@ -126,7 +122,7 @@ const locale = getLocale(Astro.currentLocale);
     const children = scrollContainer.children;
     const updateDots = () => {
       const scrollLeft = scrollContainer.scrollLeft;
-      const childWidth = (children[0] as HTMLElement)?.offsetWidth ?? 1;
+      const childWidth = (children[1] as HTMLElement)?.offsetWidth ?? 1;
       const gap = 20;
       const active = Math.round(scrollLeft / (childWidth + gap));
       dots.forEach((dot, i) => {
@@ -141,7 +137,7 @@ const locale = getLocale(Astro.currentLocale);
 
     dots.forEach((dot, i) => {
       dot.addEventListener('click', () => {
-        const childWidth = (children[0] as HTMLElement)?.offsetWidth ?? 1;
+        const childWidth = (children[1] as HTMLElement)?.offsetWidth ?? 1;
         scrollContainer.scrollTo({ left: i * (childWidth + 20), behavior: 'smooth' });
       });
     });

@@ -2,7 +2,11 @@
 
 /* Fonts */
 @import "@fontsource-variable/space-grotesk/wght.css";
-@import "@fontsource-variable/dm-sans/wght.css";
+@import "@fontsource/geist-sans/400.css";
+@import "@fontsource/geist-sans/500.css";
+@import "@fontsource/geist-sans/600.css";
+@import "@fontsource/geist-sans/700.css";
+@import "@fontsource/geist-mono/400.css";
 @import "@fontsource-variable/caveat/wght.css";
 @import "@fontsource-variable/manrope/wght.css";
 
@@ -10,25 +14,25 @@
   /* Primary */
   --color-green: #6EC319;
   --color-green-light: #B1F171;
-  --color-green-hover: #4E8F0F;
-
-  /* Secondary */
-  --color-blue: #99D4FF;
-  --color-blue-light: #CCE9FF;
-  --color-amber: #F6B955;
-  --color-lavender: #C4B5FD;
+  --color-green-hover: #7FD62A;
+  --color-green-dark: #4E8F0F;
 
   /* Neutrals */
   --color-bg: #F4F4F4;
   --color-white: #FFFFFF;
-  --color-dark: #1A2036;
+  --color-dark: #1A1A2E;
   --color-dark-alt: #1A1A2E;
+  --color-deep: #1A2036;
   --color-text-secondary: #454545;
 
-  /* Aliases for backward compat */
+  /* Secondary */
+  --color-blue: #99D4FF;
+  --color-blue-light: #CCE9FF;
+  --color-green-pale: #E4F8CF;
+
+  /* Aliases */
   --color-paper: #FFFFFF;
   --color-paper-2: #F4F4F4;
-  --color-deep: #1A2036;
   --color-cobalt: #6EC319;
   --color-cobalt-dk: #4E8F0F;
   --color-ink: #1A1A2E;
@@ -41,16 +45,16 @@
   /* Shadows */
   --shadow-sm: 0 2px 8px rgba(26, 32, 54, 0.06);
   --shadow-md: 0 8px 24px rgba(26, 32, 54, 0.08);
-  --shadow-lg: 0 16px 48px rgba(26, 32, 54, 0.12);
+  --shadow-lg: 0 24px 48px -24px rgba(26, 26, 46, 0.25);
 
   /* Typography */
   --font-display: "Space Grotesk Variable", system-ui, sans-serif;
-  --font-sans: "DM Sans Variable", system-ui, sans-serif;
+  --font-sans: "Geist Sans", system-ui, sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, monospace;
   --font-hand: "Caveat Variable", cursive;
 }
 
 html[lang="uk"] {
-  --font-display: "Space Grotesk Variable", system-ui, sans-serif;
   --font-sans: "Manrope Variable", system-ui, sans-serif;
 }
 
@@ -64,26 +68,26 @@ html[lang="uk"] {
     margin: 0;
     background: #FFFFFF;
     font-family: var(--font-sans);
-    color: var(--color-dark-alt);
+    color: var(--color-dark);
     -webkit-font-smoothing: antialiased;
-    font-size: 1.0625rem;
+    font-size: 1rem;
     line-height: 1.6;
   }
 
   @media (min-width: 768px) {
     body {
-      font-size: 1.125rem;
+      font-size: 1.0625rem;
       line-height: 1.7;
     }
   }
 
   h1, h2, h3, h4 {
     font-family: var(--font-display);
-    line-height: 1.15;
+    line-height: 1.1;
   }
 
-  h1 { letter-spacing: -0.07em; }
-  h2 { letter-spacing: -0.04em; }
+  h1 { letter-spacing: -0.04em; }
+  h2 { letter-spacing: -0.035em; }
   h3 { letter-spacing: -0.02em; }
 
   ::selection {
@@ -108,45 +112,51 @@ html[lang="uk"] {
   }
 }
 
-/* Cards: white bg, 24px border-radius, hover lift */
+/* Cards */
 @layer components {
   .card {
     background: var(--color-white);
-    border-radius: 24px;
+    border-radius: 28px;
+    border: 1px solid rgba(26, 26, 46, 0.08);
     transition: transform 300ms ease, box-shadow 300ms ease;
   }
   .card:hover {
-    transform: translateY(-2px);
+    transform: translateY(-4px);
     box-shadow: var(--shadow-lg);
+    background: var(--color-white);
+    border-color: rgba(26, 26, 46, 0.08);
   }
 }
 
 /* Button components */
 @layer components {
   .btn-primary {
-    @apply inline-flex items-center justify-center rounded-full px-7 py-3.5 text-base font-semibold text-white transition-all duration-200 touch-manipulation;
+    @apply inline-flex items-center justify-center rounded-full text-base font-semibold transition-all duration-200 touch-manipulation;
     background: var(--color-green);
-    min-height: 48px;
-    box-shadow: 0 2px 8px rgba(110, 195, 25, 0.25);
+    color: var(--color-dark);
+    padding: 17px 28px;
+    gap: 10px;
+    box-shadow: 0 10px 24px -10px rgba(110, 195, 25, 0.8);
   }
   .btn-primary:hover {
     background: var(--color-green-hover);
+    color: var(--color-dark);
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(110, 195, 25, 0.35);
   }
   .btn-primary:active {
     transform: scale(0.98);
-    box-shadow: 0 2px 8px rgba(110, 195, 25, 0.25);
   }
 
   .btn-secondary {
-    @apply inline-flex items-center justify-center rounded-full border-2 px-6 py-3 text-sm font-semibold transition-all duration-200 touch-manipulation;
-    border-color: var(--color-ink);
-    color: var(--color-ink);
-    min-height: 44px;
+    @apply inline-flex items-center justify-center rounded-full text-base font-semibold transition-all duration-200 touch-manipulation;
+    background: var(--color-white);
+    border: 1.5px solid rgba(26, 26, 46, 0.16);
+    color: var(--color-dark);
+    padding: 16px 26px;
   }
   .btn-secondary:hover {
-    background: var(--color-bg);
+    border-color: var(--color-dark);
+    color: var(--color-dark);
   }
 
   .btn-dark {
@@ -168,7 +178,7 @@ html[lang="uk"] {
 @layer components {
   .handwritten {
     font-family: var(--font-hand);
-    color: var(--color-green);
+    color: var(--color-text-secondary);
     font-weight: 400;
   }
 }

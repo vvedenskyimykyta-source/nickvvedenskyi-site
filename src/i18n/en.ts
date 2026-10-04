@@ -7,17 +7,26 @@ export const en = {
   langSwitchHref: '/uk/',
 
   // Hero
-  heroEyebrow: 'Nick Vvedenskyi · Revenue & Marketing for Tech/AI Products',
-  heroH1: 'Growth with meaning',
-  heroSub: 'I help tech and AI founders build a business that makes money on purpose.',
-  heroBody: 'Most growth problems are relationship problems wearing a spreadsheet costume, so I start with the people.',
-  heroNote: "Hi, I'm Nick ✌️ If I can not help, I will tell you who can.",
+  heroEyebrow: 'Growth with meaning',
+  heroH1: 'I help tech and AI founders build a business that makes money ',
+  heroH1Accent: 'on purpose.',
+  heroSub: 'Most growth problems are relationship problems wearing a spreadsheet costume, so I start with the people.',
+  heroNote: "Hi, I'm Nick ✌️",
+  heroNoteSecondary: "If I can not help, I will tell you who can.",
 
-  // Stats
-  numbersNote: '',
+  // Stats in hero
+  stat1Value: '44',
+  stat1Label: 'projects across B2B, B2C, SaaS, agency, AI and local services',
+  stat2Value: '7',
+  stat2Label: 'years finding out where the money actually comes from',
+  stat3Value: '15',
+  stat3Label: 'products taken to market from 0 to first revenue',
+  stat4Value: '100',
+  stat4Suffix: '+',
+  stat4Label: 'interviews and demos with real buyers',
 
-  // Quote band
-  quoteBand: 'the companies that grow are not the ones with the best product, they are the ones that never stopped talking to the people who pay them',
+  // Quote in hero
+  heroQuote: 'the companies that grow are not the ones with the best product, they are the ones that never stopped talking to the people who pay them',
 
   // Problems
   problemsTitle: 'Things I keep running into',
@@ -85,19 +94,20 @@ export const en = {
 
   // FAQ
   faqTitle: 'FAQ',
+  faqSub: 'Questions people actually ask',
 
   // Final CTA
   ctaNote: 'worst case you walk away with a clearer picture than you came in with',
-  ctaTitle: 'Get in touch',
-  ctaSub: 'Let us see if I can help',
+  ctaLabel: 'GET IN TOUCH',
+  ctaTitle: 'Let us see if I can help',
   ctaText: 'You tell me what is happening in your business. I tell you honestly what I see and what I would do about it. No deck, no follow-up sequence, no twelve emails afterwards. If it makes sense for both of us, we start. If not, you still leave with something useful.',
   ctaCardATitle: "Let's talk",
   ctaCardAText: 'Pick a slot and tell me roughly what is going on.',
   ctaCardAButton: 'Pick a time',
   ctaPickTime: 'Pick a time →',
-  ctaCardBTitle: 'Not ready for a call?',
-  ctaCardBText: 'Answer a few questions and I will come back within two days with the one thing I would look at first if this were mine.',
-  ctaCardBButton: 'Get free advice',
+  ctaCardBTitle: 'Free advice',
+  ctaCardBText: 'Answer a few questions and I will come back within 48h with the one thing I would look at first if this were mine.',
+  ctaCardBButton: 'Get advice →',
   notReady: 'Not ready for a call? Get free advice',
 
   // Footer

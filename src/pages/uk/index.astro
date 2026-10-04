@@ -1,10 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import Hero from '../../components/sections/Hero.astro';
-import Numbers from '../../components/sections/Numbers.astro';
-import QuoteBand from '../../components/sections/QuoteBand.astro';
 import Problems from '../../components/sections/Problems.astro';
-import Divider from '../../components/sections/Divider.astro';
 import Pipeline from '../../components/sections/Pipeline.astro';
 import FoundingBanner from '../../components/sections/FoundingBanner.astro';
 import Cases from '../../components/sections/Cases.astro';
@@ -12,8 +9,8 @@ import About from '../../components/sections/About.astro';
 import Testimonials from '../../components/sections/Testimonials.astro';
 import HowIWork from '../../components/sections/HowIWork.astro';
 import Projects from '../../components/sections/Projects.astro';
-import FAQ from '../../components/sections/FAQ.astro';
 import FinalCTA from '../../components/sections/FinalCTA.astro';
+import FAQ from '../../components/sections/FAQ.astro';
 import { t, getLocale } from '../../i18n';
 
 const locale = getLocale(Astro.currentLocale);
@@ -25,10 +22,7 @@ const locale = getLocale(Astro.currentLocale);
   showFaqSchema
 >
   <Hero />
-  <Numbers />
-  <QuoteBand />
   <Problems />
-  <Divider text={t(locale, 'pipelineDivider')} />
   <Pipeline />
   <FoundingBanner />
   <Cases />
@@ -36,6 +30,6 @@ const locale = getLocale(Astro.currentLocale);
   <Testimonials />
   <HowIWork />
   <Projects />
-  <FAQ />
   <FinalCTA />
+  <FAQ />
 </Layout>

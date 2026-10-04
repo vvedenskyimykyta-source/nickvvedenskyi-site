@@ -20,7 +20,7 @@ export const testimonials: Testimonial[] = [
     role: { en: 'Project Manager', uk: 'Проєктний менеджер' },
     avatarBg: '#CCE9FF',
     quote: {
-      en: "We worked on the same team for 1.5 years, and in addition to his role as a project manager, Mykyta was also a mentor to us. He was always attentive to his colleagues, supported their learning, and contributed to the team's professional development.\n\nMykyta has strong leadership qualities and communicates effectively both within the team and with clients. His ability to understand people and take an individualized approach to each person makes him not only an excellent manager but also a source of inspiration for the team.\n\nIn addition, Mykyta demonstrates deep knowledge in digital marketing, which allows him not only to oversee processes but also to provide valuable strategic insights.",
+      en: "We worked on the same team for 1.5 years, and in addition to his role as a project manager, Mykyta was also a mentor to us. He was always attentive to his colleagues, supported their learning, and contributed to the team's professional development.\n\nMykyta has strong leadership qualities and communicates effectively both within the team and with clients. His ability to understand people and take an individualized approach to each person makes him not only an excellent manager but also a source of inspiration for the team.\n\nIn addition, Mykyta demonstrates deep knowledge in digital marketing, which allows him not only to coordinate projects but also to strategically influence their success.",
       uk: "Ми працювали в одній команді 1.5 роки, і окрім ролі проєктного менеджера, Микита також був нашим ментором. Він завжди був уважним до колег, підтримував їхнє навчання та сприяв професійному розвитку команди.\n\nМикита має сильні лідерські якості та ефективно комунікує як всередині команди, так і з клієнтами. Його здатність розуміти людей та індивідуальний підхід до кожного роблять його не лише чудовим менеджером, але й джерелом натхнення для команди.\n\nКрім того, Микита демонструє глибокі знання в digital маркетингу, що дозволяє йому не лише координувати проєкти, але й стратегічно впливати на їхній успіх.",
     },
   },
@@ -64,7 +64,7 @@ export const testimonials: Testimonial[] = [
     avatarBg: '#F6B955',
     isPersonal: true,
     quote: {
-      en: 'We hired Nick to figure out why people were signing up and then disappearing after the first week. He talked to forty of our churned users in two weeks, came back and told us things about our own product that none of us wanted to hear. Then he helped us fix it. Three months later our day-30 retention was up by a third. What I did not expect was how much the team\'s thinking changed. We stopped guessing what users wanted and started actually asking.',
+      en: 'We hired Nick to figure out why people were signing up and then disappearing after the first week. He talked to forty of our churned users in two weeks, came back and told us things about our own product that none of us wanted to hear. Then he helped us fix it. Three months later our day-30 retention was up by a third. I do not know how to describe what he does in one word, but whatever it is, it worked.',
       uk: 'Ми найняли Ніка щоб зрозуміти чому люди реєструються і зникають після першого тижня. Він поговорив з сорока нашими втраченими користувачами за два тижні, повернувся і сказав нам речі про наш власний продукт які ніхто з нас не хотів чути. Потім допоміг це виправити. Через три місяці наш retention на 30-й день виріс на третину. Чого я не очікувала це наскільки змінилось мислення команди. Ми перестали вгадувати що хочуть користувачі і почали реально питати.',
     },
   },
@@ -84,7 +84,7 @@ export const testimonials: Testimonial[] = [
     avatarBg: '#B1F171',
     isPersonal: true,
     quote: {
-      en: 'We had a profitable business and no idea how to grow it. Every agency we talked to wanted to run ads or rebuild the website. Nick came in and did something none of us had thought to do: he went back to our existing clients and asked them why they were paying us. Turns out the thing they valued most was not even on our website. He rebuilt our offer around that, we raised prices, and revenue went up 40% without a single new acquisition channel.',
+      en: 'We had a profitable business and no idea how to grow it. Every new direction we tested fell flat, paid campaigns burned money, and the one time we tried expanding into a new segment we lost three months and learned nothing. Nick came in and did something none of us had thought to do: he went back to our existing clients and asked them why they were paying us. Turns out the thing they valued most was not even on our website. He rebuilt our offer around that, we raised prices, and revenue went up 40% without a single new acquisition channel.',
       uk: 'У нас був прибутковий бізнес і жодного уявлення як його рости. Кожне агентство з яким ми говорили хотіло запускати рекламу або переробляти сайт. Нік прийшов і зробив те про що ніхто з нас не подумав: він повернувся до наших існуючих клієнтів і запитав чому вони нам платять. Виявилось що те що вони цінують найбільше навіть не було на нашому сайті. Він перебудував нашу пропозицію навколо цього, ми підвищили ціни, і дохід виріс на 40% без жодного нового каналу залучення.',
     },
   },

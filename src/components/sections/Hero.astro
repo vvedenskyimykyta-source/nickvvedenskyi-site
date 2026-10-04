@@ -1,81 +1,110 @@
 ---
 import { Image } from 'astro:assets';
 import { t, getLocale } from '../../i18n';
-import HandwrittenNote from '../HandwrittenNote.astro';
 import heroImg from '../../assets/images/nick-hero.jpg';
 
 const locale = getLocale(Astro.currentLocale);
 ---
 
 <section id="hero" class="relative overflow-hidden bg-white" style="scroll-margin-top: 5rem;">
-  <div class="mx-auto max-w-[1240px] px-4 md:px-8 pt-8 pb-16 md:py-20 lg:py-0 lg:min-h-[100svh] lg:flex lg:items-center">
-    <div class="flex flex-col lg:flex-row lg:items-center lg:gap-16 w-full">
-      <!-- Photo (top on mobile) -->
-      <div class="hero-enter relative flex-shrink-0 lg:order-2 lg:w-[45%]" style="--enter-i: 0;">
-        <div class="relative mx-auto max-w-[320px] lg:max-w-none">
-          <div class="hero-photo relative overflow-hidden rounded-3xl shadow-lg">
-            <Image
-              src={heroImg}
-              alt={locale === 'uk' ? 'Nick Vvedenskyi, консультант з revenue та маркетингу для tech та AI продуктів' : 'Nick Vvedenskyi, revenue and marketing consultant for tech and AI products'}
-              widths={[320, 440, 560, 640, 880]}
-              sizes="(max-width: 640px) 320px, (max-width: 1024px) 320px, 45vw"
-              class="w-full h-auto object-cover object-top max-h-[60svh] lg:max-h-none"
-              loading="eager"
-              fetchpriority="high"
-            />
-          </div>
+  <!-- Decorative blobs -->
+  <div class="pointer-events-none absolute -top-40 -right-40 w-[720px] h-[720px] rounded-full" style="background: radial-gradient(circle, #CCE9FF 0%, rgba(204,233,255,0) 68%);" aria-hidden="true"></div>
+  <div class="pointer-events-none absolute -bottom-20 -left-20 w-[560px] h-[560px] rounded-full" style="background: radial-gradient(circle, rgba(177,241,113,0.55) 0%, rgba(177,241,113,0) 68%);" aria-hidden="true"></div>
 
-          <HandwrittenNote class="mt-4 lg:absolute lg:-bottom-6 lg:-left-12 text-base md:text-xl" rotate={-3} withArrow="up">
-            {t(locale, 'heroNote')}
-          </HandwrittenNote>
-        </div>
-      </div>
-
-      <!-- Text -->
-      <div class="flex-1 mt-8 lg:mt-0 lg:order-1">
-        <!-- Eyebrow -->
-        <div class="hero-enter flex items-center gap-2.5" style="--enter-i: 1;">
-          <span class="block w-2 h-2 rounded-full bg-green flex-shrink-0" aria-hidden="true"></span>
-          <p class="font-sans font-medium text-sm text-text-secondary">
+  <div class="relative mx-auto max-w-[1240px] px-4 md:px-8 pt-16 md:pt-20 pb-10">
+    <div class="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-10 lg:gap-14 items-center">
+      <!-- Text column -->
+      <div class="hero-enter" style="--enter-i: 0;">
+        <!-- Eyebrow (Caveat) -->
+        <div class="hero-enter inline-block mb-5" style="--enter-i: 0; transform: rotate(-3deg); transform-origin: left;">
+          <span class="font-hand text-[30px] font-semibold text-green-dark">
             {t(locale, 'heroEyebrow')}
-          </p>
+          </span>
         </div>
 
-        <h1 class="hero-enter mt-5 md:mt-6 font-display font-bold text-dark-alt text-[clamp(2.5rem,6vw,4.5rem)] leading-[1.05] tracking-[-0.07em]" style="--enter-i: 2;">
-          {t(locale, 'heroH1')}
+        <h1 class="hero-enter font-display font-bold text-dark text-[clamp(2.625rem,5.2vw,4.375rem)] leading-[1.02] tracking-[-0.04em]" style="--enter-i: 1; text-wrap: balance;">
+          {t(locale, 'heroH1')}<span class="hero-highlight">{t(locale, 'heroH1Accent')}</span>
         </h1>
 
-        <p class="hero-enter mt-6 text-xl md:text-2xl text-dark-alt leading-snug max-w-[58ch]" style="--enter-i: 3;">
+        <p class="hero-enter mt-7 text-[19px] leading-relaxed text-text-secondary max-w-[560px]" style="--enter-i: 2; text-wrap: pretty;">
           {t(locale, 'heroSub')}
         </p>
 
-        <p class="hero-enter mt-4 text-lg text-text-secondary leading-relaxed max-w-[58ch]" style="--enter-i: 4;">
-          {t(locale, 'heroBody')}
-        </p>
-
-        <div class="hero-enter mt-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-5" style="--enter-i: 5;">
+        <div class="hero-enter mt-9 flex flex-wrap gap-3" style="--enter-i: 3;">
           <a
             href="#book"
-            class="btn-primary text-base px-8 py-3.5"
+            class="btn-primary"
             data-event="cta_book_call"
             data-location="hero"
           >
             {t(locale, 'bookCall')}
-            <svg class="ml-2 h-4 w-4 arrow-icon transition-transform duration-200" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+            <svg class="h-4 w-4 arrow-icon transition-transform duration-200" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
           </a>
           <a
             href={`https://tally.so/r/${locale === 'en' ? import.meta.env.PUBLIC_TALLY_FORM_EN : import.meta.env.PUBLIC_TALLY_FORM_UK}`}
             target="_blank"
             rel="noopener noreferrer"
-            class="btn-secondary text-sm px-6 py-3"
+            class="btn-secondary"
             data-event="cta_quiz_open"
             data-location="hero"
           >
             {t(locale, 'quizCta')}
-            <svg class="ml-1.5 h-4 w-4 arrow-icon transition-transform duration-200" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
           </a>
         </div>
       </div>
+
+      <!-- Photo column -->
+      <div class="hero-enter relative flex-shrink-0 lg:w-[470px] max-w-[470px] mx-auto lg:mx-0" style="--enter-i: 1;">
+        <!-- Gradient backdrop -->
+        <div class="absolute inset-6 -inset-x-6 rounded-[36px]" style="background: linear-gradient(140deg, #B1F171, #99D4FF);" aria-hidden="true"></div>
+
+        <div class="relative overflow-hidden rounded-[36px]" style="aspect-ratio: 4/5; background: #CCE9FF; box-shadow: 0 30px 60px -30px rgba(26,32,54,0.45);">
+          <Image
+            src={heroImg}
+            alt={locale === 'uk' ? 'Nick Vvedenskyi' : 'Nick Vvedenskyi'}
+            widths={[320, 440, 560, 640, 880]}
+            sizes="(max-width: 640px) 320px, (max-width: 1024px) 320px, 470px"
+            class="w-full h-full object-cover object-top"
+            loading="eager"
+            fetchpriority="high"
+          />
+        </div>
+
+        <!-- Floating "Hi, I'm Nick" card -->
+        <div class="absolute -right-4 lg:-right-14 bottom-5 bg-white rounded-[18px] px-5 py-3.5 shadow-lg" style="box-shadow: 0 18px 40px -18px rgba(26,26,46,0.35); transform: rotate(4deg); max-width: 320px;">
+          <span class="font-hand text-2xl leading-tight text-dark block">{t(locale, 'heroNote')}</span>
+          <span class="font-hand text-lg text-text-secondary block mt-0.5">{t(locale, 'heroNoteSecondary')}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stats bar -->
+    <div class="hero-enter mt-12 lg:mt-16" style="--enter-i: 4;">
+      <div class="stats-bar bg-white rounded-[28px] border border-dark/[0.06] grid grid-cols-2 lg:grid-cols-4" style="box-shadow: 0 1px 2px rgba(26,26,46,0.04), 0 24px 48px -24px rgba(26,26,46,0.18);">
+        <div class="stat-cell p-6 lg:p-8">
+          <div class="font-display text-[clamp(40px,5vw,64px)] font-bold text-dark leading-none tracking-[-0.05em]">{t(locale, 'stat1Value')}</div>
+          <p class="mt-2 text-sm text-text-secondary leading-snug">{t(locale, 'stat1Label')}</p>
+        </div>
+        <div class="stat-cell p-6 lg:p-8 border-l border-dark/[0.07]">
+          <div class="font-display text-[clamp(40px,5vw,64px)] font-bold text-dark leading-none tracking-[-0.05em]">{t(locale, 'stat2Value')}</div>
+          <p class="mt-2 text-sm text-text-secondary leading-snug">{t(locale, 'stat2Label')}</p>
+        </div>
+        <div class="stat-cell p-6 lg:p-8 border-l border-dark/[0.07] max-lg:border-l-0 max-lg:border-t max-lg:border-dark/[0.07]">
+          <div class="font-display text-[clamp(40px,5vw,64px)] font-bold text-dark leading-none tracking-[-0.05em]">{t(locale, 'stat3Value')}<span class="text-green">+</span></div>
+          <p class="mt-2 text-sm text-text-secondary leading-snug">{t(locale, 'stat3Label')}</p>
+        </div>
+        <div class="stat-cell p-6 lg:p-8 border-l border-dark/[0.07]">
+          <div class="font-display text-[clamp(40px,5vw,64px)] font-bold text-dark leading-none tracking-[-0.05em]">{t(locale, 'stat4Value')}<span class="text-green">+</span></div>
+          <p class="mt-2 text-sm text-text-secondary leading-snug">{t(locale, 'stat4Label')}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom quote -->
+    <div class="hero-enter mt-10 text-center" style="--enter-i: 5;">
+      <p class="font-hand text-[28px] text-text-secondary leading-snug max-w-[700px] mx-auto">
+        {t(locale, 'heroQuote')}
+      </p>
     </div>
   </div>
 </section>
@@ -93,10 +122,20 @@ const locale = getLocale(Astro.currentLocale);
     transition-delay: calc(var(--enter-i, 0) * 80ms);
   }
 
+  .hero-highlight {
+    background: linear-gradient(transparent 60%, #B1F171 60%, #B1F171 92%, transparent 92%);
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .hero-enter {
       opacity: 1;
       transform: none;
+    }
+  }
+
+  @media (max-width: 639px) {
+    .stat-cell:nth-child(3) {
+      border-left: 0;
     }
   }
 </style>
