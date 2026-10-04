@@ -3,34 +3,42 @@ import { t, getLocale } from '../../i18n';
 import { howSteps, howFacts } from '../../data/howIWork';
 import Section from '../Section.astro';
 import SectionTitle from '../SectionTitle.astro';
+import HandwrittenNote from '../HandwrittenNote.astro';
 import Reveal from '../Reveal.astro';
 
 const locale = getLocale(Astro.currentLocale);
 ---
 
 <Section id="how-i-work" ariaLabelledby="how-i-work-heading">
+  <Reveal class="mb-8">
+    <HandwrittenNote rotate={-2} class="text-xl md:text-2xl">
+      {t(locale, 'howNote')}
+    </HandwrittenNote>
+  </Reveal>
+
   <SectionTitle id="how-i-work-heading">{t(locale, 'howTitle')}</SectionTitle>
 
   <!-- Steps -->
   <div class="mt-10 relative">
-    <!-- Vertical line (mobile) / horizontal line (desktop) -->
-    <div class="absolute top-0 bottom-0 left-5 w-px border-l border-dashed border-line md:hidden" />
-
     <div class="flex flex-col gap-8 md:grid md:grid-cols-4 md:gap-6">
       {howSteps.map((step, i) => (
         <Reveal delay={i * 100}>
-          <div class="relative pl-12 md:pl-0">
-            <div class="glass-card p-5 md:text-center">
-              {/* Number */}
-              <div class="absolute left-0 top-5 md:relative md:left-auto md:mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-cobalt font-display text-lg font-bold text-white">
-                {step.num}
+          <div class="relative">
+            {/* Dashed connecting line (desktop) */}
+            {i < howSteps.length - 1 && (
+              <div class="hidden md:block absolute top-6 left-[calc(50%+28px)] right-[-24px] border-t-2 border-dashed border-dark/10" aria-hidden="true" />
+            )}
+            <div class="card p-5 md:text-center h-full">
+              <div class="flex md:justify-center">
+                <div
+                  class="flex h-12 w-12 items-center justify-center rounded-full font-display text-lg font-bold text-dark-alt"
+                  style={`background: ${step.badgeBg}`}
+                >
+                  {step.num}
+                </div>
               </div>
-              {/* Connecting line segment (desktop) */}
-              {i < howSteps.length - 1 && (
-                <div class="hidden md:block absolute top-6 left-[calc(50%+24px)] right-[-50%] border-t border-dashed border-line" />
-              )}
-              <h3 class="mt-2 md:mt-4 font-display text-lg font-semibold">{step.title[locale]}</h3>
-              <p class="mt-2 text-ink-soft leading-relaxed text-sm md:text-base">{step.text[locale]}</p>
+              <h3 class="mt-4 font-display text-lg font-bold">{step.title[locale]}</h3>
+              <p class="mt-2 text-text-secondary leading-relaxed text-sm">{step.text[locale]}</p>
             </div>
           </div>
         </Reveal>
@@ -39,19 +47,15 @@ const locale = getLocale(Astro.currentLocale);
   </div>
 
   <!-- Facts -->
-  <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+  <div class="mt-12 grid gap-px bg-dark/5 rounded-2xl overflow-hidden sm:grid-cols-2 lg:grid-cols-4">
     {howFacts.map((fact, i) => (
       <Reveal delay={i * 80}>
-        <div class="flex items-start gap-3">
-          <div class="flex-shrink-0 mt-1 w-10 h-10 rounded-full bg-cobalt/10 flex items-center justify-center">
-            <svg class="w-5 h-5 text-cobalt" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              {fact.icon === 'badge-euro' && <><circle cx="12" cy="12" r="10"/><path d="M8 12h5M8 9h6M8 15h6M15.5 9.5l-1 5"/></>}
-              {fact.icon === 'mic' && <><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/></>}
-              {fact.icon === 'globe' && <><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></>}
-              {fact.icon === 'folder-check' && <><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/><path d="m9 13 2 2 4-4"/></>}
-            </svg>
-          </div>
-          <p class="text-sm text-ink-soft leading-relaxed">{fact.text[locale]}</p>
+        <div class="bg-white p-5 flex items-start gap-3 h-full">
+          <div
+            class="flex-shrink-0 mt-1 w-3 h-3 rounded-full"
+            style={`background: ${fact.dotColor}`}
+          />
+          <p class="text-sm text-text-secondary leading-relaxed">{fact.text[locale]}</p>
         </div>
       </Reveal>
     ))}

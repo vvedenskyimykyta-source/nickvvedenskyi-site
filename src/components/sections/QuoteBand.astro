@@ -1,0 +1,18 @@
+---
+import { t, getLocale } from '../../i18n';
+import Reveal from '../Reveal.astro';
+
+const locale = getLocale(Astro.currentLocale);
+---
+
+<section class="relative bg-bg" aria-label="Quote">
+  <div class="mx-auto max-w-[1240px] px-4 md:px-8 py-12 md:py-16">
+    <Reveal>
+      <blockquote class="text-center">
+        <p class="font-display font-bold text-dark-alt text-xl md:text-2xl lg:text-3xl leading-snug tracking-[-0.02em] max-w-[48ch] mx-auto lowercase italic">
+          "{t(locale, 'quoteBand')}"
+        </p>
+      </blockquote>
+    </Reveal>
+  </div>
+</section>

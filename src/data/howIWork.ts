@@ -1,65 +1,69 @@
 export const howSteps = [
   {
     num: 1,
-    title: { en: 'We talk for half an hour.', uk: 'Ми розмовляємо півгодини.' },
+    title: { en: 'We talk', uk: 'Ми говоримо' },
     text: {
-      en: 'Free, and I am not going to pitch at you. You explain what is going on, I ask more questions than is strictly polite, and by the end we both know whether this is a thing I can help with. If it is not, I will say so on the call rather than in a follow-up email.',
-      uk: 'Безкоштовно, і я не буду тобі нічого продавати. Ти розповідаєш що відбувається, я задаю більше питань ніж ввічливо, і до кінця ми обидва розуміємо чи я можу тут допомогти. Якщо ні, я скажу це на дзвінку, а не у фолоу-ап листі.',
+      en: 'You tell me what is happening. I ask questions. By the end of the call we both know if this is a fit. If it is, we agree on scope, timeline, and price right there. If it is not, I will point you to someone who can actually help or suggest what you can try on your own first.',
+      uk: 'Ти розповідаєш що відбувається. Я задаю питання. До кінця дзвінка ми обоє розуміємо чи це підходить. Якщо так, ми домовляємось про скоуп, таймлайн і ціну прямо там. Якщо ні, я направлю тебе до когось хто реально може допомогти або підкажу що ти можеш спробувати самостійно.',
     },
+    badgeBg: '#CCE9FF',
   },
   {
     num: 2,
-    title: { en: 'A proposal lands within two days.', uk: 'Пропозиція протягом двох днів.' },
+    title: { en: 'You pay, we sign, we start', uk: 'Ти платиш, ми підписуємо, ми починаємо' },
     text: {
-      en: 'What I will do, what it costs, how long it takes and what you are holding at the end. One page, maybe two. Nobody has ever read the forty-page version and you will not be the first.',
-      uk: 'Що я зроблю, скільки це коштує, як довго триватиме і що ти тримаєш в руках в кінці. Одна сторінка, може дві. Ніхто ніколи не читав сорокасторінкову версію і ти не будеш першим.',
+      en: '100% prepayment before we begin. I send a short collaboration agreement, you send payment, and we pick a start date. No back and forth on proposals, no "let me think about it for a week." The decision happens on the call. Everything after that is execution.',
+      uk: '100% передоплата до початку. Я відправляю коротку угоду про співпрацю, ти відправляєш оплату, і ми обираємо дату старту. Без перетягування пропозицій, без "дайте мені подумати тиждень." Рішення приймається на дзвінку. Все після цього це виконання.',
     },
+    badgeBg: '#B1F171',
   },
   {
     num: 3,
-    title: { en: 'We run it.', uk: 'Ми це робимо.' },
+    title: { en: 'We work as partners', uk: 'Ми працюємо як партнери' },
     text: {
-      en: 'We talk every week and you watch the work happen. There is no grand reveal at the end, because by then you will have seen most of it already and told me which parts were wrong.',
-      uk: 'Ми спілкуємось кожного тижня і ти бачиш як робота відбувається. Немає великого розкриття в кінці, бо до того часу ти вже бачив більшу частину і сказав мені які частини були неправильними.',
+      en: 'I do not disappear into a cave and come back with a strategy you have never seen before. You know your business better than I ever will. My job is to take what you know, what your customers are telling you, and what the data shows, and bring all of it to one table. We work through it together.',
+      uk: 'Я не зникаю в печеру і не повертаюсь зі стратегією яку ти ніколи не бачив. Ти знаєш свій бізнес краще ніж я коли-небудь буду. Моя робота це взяти те що ти знаєш, що кажуть твої клієнти, і що показують дані, і зібрати все за одним столом. Ми працюємо над цим разом.',
     },
+    badgeBg: '#F6B955',
   },
   {
     num: 4,
-    title: { en: 'You keep the results.', uk: 'Ти залишаєш собі результати.' },
+    title: { en: 'You keep the results', uk: 'Ти залишаєш собі результати' },
     text: {
-      en: 'Everything we build is yours. Your team runs it without me, otherwise I sold you a dependency, not a fix.',
-      uk: 'Все що ми будуємо це твоє. Твоя команда запускає це без мене, інакше я продав тобі залежність, а не рішення.',
+      en: 'Result not a PDF with recommendations you will never open again. Real changes in how your business finds, converts, and keeps customers. New processes your team runs without me. Revenue you can trace back to specific decisions we made together. Everything I build belongs to you.',
+      uk: 'Результат не PDF з рекомендаціями який ти більше ніколи не відкриєш. Реальні зміни в тому як твій бізнес знаходить, конвертує і утримує клієнтів. Нові процеси які твоя команда запускає без мене. Дохід який можна відстежити до конкретних рішень які ми прийняли разом. Все що я будую належить тобі.',
     },
+    badgeBg: '#C4B5FD',
   },
 ];
 
 export const howFacts = [
   {
-    icon: 'badge-euro',
     text: {
-      en: 'The price is agreed before we start. It does not move. I do not bill by the hour.',
-      uk: 'Ціна узгоджується до старту. Вона не змінюється. Я не виставляю рахунки погодинно.',
+      en: 'Price agreed on the call. 100% prepayment before we start.',
+      uk: 'Ціна узгоджується на дзвінку. 100% передоплата до старту.',
     },
+    dotColor: '#CCE9FF',
   },
   {
-    icon: 'mic',
     text: {
-      en: 'I run the customer conversations myself. It is the part of the work I like most.',
-      uk: 'Я проводжу розмови з клієнтами сам. Це частина роботи яка мені подобається найбільше.',
+      en: 'Everything I build, write, and create belongs to you.',
+      uk: 'Все що я будую, пишу та створюю належить тобі.',
     },
+    dotColor: '#B1F171',
   },
   {
-    icon: 'globe',
     text: {
-      en: 'Remote, Spanish time zone, English or Ukrainian.',
-      uk: 'Віддалено, іспанський часовий пояс, англійська або українська.',
+      en: 'Average project runs 3 to 8 weeks.',
+      uk: 'Середній проєкт триває від 3 до 8 тижнів.',
     },
+    dotColor: '#F6B955',
   },
   {
-    icon: 'folder-check',
     text: {
-      en: 'Everything I make for you belongs to you.',
-      uk: 'Все що я роблю для тебе належить тобі.',
+      en: 'I take 2 to 3 projects at a time. Never more.',
+      uk: 'Я беру 2-3 проєкти одночасно. Ніколи більше.',
     },
+    dotColor: '#C4B5FD',
   },
 ];

@@ -7,46 +7,44 @@ import Reveal from '../Reveal.astro';
 
 const locale = getLocale(Astro.currentLocale);
 
+const tagColors = ['#CCE9FF', '#E4F8CF', '#FDF1DC', '#CCE9FF', '#E4F8CF'];
 ---
 
-<Section id="problems" bg="paper-2" ariaLabelledby="problems-heading">
+<Section id="problems" bg="bg" ariaLabelledby="problems-heading">
   <SectionTitle id="problems-heading">{t(locale, 'problemsTitle')}</SectionTitle>
 
-  <p class="mt-4 text-lg text-ink-soft leading-relaxed max-w-[58ch]">
+  <p class="mt-4 text-lg text-text-secondary leading-relaxed max-w-[58ch]">
     {t(locale, 'problemsIntro')}
   </p>
 
   <div class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-    {problems.map((p, i) => {
-      return (
-        <Reveal delay={i * 80}>
-          <div class={`problem-card glass-card relative flex h-full flex-col justify-between p-6`}>
-            <span class="absolute top-4 left-5 font-display text-5xl font-bold text-ink/[0.04] leading-none select-none" aria-hidden="true">
-              {String(i + 1).padStart(2, '0')}
-            </span>
-            <div class="flex justify-end gap-1.5 mb-3">
-              {p.tags.map(tag => (
-                <span class="rounded-full bg-cobalt/10 text-cobalt px-3 py-0.5 text-xs font-medium">{tag}</span>
-              ))}
-            </div>
-            <p class="text-lg font-medium leading-snug text-ink flex-1">
-              {p.quote[locale]}
-            </p>
+    {problems.map((p, i) => (
+      <Reveal delay={i * 80}>
+        <div class="card relative flex h-full flex-col justify-between p-6">
+          <span class="absolute top-4 left-5 font-display text-5xl font-bold text-dark/[0.04] leading-none select-none" aria-hidden="true">
+            {String(i + 1).padStart(2, '0')}
+          </span>
+          <div class="flex justify-end gap-1.5 mb-3">
+            {p.tags.map(tag => (
+              <span class="rounded-full px-3 py-0.5 text-xs font-medium text-dark-alt" style={`background: ${tagColors[i % tagColors.length]}`}>{tag}</span>
+            ))}
           </div>
-        </Reveal>
-      );
-    })}
+          <p class="text-lg font-medium leading-snug text-dark flex-1">
+            {p.quote[locale]}
+          </p>
+        </div>
+      </Reveal>
+    ))}
 
-    {/* Card 6: CTA card */}
     <Reveal delay={problems.length * 80}>
-      <div class="problem-card glass-card relative flex h-full flex-col justify-between p-6 !border-2 !border-dashed !border-cobalt">
+      <div class="card relative flex h-full flex-col justify-between p-6 !border-2 !border-dashed !border-green">
         <div class="flex justify-end gap-1.5 mb-3">
-          <span class="rounded-full bg-cobalt/10 text-cobalt px-3 py-0.5 text-xs font-medium">{t(locale, 'problemsCtaTag')}</span>
+          <span class="rounded-full bg-green-light px-3 py-0.5 text-xs font-medium text-dark-alt">{t(locale, 'problemsCtaTag')}</span>
         </div>
         <div class="flex-1 flex flex-col justify-between">
           <div>
-            <h3 class="font-display text-xl font-semibold">{t(locale, 'problemsCtaTitle')}</h3>
-            <p class="mt-2 text-ink-soft leading-relaxed">{t(locale, 'problemsCtaText')}</p>
+            <h3 class="font-display text-xl font-bold">{t(locale, 'problemsCtaTitle')}</h3>
+            <p class="mt-2 text-text-secondary leading-relaxed">{t(locale, 'problemsCtaText')}</p>
           </div>
           <a
             href="#book"
@@ -54,7 +52,7 @@ const locale = getLocale(Astro.currentLocale);
             data-event="cta_book_call"
             data-location="problems"
           >
-            {t(locale, 'bookCall')}
+            {t(locale, 'problemsCtaButton')}
             <svg class="ml-2 h-4 w-4 arrow-icon transition-transform duration-200" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
           </a>
         </div>
@@ -63,14 +61,8 @@ const locale = getLocale(Astro.currentLocale);
   </div>
 
   <Reveal class="mt-10">
-    <p class="text-lg text-ink-soft leading-relaxed max-w-[58ch]">
+    <p class="text-lg text-text-secondary leading-relaxed max-w-[58ch]">
       {t(locale, 'problemsClosing')}
     </p>
   </Reveal>
 </Section>
-
-<style>
-  .problem-card {
-    cursor: default;
-  }
-</style>

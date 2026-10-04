@@ -1,6 +1,7 @@
 ---
 import { t, getLocale } from '../../i18n';
 import SectionTitle from '../SectionTitle.astro';
+import HandwrittenNote from '../HandwrittenNote.astro';
 import Reveal from '../Reveal.astro';
 
 const locale = getLocale(Astro.currentLocale);
@@ -12,15 +13,19 @@ const tallyUrl = `https://tally.so/r/${locale === 'en' ? import.meta.env.PUBLIC_
 <section
   id="book"
   aria-labelledby="book-heading"
-  class="relative bg-deep text-white overflow-hidden"
+  class="relative bg-dark text-white overflow-hidden"
   style="scroll-margin-top: 0;"
 >
-  <!-- Decorative blob -->
-  <div class="deco-blob absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-20 w-[600px] h-[600px]" aria-hidden="true"></div>
+  <div class="relative mx-auto max-w-[1240px] px-4 md:px-8 pt-20 pb-16 md:pt-28 md:pb-20">
+    <Reveal>
+      <HandwrittenNote rotate={-3} class="mb-6 !text-white/70 text-lg md:text-xl">
+        {t(locale, 'ctaNote')}
+      </HandwrittenNote>
+    </Reveal>
 
-  <div class="relative mx-auto max-w-7xl px-5 md:px-6 pt-20 pb-16 md:pt-28 md:pb-20">
     <SectionTitle id="book-heading" class="text-white">{t(locale, 'ctaTitle')}</SectionTitle>
-    <p class="mt-4 text-lg text-white/80 leading-relaxed max-w-[50ch]">
+    <p class="mt-2 text-lg text-white/60">{t(locale, 'ctaSub')}</p>
+    <p class="mt-4 text-white/70 leading-relaxed max-w-[50ch]">
       {t(locale, 'ctaText')}
     </p>
 
@@ -28,29 +33,26 @@ const tallyUrl = `https://tally.so/r/${locale === 'en' ? import.meta.env.PUBLIC_
     <div class="mt-10 grid gap-6 lg:grid-cols-2 lg:gap-8">
       <!-- Card A: Talk to me -->
       <Reveal>
-        <div class="glass-card-dark h-full flex flex-col p-6 md:p-8 justify-between border-t-4 border-t-cobalt">
+        <div class="rounded-3xl bg-white/5 border border-white/10 h-full flex flex-col p-6 md:p-8 justify-between">
           <div>
             <h3 class="font-display text-2xl md:text-3xl font-bold leading-tight text-white">
               {t(locale, 'ctaCardATitle')}
             </h3>
-
-            <p class="mt-4 text-text-on-dark-muted leading-relaxed">
+            <p class="mt-4 text-white/60 leading-relaxed">
               {t(locale, 'ctaCardAText')}
             </p>
           </div>
-
           <div class="mt-8">
             <a
               href={calUrl}
               target="_blank"
               rel="noopener noreferrer"
-              class="group block w-full rounded-2xl bg-cobalt text-white font-display font-semibold text-lg py-4 px-6 text-center transition-all duration-300 hover:bg-cobalt-dk hover:shadow-lg hover:-translate-y-0.5 active:scale-[0.98] touch-manipulation"
+              class="group block w-full rounded-full bg-green text-white font-display font-bold text-lg py-4 px-6 text-center transition-all duration-300 hover:bg-green-hover hover:shadow-lg hover:-translate-y-0.5 active:scale-[0.98] touch-manipulation"
               data-event="cta_book_call"
               data-location="final"
             >
               <span class="flex items-center justify-center gap-2">
-                {t(locale, 'ctaCardAButton')}
-                <svg class="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z"/></svg>
+                {t(locale, 'ctaPickTime')}
               </span>
             </a>
           </div>
@@ -59,39 +61,31 @@ const tallyUrl = `https://tally.so/r/${locale === 'en' ? import.meta.env.PUBLIC_
 
       <!-- Card B: Quiz -->
       <Reveal delay={100}>
-        <div class="glass-card-dark h-full flex flex-col p-6 md:p-8 justify-between border-t-4 border-t-amber">
+        <div class="rounded-3xl bg-white/5 border border-white/10 h-full flex flex-col p-6 md:p-8 justify-between">
           <div>
             <h3 class="font-display text-2xl md:text-3xl font-bold leading-tight text-white">
               {t(locale, 'ctaCardBTitle')}
             </h3>
-
-            <p class="mt-4 text-text-on-dark-muted leading-relaxed">
+            <p class="mt-4 text-white/60 leading-relaxed">
               {t(locale, 'ctaCardBText')}
             </p>
           </div>
-
           <div class="mt-8">
             <a
               href={tallyUrl}
               target="_blank"
               rel="noopener noreferrer"
-              class="quiz-cta group block w-full rounded-2xl border-2 border-cobalt text-cobalt font-display font-semibold text-lg py-4 px-6 text-center transition-all duration-300 hover:bg-cobalt hover:text-white hover:shadow-lg hover:-translate-y-0.5 active:scale-[0.98] touch-manipulation"
+              class="group block w-full rounded-full border-2 border-green text-green font-display font-bold text-lg py-4 px-6 text-center transition-all duration-300 hover:bg-green hover:text-white hover:shadow-lg hover:-translate-y-0.5 active:scale-[0.98] touch-manipulation"
               data-event="cta_quiz_open"
               data-location="final"
             >
               <span class="flex items-center justify-center gap-2">
                 {t(locale, 'ctaCardBButton')}
-                <svg class="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z"/></svg>
               </span>
             </a>
           </div>
         </div>
       </Reveal>
     </div>
-
-    <!-- Reminder -->
-    <Reveal class="mt-6 text-center">
-      <p class="text-sm text-white/50">{t(locale, 'ctaReminder')}</p>
-    </Reveal>
   </div>
 </section>

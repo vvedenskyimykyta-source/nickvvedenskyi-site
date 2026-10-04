@@ -3,57 +3,50 @@
 /* Fonts */
 @import "@fontsource-variable/space-grotesk/wght.css";
 @import "@fontsource-variable/dm-sans/wght.css";
-@import "@fontsource-variable/jetbrains-mono/wght.css";
+@import "@fontsource-variable/caveat/wght.css";
 @import "@fontsource-variable/manrope/wght.css";
 
 @theme {
-  /* Backgrounds */
+  /* Primary */
+  --color-green: #6EC319;
+  --color-green-light: #B1F171;
+  --color-green-hover: #4E8F0F;
+
+  /* Secondary */
+  --color-blue: #99D4FF;
+  --color-blue-light: #CCE9FF;
+  --color-amber: #F6B955;
+  --color-lavender: #C4B5FD;
+
+  /* Neutrals */
+  --color-bg: #F4F4F4;
+  --color-white: #FFFFFF;
+  --color-dark: #1A2036;
+  --color-dark-alt: #1A1A2E;
+  --color-text-secondary: #454545;
+
+  /* Aliases for backward compat */
   --color-paper: #FFFFFF;
   --color-paper-2: #F4F4F4;
   --color-deep: #1A2036;
-  --color-blue: #99D4FF;
-  --color-blue-light: #CCE9FF;
-
-  /* Brand greens (replaces cobalt as primary accent) */
   --color-cobalt: #6EC319;
-  --color-cobalt-dk: #5AAA12;
-  --color-green-light: #B1F171;
-
-  /* Warm accents */
-  --color-amber: #F6B955;
-  --color-amber-deep: #EFAF42;
-
-  /* Legacy alias for founding section (will be green bg in redesign) */
-  --color-wine: #6EC319;
-
-  /* Text */
+  --color-cobalt-dk: #4E8F0F;
   --color-ink: #1A1A2E;
   --color-ink-soft: #454545;
   --color-text-muted: #6B7280;
   --color-text-on-dark: #FFFFFF;
   --color-text-on-dark-muted: #B0B8C9;
-
-  /* Utility */
   --color-line: #E5E7EB;
-
-  /* Step card backgrounds (muted versions of the palette) */
-  --color-step-1: #EBF9DD;
-  --color-step-2: #E0F0FF;
-  --color-step-3: #FFF5E0;
-  --color-step-4: #E8F5E9;
-  --color-step-5: #F3E8FF;
-  --color-step-6: #E0F4FF;
 
   /* Shadows */
   --shadow-sm: 0 2px 8px rgba(26, 32, 54, 0.06);
   --shadow-md: 0 8px 24px rgba(26, 32, 54, 0.08);
   --shadow-lg: 0 16px 48px rgba(26, 32, 54, 0.12);
-  --shadow-glow-green: 0 0 40px rgba(110, 195, 25, 0.2);
 
   /* Typography */
   --font-display: "Space Grotesk Variable", system-ui, sans-serif;
   --font-sans: "DM Sans Variable", system-ui, sans-serif;
-  --font-mono: "JetBrains Mono Variable", ui-monospace, monospace;
+  --font-hand: "Caveat Variable", cursive;
 }
 
 html[lang="uk"] {
@@ -68,24 +61,37 @@ html[lang="uk"] {
   }
 
   body {
-    @apply bg-paper text-ink font-sans antialiased;
+    margin: 0;
+    background: #FFFFFF;
+    font-family: var(--font-sans);
+    color: var(--color-dark-alt);
+    -webkit-font-smoothing: antialiased;
     font-size: 1.0625rem;
-    line-height: 1.7;
+    line-height: 1.6;
   }
 
   @media (min-width: 768px) {
     body {
       font-size: 1.125rem;
+      line-height: 1.7;
     }
   }
 
   h1, h2, h3, h4 {
-    @apply font-display;
+    font-family: var(--font-display);
     line-height: 1.15;
   }
 
+  h1 { letter-spacing: -0.07em; }
+  h2 { letter-spacing: -0.04em; }
+  h3 { letter-spacing: -0.02em; }
+
+  ::selection {
+    background: var(--color-green-light);
+  }
+
   :focus-visible {
-    outline: 2px solid var(--color-cobalt);
+    outline: 2px solid var(--color-green);
     outline-offset: 3px;
   }
 }
@@ -102,62 +108,31 @@ html[lang="uk"] {
   }
 }
 
-/* Glassmorphism */
+/* Cards: white bg, 24px border-radius, hover lift */
 @layer components {
-  .glass-card {
-    background: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    border-radius: 20px;
-    box-shadow: var(--shadow-md);
-    transition: border-color 300ms ease, box-shadow 300ms ease, transform 300ms ease;
+  .card {
+    background: var(--color-white);
+    border-radius: 24px;
+    transition: transform 300ms ease, box-shadow 300ms ease;
   }
-  .glass-card:hover {
-    border-color: rgba(110, 195, 25, 0.4);
+  .card:hover {
+    transform: translateY(-2px);
     box-shadow: var(--shadow-lg);
-    transform: translateY(-4px);
-  }
-
-  .glass-card-dark {
-    background: rgba(255, 255, 255, 0.08);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 20px;
-    transition: border-color 300ms ease, box-shadow 300ms ease, transform 300ms ease;
-  }
-  .glass-card-dark:hover {
-    border-color: rgba(110, 195, 25, 0.4);
-    box-shadow: var(--shadow-lg);
-    transform: translateY(-4px);
-  }
-
-  @supports not (backdrop-filter: blur(16px)) {
-    .glass-card {
-      background: rgba(255, 255, 255, 0.95);
-    }
-    .glass-card-dark {
-      background: rgba(26, 32, 54, 0.95);
-    }
   }
 }
 
 /* Button components */
 @layer components {
   .btn-primary {
-    @apply inline-flex items-center rounded-full px-7 py-3.5 text-base font-semibold text-white transition-all duration-200 touch-manipulation;
-    background: var(--color-cobalt);
+    @apply inline-flex items-center justify-center rounded-full px-7 py-3.5 text-base font-semibold text-white transition-all duration-200 touch-manipulation;
+    background: var(--color-green);
     min-height: 48px;
     box-shadow: 0 2px 8px rgba(110, 195, 25, 0.25);
   }
   .btn-primary:hover {
-    background: var(--color-cobalt-dk);
+    background: var(--color-green-hover);
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(110, 195, 25, 0.35), var(--shadow-glow-green);
-  }
-  .btn-primary:hover .arrow-icon {
-    transform: translateX(4px);
+    box-shadow: 0 6px 20px rgba(110, 195, 25, 0.35);
   }
   .btn-primary:active {
     transform: scale(0.98);
@@ -165,67 +140,46 @@ html[lang="uk"] {
   }
 
   .btn-secondary {
-    @apply inline-flex items-center rounded-full border-2 px-6 py-3 text-sm font-semibold transition-all duration-200 touch-manipulation;
+    @apply inline-flex items-center justify-center rounded-full border-2 px-6 py-3 text-sm font-semibold transition-all duration-200 touch-manipulation;
     border-color: var(--color-ink);
     color: var(--color-ink);
     min-height: 44px;
   }
   .btn-secondary:hover {
-    @apply bg-paper-2;
-  }
-  .btn-secondary:hover .arrow-icon {
-    transform: translateX(4px);
+    background: var(--color-bg);
   }
 
-  .btn-wine {
-    @apply inline-flex items-center rounded-full px-7 py-3.5 text-base font-semibold transition-all duration-200 touch-manipulation;
+  .btn-dark {
+    @apply inline-flex items-center justify-center rounded-full px-7 py-3.5 text-base font-semibold transition-all duration-200 touch-manipulation;
     background: var(--color-deep);
     color: white;
     min-height: 48px;
-    box-shadow: 0 2px 8px rgba(26, 32, 54, 0.2);
   }
-  .btn-wine:hover {
+  .btn-dark:hover {
     background: #141829;
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(26, 32, 54, 0.3);
   }
-  .btn-wine:active {
+  .btn-dark:active {
     transform: scale(0.98);
   }
-
-  /* Body text link underline animation */
-  .prose a, section p a:not(.btn-primary):not(.btn-secondary):not(.btn-wine) {
-    text-decoration: none;
-    background-image: linear-gradient(currentColor, currentColor);
-    background-position: 0% 100%;
-    background-repeat: no-repeat;
-    background-size: 0% 1px;
-    transition: background-size 200ms ease;
-  }
-  .prose a:hover, section p a:not(.btn-primary):not(.btn-secondary):not(.btn-wine):hover {
-    background-size: 100% 1px;
-  }
 }
 
-/* Decorative gradient blobs */
+/* Handwritten note style */
 @layer components {
-  .deco-blob {
-    position: absolute;
-    width: 400px;
-    height: 400px;
-    border-radius: 50%;
-    background: radial-gradient(circle, var(--color-green-light) 0%, transparent 70%);
-    opacity: 0.3;
-    filter: blur(60px);
-    pointer-events: none;
-    z-index: -1;
-  }
-  .deco-blob-blue {
-    background: radial-gradient(circle, var(--color-blue) 0%, transparent 70%);
+  .handwritten {
+    font-family: var(--font-hand);
+    color: var(--color-green);
+    font-weight: 400;
   }
 }
 
-/* Touch devices: tap effects */
+/* Decorative floaty animation */
+@keyframes floaty {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* Touch devices */
 @media (hover: none) {
   .btn-primary:active .arrow-icon,
   .btn-secondary:active .arrow-icon {
@@ -233,14 +187,7 @@ html[lang="uk"] {
   }
 }
 
-/* Magnetic button effect (desktop only) */
-@media (hover: hover) and (pointer: fine) {
-  .btn-magnetic {
-    transition: transform 200ms ease, background-color 200ms ease, box-shadow 200ms ease;
-  }
-}
-
-/* Screen-reader only (for semantic HTML) */
+/* Screen-reader only */
 @layer base {
   .sr-only {
     position: absolute;
@@ -253,4 +200,13 @@ html[lang="uk"] {
     white-space: nowrap;
     border-width: 0;
   }
+}
+
+/* Scrollbar hide for carousels */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
 }

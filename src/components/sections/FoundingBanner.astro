@@ -1,74 +1,39 @@
 ---
 import { t, getLocale } from '../../i18n';
+import HandwrittenNote from '../HandwrittenNote.astro';
 import Reveal from '../Reveal.astro';
 
 const locale = getLocale(Astro.currentLocale);
 ---
 
-<aside class="relative bg-cobalt py-12 md:py-16" aria-label={locale === 'en' ? 'Founding client offer' : 'Пропозиція для перших клієнтів'}>
-  <div class="mx-auto max-w-7xl px-5 md:px-6">
+<aside class="relative bg-green py-12 md:py-16" aria-label={locale === 'en' ? 'Founding client offer' : 'Пропозиція для перших клієнтів'}>
+  <div class="mx-auto max-w-[1240px] px-4 md:px-8">
     <Reveal>
-      <div class="relative">
-        <h2 class="font-display text-2xl font-semibold md:text-3xl text-white">{t(locale, 'foundingTitle')}</h2>
-        <p class="mt-4 text-lg text-white/80 leading-relaxed max-w-[58ch]">
-          {t(locale, 'foundingText')}
-        </p>
-
-        <!-- Countdown timer -->
-        <div class="mt-6 flex gap-4 md:gap-6" id="countdown" aria-label={locale === 'en' ? 'Time remaining until December 1, 2026' : 'Час до 1 грудня 2026'}>
-          <time datetime="2026-12-01T00:00:00+01:00" class="sr-only">{locale === 'en' ? 'December 1, 2026' : '1 грудня 2026'}</time>
-          <div class="text-center rounded-2xl bg-deep px-4 py-3 min-w-[72px]">
-            <span class="font-display text-3xl md:text-4xl font-bold text-white" id="cd-days">--</span>
-            <p class="text-xs text-white/60 mt-1">{locale === 'en' ? 'days' : 'днів'}</p>
-          </div>
-          <div class="text-center rounded-2xl bg-deep px-4 py-3 min-w-[72px]">
-            <span class="font-display text-3xl md:text-4xl font-bold text-white" id="cd-hours">--</span>
-            <p class="text-xs text-white/60 mt-1">{locale === 'en' ? 'hours' : 'годин'}</p>
-          </div>
-          <div class="text-center rounded-2xl bg-deep px-4 py-3 min-w-[72px]">
-            <span class="font-display text-3xl md:text-4xl font-bold text-white" id="cd-mins">--</span>
-            <p class="text-xs text-white/60 mt-1">{locale === 'en' ? 'min' : 'хв'}</p>
-          </div>
-          <div class="text-center rounded-2xl bg-deep px-4 py-3 min-w-[72px]">
-            <span class="font-display text-3xl md:text-4xl font-bold text-white" id="cd-secs">--</span>
-            <p class="text-xs text-white/60 mt-1">{locale === 'en' ? 'sec' : 'сек'}</p>
-          </div>
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-8">
+        <div class="flex-1">
+          <span class="inline-block rounded-full bg-white text-green font-display font-bold text-lg px-4 py-1 mb-4">
+            {t(locale, 'foundingBadge')}
+          </span>
+          <h2 class="font-display text-2xl font-bold md:text-3xl text-white">{t(locale, 'foundingTitle')}</h2>
+          <p class="mt-4 text-lg text-white/80 leading-relaxed max-w-[58ch]">
+            {t(locale, 'foundingText')}
+          </p>
+          <a
+            href="#book"
+            class="mt-6 inline-flex text-base px-8 py-3.5 rounded-full bg-white text-green font-display font-bold transition-all duration-300 hover:bg-white/90 hover:shadow-lg"
+            data-event="cta_book_call"
+            data-location="founding"
+          >
+            {t(locale, 'foundingButton')}
+            <svg class="ml-2 h-4 w-4 arrow-icon transition-transform duration-200" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+          </a>
         </div>
-
-        <a
-          href="#book"
-          class="btn-magnetic mt-8 inline-flex text-base px-8 py-3.5 rounded-full bg-white text-cobalt font-display font-semibold transition-all duration-300 hover:bg-white/90 hover:shadow-lg"
-          data-event="cta_book_call"
-          data-location="founding"
-        >
-          {t(locale, 'foundingButton')}
-          <svg class="ml-2 h-4 w-4 arrow-icon transition-transform duration-200" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-        </a>
+        <div class="md:text-right">
+          <HandwrittenNote rotate={-3} class="text-lg md:text-xl !text-white/80">
+            {t(locale, 'foundingNote')}
+          </HandwrittenNote>
+        </div>
       </div>
     </Reveal>
   </div>
 </aside>
-
-<script>
-  const deadline = new Date('2026-12-01T00:00:00+01:00').getTime();
-  const days = document.getElementById('cd-days');
-  const hours = document.getElementById('cd-hours');
-  const mins = document.getElementById('cd-mins');
-  const secs = document.getElementById('cd-secs');
-
-  function tick() {
-    const now = Date.now();
-    const diff = Math.max(0, deadline - now);
-    const d = Math.floor(diff / 86400000);
-    const h = Math.floor((diff % 86400000) / 3600000);
-    const m = Math.floor((diff % 3600000) / 60000);
-    const s = Math.floor((diff % 60000) / 1000);
-    if (days) days.textContent = String(d);
-    if (hours) hours.textContent = String(h).padStart(2, '0');
-    if (mins) mins.textContent = String(m).padStart(2, '0');
-    if (secs) secs.textContent = String(s).padStart(2, '0');
-  }
-
-  tick();
-  setInterval(tick, 1000);
-</script>

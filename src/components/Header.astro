@@ -1,6 +1,5 @@
 ---
-import { t, getLocale, type Locale } from '../i18n';
-import { site } from '../data/site';
+import { t, getLocale } from '../i18n';
 
 const locale = getLocale(Astro.currentLocale);
 const langHref = t(locale, 'langSwitchHref');
@@ -12,23 +11,23 @@ const langLabel = t(locale, 'langSwitchLabel');
   class="fixed top-0 left-0 right-0 z-50 h-16 transition-shadow duration-200"
   data-header
 >
-  <div class="mx-auto flex h-full max-w-7xl items-center justify-between px-5 md:px-6">
+  <div class="mx-auto flex h-full max-w-[1240px] items-center justify-between px-4 md:px-8">
     <!-- Logo -->
-    <a href={locale === 'uk' ? '/uk/' : '/'} class="font-display text-lg font-semibold text-ink whitespace-nowrap touch-manipulation">
+    <a href={locale === 'uk' ? '/uk/' : '/'} class="font-display text-lg font-bold text-dark whitespace-nowrap touch-manipulation">
       Nick Vvedenskyi
     </a>
 
     <!-- Desktop nav -->
     <nav class="hidden items-center gap-6 lg:flex" aria-label="Main navigation">
       {[
-        { href: '#how-i-help', label: t(locale, 'langSwitchLabel') === 'UA' ? 'How I help' : 'Чим допомагаю' },
+        { href: '#how-i-help', label: locale === 'en' ? 'How I help' : 'Чим допомагаю' },
         { href: '#cases', label: locale === 'en' ? 'Cases' : 'Кейси' },
         { href: '#about', label: locale === 'en' ? 'About' : 'Про мене' },
         { href: '#faq', label: 'FAQ' },
       ].map(item => (
         <a
           href={item.href}
-          class="text-sm font-medium text-ink-soft transition-colors hover:text-ink touch-manipulation"
+          class="text-sm font-medium text-text-secondary transition-colors hover:text-dark touch-manipulation"
         >
           {item.label}
         </a>
@@ -37,41 +36,25 @@ const langLabel = t(locale, 'langSwitchLabel');
 
     <!-- Right side -->
     <div class="flex items-center gap-3">
-      <!-- Social links (desktop) -->
-      <div class="hidden sm:flex items-center gap-1">
-        <a
-          href={site.linkedin}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="flex items-center justify-center w-9 h-9 rounded-full text-ink-soft hover:text-cobalt transition-colors touch-manipulation"
-          aria-label="LinkedIn"
-          data-event="outbound_linkedin"
-          data-location="header"
-        >
-          <svg class="w-[18px] h-[18px]" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-        </a>
-        <a
-          href={site.instagram}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="flex items-center justify-center w-9 h-9 rounded-full text-ink-soft hover:text-cobalt transition-colors touch-manipulation"
-          aria-label="Instagram"
-          data-event="outbound_instagram"
-          data-location="header"
-        >
-          <svg class="w-[18px] h-[18px]" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
-        </a>
-      </div>
-
       <!-- Lang switcher -->
       <a
         href={langHref}
-        class="text-sm font-semibold text-cobalt hover:text-cobalt-dk transition-colors touch-manipulation min-w-[44px] min-h-[44px] flex items-center justify-center"
+        class="text-sm font-bold text-green hover:text-green-hover transition-colors touch-manipulation min-w-[44px] min-h-[44px] flex items-center justify-center"
         aria-label={langLabel === 'UA' ? 'Перейти на українську' : 'Switch to English'}
         data-event="lang_switch"
         data-location="header"
       >
         {langLabel}
+      </a>
+
+      <!-- CTA button (desktop) -->
+      <a
+        href="#book"
+        class="hidden lg:inline-flex btn-primary text-sm px-5 py-2"
+        data-event="cta_book_call"
+        data-location="header"
+      >
+        {t(locale, 'bookCallShort')}
       </a>
 
       <!-- Burger button (mobile) -->
@@ -92,7 +75,7 @@ const langLabel = t(locale, 'langSwitchLabel');
 <!-- Mobile menu -->
 <div
   id="mobile-menu"
-  class="fixed inset-0 z-40 hidden flex-col bg-paper pt-20 px-5 pb-8"
+  class="fixed inset-0 z-40 hidden flex-col bg-white pt-20 px-4 pb-8"
   role="dialog"
   aria-modal="true"
   aria-label="Navigation"
@@ -106,33 +89,19 @@ const langLabel = t(locale, 'langSwitchLabel');
     ].map(item => (
       <a
         href={item.href}
-        class="mobile-nav-link block rounded-xl px-4 py-3 text-lg font-medium text-ink transition-colors hover:bg-paper-2 touch-manipulation"
+        class="mobile-nav-link block rounded-2xl px-4 py-3 text-lg font-medium text-dark transition-colors hover:bg-bg touch-manipulation"
       >
         {item.label}
       </a>
     ))}
-    <div class="mt-4 border-t border-line pt-4 flex items-center gap-3">
+    <div class="mt-4 pt-4 border-t border-dark/5">
       <a
-        href={site.linkedin}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="flex items-center justify-center w-11 h-11 rounded-full text-ink-soft hover:text-cobalt transition-colors touch-manipulation"
-        aria-label="LinkedIn"
-        data-event="outbound_linkedin"
+        href="#book"
+        class="mobile-nav-link btn-primary w-full text-center text-base py-3"
+        data-event="cta_book_call"
         data-location="header_mobile"
       >
-        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-      </a>
-      <a
-        href={site.instagram}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="flex items-center justify-center w-11 h-11 rounded-full text-ink-soft hover:text-cobalt transition-colors touch-manipulation"
-        aria-label="Instagram"
-        data-event="outbound_instagram"
-        data-location="header_mobile"
-      >
-        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+        {t(locale, 'bookCall')}
       </a>
     </div>
   </nav>
@@ -143,8 +112,8 @@ const langLabel = t(locale, 'langSwitchLabel');
     background: transparent;
   }
   [data-header].scrolled {
-    background: var(--color-paper);
-    border-bottom: 1px solid var(--color-line);
+    background: rgba(255, 255, 255, 0.9);
+    border-bottom: 1px solid rgba(26, 32, 54, 0.05);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
   }
@@ -157,12 +126,10 @@ const langLabel = t(locale, 'langSwitchLabel');
   const burgerIcon = burger.querySelector('.burger-icon')!;
   const closeIcon = burger.querySelector('.close-icon')!;
 
-  // Scroll shadow
   const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 40);
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 
-  // Burger
   function toggleMenu(open?: boolean) {
     const isOpen = open ?? menu.classList.contains('hidden');
     menu.classList.toggle('hidden', !isOpen);
@@ -175,12 +142,10 @@ const langLabel = t(locale, 'langSwitchLabel');
 
   burger.addEventListener('click', () => toggleMenu());
 
-  // Close on link click
   menu.querySelectorAll('.mobile-nav-link').forEach(link => {
     link.addEventListener('click', () => toggleMenu(false));
   });
 
-  // Close on Escape
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && !menu.classList.contains('hidden')) {
       toggleMenu(false);

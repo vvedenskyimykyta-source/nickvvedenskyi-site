@@ -6,7 +6,7 @@ import SectionTitle from '../SectionTitle.astro';
 import Reveal from '../Reveal.astro';
 
 const locale = getLocale(Astro.currentLocale);
-const MOBILE_LIMIT = 10;
+const INITIAL_LIMIT = 21;
 
 function seededRandom(seed: number) {
   const x = Math.sin(seed) * 10000;
@@ -14,26 +14,27 @@ function seededRandom(seed: number) {
 }
 ---
 
-<Section id="projects" bg="paper-2" ariaLabelledby="projects-heading">
-  <div class="flex items-end gap-4 mb-2">
-    <span class="font-display text-[clamp(3rem,8vw,5rem)] font-bold text-cobalt leading-none tracking-[-0.03em]">{projects.length}</span>
-    <SectionTitle id="projects-heading">{t(locale, 'projectsTitle')}</SectionTitle>
-  </div>
-  <p class="mt-3 text-sm text-ink-soft">{t(locale, 'projectsSub')}</p>
+<section id="projects" class="relative py-[60px] md:py-[100px] bg-dark text-white" style="scroll-margin-top: 5rem;">
+  <div class="mx-auto max-w-[1240px] px-4 md:px-8">
+    <div class="flex items-end gap-4 mb-2">
+      <span class="font-display text-[clamp(4rem,10vw,7rem)] font-bold leading-none tracking-[-0.03em]" style="background: linear-gradient(135deg, #B1F171, #99D4FF); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+        {projects.length}
+      </span>
+    </div>
+    <SectionTitle id="projects-heading" class="text-white">{t(locale, 'projectsTitle')}</SectionTitle>
+    <p class="mt-3 text-sm text-white/60">{t(locale, 'projectsSub')}</p>
 
-  {projects.length > 0 ? (
     <Reveal class="mt-10">
       <div id="projects-cloud" class="flex flex-wrap justify-center gap-3 md:gap-4">
         {projects.map((p, i) => {
           const rotation = (seededRandom(i * 37 + 7) * 6 - 3).toFixed(1);
-          const borderColor = i % 2 === 0 ? 'border-cobalt' : 'border-blue';
-          const hiddenOnMobile = i >= MOBILE_LIMIT ? 'projects-extra' : '';
+          const isExtra = i >= INITIAL_LIMIT;
           return (
             <a
               href={p.url}
               target="_blank"
               rel="noopener noreferrer"
-              class={`project-sticker inline-flex items-center rounded-full bg-paper border ${borderColor} px-4 py-2 font-display text-sm md:text-base font-medium text-ink touch-manipulation min-h-[44px] ${hiddenOnMobile}`}
+              class={`project-sticker inline-flex items-center rounded-full bg-white/5 border border-white/10 px-4 py-2 font-display text-sm md:text-base font-medium text-white touch-manipulation min-h-[44px] ${isExtra ? 'projects-extra' : ''}`}
               style={`--sticker-rot: ${rotation}deg;`}
               data-event="outbound_project"
               data-name={p.name}
@@ -45,26 +46,20 @@ function seededRandom(seed: number) {
           );
         })}
       </div>
-      {projects.length > MOBILE_LIMIT && (
-        <div class="mt-4 text-center md:hidden" id="projects-toggle-wrap">
+      {projects.length > INITIAL_LIMIT && (
+        <div class="mt-6 text-center" id="projects-toggle-wrap">
           <button
             id="projects-toggle"
-            class="text-sm font-medium text-cobalt hover:text-cobalt-dk transition-colors touch-manipulation min-h-[44px] px-4"
+            class="text-sm font-medium text-green-light hover:text-green transition-colors touch-manipulation min-h-[44px] px-4"
             data-event="projects_show_all"
           >
-            {locale === 'en' ? `Show all ${projects.length}` : `Показати всі ${projects.length}`}
+            {t(locale, 'projectsShowAll')}
           </button>
         </div>
       )}
     </Reveal>
-  ) : (
-    <Reveal class="mt-10">
-      <p class="text-ink-soft text-center">
-        {locale === 'en' ? 'Coming soon.' : 'Скоро з\'явиться.'}
-      </p>
-    </Reveal>
-  )}
-</Section>
+  </div>
+</section>
 
 <style>
   .project-sticker {
@@ -78,8 +73,8 @@ function seededRandom(seed: number) {
   }
   .project-sticker:hover {
     transform: rotate(0deg) translateY(-2px) !important;
-    border-color: var(--color-cobalt) !important;
-    box-shadow: 0 4px 8px rgba(47, 79, 168, 0.12);
+    border-color: var(--color-green-light) !important;
+    box-shadow: 0 4px 12px rgba(110, 195, 25, 0.15);
   }
   .project-sticker:hover .project-arrow {
     opacity: 1;
@@ -102,25 +97,22 @@ function seededRandom(seed: number) {
     }
   }
 
-  @media (max-width: 767px) {
-    .projects-extra {
-      display: none;
-    }
-    .projects-expanded .projects-extra {
-      display: inline-flex;
-    }
+  .projects-extra {
+    display: none;
+  }
+  .projects-expanded .projects-extra {
+    display: inline-flex;
   }
 </style>
 
 <script>
-  // Sticker drop-in animation
   const stickers = document.querySelectorAll<HTMLElement>('.project-sticker');
   if (stickers.length && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     const obs = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (!entry.isIntersecting) return;
         const container = entry.target;
-        container.querySelectorAll<HTMLElement>('.project-sticker').forEach((s, i) => {
+        container.querySelectorAll<HTMLElement>('.project-sticker:not(.projects-extra)').forEach((s, i) => {
           setTimeout(() => s.classList.add('sticker-in'), i * 40);
         });
         obs.unobserve(container);
@@ -136,13 +128,22 @@ function seededRandom(seed: number) {
   const cloud = document.getElementById('projects-cloud');
   const wrap = document.getElementById('projects-toggle-wrap');
   if (toggle && cloud) {
+    let expanded = false;
     toggle.addEventListener('click', () => {
-      cloud.classList.add('projects-expanded');
-      const extras = cloud.querySelectorAll<HTMLElement>('.projects-extra');
-      extras.forEach((s, i) => {
-        setTimeout(() => s.classList.add('sticker-in'), i * 40);
-      });
-      if (wrap) wrap.style.display = 'none';
+      expanded = !expanded;
+      if (expanded) {
+        cloud.classList.add('projects-expanded');
+        const extras = cloud.querySelectorAll<HTMLElement>('.projects-extra');
+        extras.forEach((s, i) => {
+          setTimeout(() => s.classList.add('sticker-in'), i * 40);
+        });
+        toggle.textContent = toggle.dataset.lessText || 'Show less';
+      } else {
+        cloud.classList.remove('projects-expanded');
+        toggle.textContent = toggle.dataset.moreText || 'Show all';
+      }
     });
+    toggle.dataset.moreText = toggle.textContent || '';
+    toggle.dataset.lessText = document.documentElement.lang === 'uk' ? 'Показати менше' : 'Show less';
   }
 </script>

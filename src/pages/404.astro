@@ -1,8 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { getLocale, t } from '../i18n';
+import { t } from '../i18n';
 
-// Try to detect language from URL
 const url = Astro.url.pathname;
 const isUk = url.startsWith('/uk');
 const locale = isUk ? 'uk' : 'en';
@@ -10,30 +9,25 @@ const homeHref = isUk ? '/uk/' : '/';
 ---
 
 <Layout
-  title={locale === 'en' ? '404 · Nick Vvedenskyi' : '404 · Nick Vvedenskyi'}
+  title="404 · Nick Vvedenskyi"
   noHeader
   noFooter
 >
-  <div class="flex min-h-[100dvh] flex-col items-center justify-center px-5 text-center">
-    <p class="font-display text-8xl font-bold text-cobalt/20">404</p>
-    <h1 class="mt-6 font-display text-2xl font-semibold md:text-3xl max-w-md">
+  <div class="flex min-h-[100dvh] flex-col items-center justify-center px-4 text-center">
+    <p class="font-display text-8xl font-bold text-green/20">404</p>
+    <h1 class="mt-6 font-display text-2xl font-bold md:text-3xl max-w-md">
       {locale === 'en'
-        ? 'This page left without filling in the cancellation survey'
-        : 'Ця сторінка пішла не заповнивши форму скасування'}
+        ? 'Well, this page left without telling anyone why'
+        : 'Ну, ця сторінка пішла нікому не сказавши чому'}
     </h1>
-    <p class="mt-4 text-ink-soft max-w-sm">
+    <p class="mt-4 text-text-secondary max-w-sm">
       {locale === 'en'
-        ? 'Which is the exact problem I get hired for. Come back to the start and we will pretend this never happened.'
-        : 'Що саме та проблема за вирішення якої мене наймають. Повертайся на початок і зробимо вигляд що цього не було.'}
+        ? 'Which is exactly the kind of churn I help with. Let’s get you back home.'
+        : 'Що саме той тип відтоку з яким я допомагаю. Давай повернемо тебе додому.'}
     </p>
     <a href={homeHref} class="btn-primary mt-8">
       {locale === 'en' ? 'Back to the homepage' : 'На головну'}
       <svg class="ml-2 h-4 w-4 arrow-icon transition-transform duration-200" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
     </a>
-    <p class="mt-12 font-display font-semibold text-lg text-cobalt">
-      {locale === 'en'
-        ? 'at least the 404 page works'
-        : 'принаймні сторінка 404 працює'}
-    </p>
   </div>
 </Layout>

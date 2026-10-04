@@ -11,6 +11,16 @@ export const faq = [
   },
   {
     q: {
+      en: 'Why 100% prepayment?',
+      uk: 'Чому 100% передоплата?',
+    },
+    a: {
+      en: 'Because it changes how we both show up. When the money question is settled before we start, neither of us is thinking about it during the work. I am not chasing invoices, you are not wondering if the next milestone is worth paying for. We are both focused on the same thing: getting you a result. It also means I only take projects I am genuinely confident I can help with. If I am not sure, I will say so on the call before any money moves.',
+      uk: 'Тому що це змінює те як ми обоє підходимо до справи. Коли грошове питання вирішене до старту, ніхто з нас не думає про це під час роботи. Я не ганяюсь за рахунками, ти не думаєш чи наступний етап вартий оплати. Ми обоє фокусуємось на одному: отримати тобі результат. Це також означає що я беру лише проєкти де щиро впевнений що можу допомогти. Якщо не впевнений, скажу це на дзвінку до того як гроші рухатимуться.',
+    },
+  },
+  {
+    q: {
       en: 'Do you run SEO, ads or email campaigns?',
       uk: 'Ти ведеш SEO, рекламу чи email-кампанії?',
     },
@@ -41,22 +51,22 @@ export const faq = [
   },
   {
     q: {
-      en: 'I do not know which of these I need.',
-      uk: 'Я не знаю що з цього мені потрібно.',
+      en: 'How does working with you actually look?',
+      uk: 'Як насправді виглядає робота з тобою?',
     },
     a: {
-      en: 'Almost nobody does, and working that out is most of what the first call is for. It is also the reason the call is free.',
-      uk: 'Майже ніхто не знає, і розібратись з цим це більша частина того для чого перший дзвінок. Тому він і безкоштовний.',
+      en: 'I do not join your team and I do not take over your Slack. I work at the strategy and decision level: we figure out what needs to change, build the plan, and I help you and your team execute it. Think of it as a partner who shows up for the hard thinking, not a contractor who fills a seat.',
+      uk: 'Я не входжу в твою команду і не захоплюю твій Slack. Я працюю на рівні стратегії та рішень: ми розбираємось що потрібно змінити, будуємо план, і я допомагаю тобі та твоїй команді його виконати. Думай про це як про партнера який приходить для складного мислення, а не підрядника який займає місце.',
     },
   },
   {
     q: {
-      en: 'How does the autumn deal work?',
-      uk: 'Як працює осіння пропозиція?',
+      en: 'How does the founding client discount work?',
+      uk: 'Як працює знижка для перших клієнтів?',
     },
     a: {
-      en: 'Book before December 1, 2026 and get 30 percent off any engagement. In return I write up the work as a case study, which you read and approve before it goes anywhere, and you give me a testimonial that is honest rather than flattering.',
-      uk: 'Забронюй до 1 грудня 2026 і отримай знижку 30% на будь-який проєкт. Натомість я описую роботу як кейс, який ти читаєш і затверджуєш перед публікацією, і ти даєш чесний відгук.',
+      en: 'My first five clients get 30 percent off any engagement. In return I write up the work as a case study, which you read and approve before it goes anywhere, and you give me a testimonial that is honest rather than flattering.',
+      uk: 'Мої перші пʼять клієнтів отримують знижку 30% на будь-який проєкт. Натомість я описую роботу як кейс, який ти читаєш і затверджуєш перед публікацією, і ти даєш чесний відгук.',
     },
   },
   {
