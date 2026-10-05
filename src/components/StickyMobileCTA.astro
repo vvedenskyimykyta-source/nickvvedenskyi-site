@@ -28,12 +28,19 @@ const locale = getLocale(Astro.currentLocale);
     const book = document.getElementById('book');
     const mobileMenu = document.getElementById('mobile-menu');
 
+    // Sections that carry their own "Let's talk" button; two identical green
+    // buttons on one screen read as a mistake.
+    const ownButtons = Array.from(
+      document.querySelectorAll<HTMLElement>('.pipeline-cta-btn, .founding-btn')
+    );
+    const ownButtonsOnScreen = new Set<HTMLElement>();
+
     let heroPassed = false;
     let bookVisible = false;
     let menuOpen = false;
 
     function updateBar() {
-      const show = heroPassed && !bookVisible && !menuOpen;
+      const show = heroPassed && !bookVisible && !menuOpen && ownButtonsOnScreen.size === 0;
       bar.classList.toggle('translate-y-full', !show);
       bar.classList.toggle('translate-y-0', show);
       bar.setAttribute('aria-hidden', String(!show));
@@ -44,6 +51,18 @@ const locale = getLocale(Astro.currentLocale);
     }
     if (book) {
       new IntersectionObserver(([e]) => { bookVisible = e.isIntersecting; updateBar(); }, { threshold: 0.1 }).observe(book);
+    }
+
+    if (ownButtons.length) {
+      const io = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+          const el = e.target as HTMLElement;
+          if (e.isIntersecting) ownButtonsOnScreen.add(el);
+          else ownButtonsOnScreen.delete(el);
+        });
+        updateBar();
+      }, { threshold: 0.1 });
+      ownButtons.forEach(b => io.observe(b));
     }
 
     // Watch burger menu

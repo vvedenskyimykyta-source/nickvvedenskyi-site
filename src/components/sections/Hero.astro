@@ -13,7 +13,7 @@ const stats = [
 ];
 ---
 
-<section id="hero" class="relative overflow-hidden bg-white" style="padding:72px 0 40px;scroll-margin-top:5rem">
+<section id="hero" class="relative bg-white" style="scroll-margin-top:5rem">
   <!-- Decorative blobs -->
   <div
     class="pointer-events-none absolute rounded-full"
@@ -141,6 +141,8 @@ const stats = [
   /* clip, not hidden: the blobs overhang the edges, and `hidden` would leave the
      section programmatically scrollable (scrollIntoView could shift its contents). */
   #hero {
+    /* Kept in CSS, not inline: an inline padding outranks the mobile query. */
+    padding: 72px 0 40px;
     overflow: hidden;
     overflow: clip;
   }
@@ -184,8 +186,13 @@ const stats = [
   }
 
   @media (max-width: 767px) {
-    #hero { padding: 40px 0 32px; }
-    #hero > .grid { padding-left: 20px; padding-right: 20px; gap: 32px; }
+    #hero { padding: 14px 0 32px; }
+    #hero > .grid { padding-left: 20px; padding-right: 20px; gap: 20px; }
+    /* The pair needs 342px of a 335px row, so it wrapped and cost a whole
+       button's height. Trimming the side padding keeps them on one line
+       down to 360px-wide phones. */
+    #hero .btn-primary,
+    #hero .btn-secondary { padding: 16px 20px; }
     /* The note card hangs off the frame on desktop; on a phone that falls off screen. */
     .hero-note { right: 4px; bottom: 12px; max-width: 250px; padding: 12px 16px 10px; }
     .hero-note-text { font-size: 19px; }
