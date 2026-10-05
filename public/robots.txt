@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://nickvvedenskyi.com/sitemap-index.xml
+Sitemap: https://www.nickvvedenskyi.com/sitemap-index.xml

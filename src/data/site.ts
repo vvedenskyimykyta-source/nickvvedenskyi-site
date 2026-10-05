@@ -1,7 +1,7 @@
 export const site = {
   name: 'Nick Vvedenskyi',
   tagline: { en: 'Revenue & Marketing for Tech/AI Products', uk: 'Revenue & Marketing для Tech/AI продуктів' },
-  url: 'https://nickvvedenskyi.com',
+  url: 'https://www.nickvvedenskyi.com',
   linkedin: 'https://www.linkedin.com/in/nick-vvedenskyi/',
   linkedinRecommendations: 'https://www.linkedin.com/in/nick-vvedenskyi/details/recommendations/',
   instagram: 'https://www.instagram.com/lagerfeeld_/',

@@ -20,18 +20,18 @@ const { title, description, noHeader, noFooter, noindex, showFaqSchema } = Astro
 const locale = getLocale(Astro.currentLocale);
 const altLocale = locale === 'en' ? 'uk' : 'en';
 const altPath = locale === 'en' ? '/uk/' : '/';
-const canonicalUrl = new URL(Astro.url.pathname, 'https://nickvvedenskyi.com');
+const canonicalUrl = new URL(Astro.url.pathname, 'https://www.nickvvedenskyi.com');
 
 const jsonLdGraph: Record<string, unknown>[] = [
   {
     '@type': 'Person',
-    '@id': 'https://nickvvedenskyi.com/#person',
+    '@id': 'https://www.nickvvedenskyi.com/#person',
     name: 'Nick Vvedenskyi',
     alternateName: 'Mykyta Vvedenskyi',
     jobTitle: 'Revenue & Marketing Consultant',
     description: 'I help tech and AI founders figure out who buys, why they stay and where the money is hiding.',
-    url: 'https://nickvvedenskyi.com',
-    image: 'https://nickvvedenskyi.com/images/nick-portrait.jpg',
+    url: 'https://www.nickvvedenskyi.com',
+    image: 'https://www.nickvvedenskyi.com/images/nick-portrait.jpg',
     sameAs: [
       'https://www.linkedin.com/in/nick-vvedenskyi/',
       'https://www.instagram.com/lagerfeeld_/'
@@ -44,11 +44,11 @@ const jsonLdGraph: Record<string, unknown>[] = [
   },
   {
     '@type': 'ProfessionalService',
-    '@id': 'https://nickvvedenskyi.com/#business',
+    '@id': 'https://www.nickvvedenskyi.com/#business',
     name: 'Nick Vvedenskyi · Revenue & Marketing',
     description: 'Revenue and marketing consulting for tech and AI products. Customer discovery, positioning, retention, go-to-market and monetization.',
-    url: 'https://nickvvedenskyi.com',
-    founder: { '@id': 'https://nickvvedenskyi.com/#person' },
+    url: 'https://www.nickvvedenskyi.com',
+    founder: { '@id': 'https://www.nickvvedenskyi.com/#person' },
     areaServed: ['Europe', 'United States'],
     serviceType: 'Marketing Consulting',
     priceRange: '€1,000 - €7,000',
@@ -60,10 +60,10 @@ const jsonLdGraph: Record<string, unknown>[] = [
           '@type': 'Offer',
           itemOffered: {
             '@type': 'Service',
-            '@id': 'https://nickvvedenskyi.com/#buyer-sprint',
+            '@id': 'https://www.nickvvedenskyi.com/#buyer-sprint',
             name: 'Buyer Sprint',
             description: 'Customer discovery through 10-12 interviews. You get ICP cards, buyer language map, top segments, and clear next steps.',
-            provider: { '@id': 'https://nickvvedenskyi.com/#person' },
+            provider: { '@id': 'https://www.nickvvedenskyi.com/#person' },
             serviceType: 'Customer Discovery'
           },
           price: '1500',
@@ -80,10 +80,10 @@ const jsonLdGraph: Record<string, unknown>[] = [
           '@type': 'Offer',
           itemOffered: {
             '@type': 'Service',
-            '@id': 'https://nickvvedenskyi.com/#brand-market-fit',
+            '@id': 'https://www.nickvvedenskyi.com/#brand-market-fit',
             name: 'Brand-Market Fit',
             description: 'Positioning and messaging so people understand why they should pick you. You get positioning, messaging matrix, elevator pitch, brand guidelines lite.',
-            provider: { '@id': 'https://nickvvedenskyi.com/#person' },
+            provider: { '@id': 'https://www.nickvvedenskyi.com/#person' },
             serviceType: 'Brand Positioning'
           },
           price: '1500',
@@ -93,10 +93,10 @@ const jsonLdGraph: Record<string, unknown>[] = [
           '@type': 'Offer',
           itemOffered: {
             '@type': 'Service',
-            '@id': 'https://nickvvedenskyi.com/#pipeline-audit',
+            '@id': 'https://www.nickvvedenskyi.com/#pipeline-audit',
             name: 'Pipeline Audit',
             description: 'Funnel and sales process audit. Lost deal analysis and prioritized list of fixes.',
-            provider: { '@id': 'https://nickvvedenskyi.com/#person' },
+            provider: { '@id': 'https://www.nickvvedenskyi.com/#person' },
             serviceType: 'Sales Audit'
           },
           price: '2000',
@@ -106,10 +106,10 @@ const jsonLdGraph: Record<string, unknown>[] = [
           '@type': 'Offer',
           itemOffered: {
             '@type': 'Service',
-            '@id': 'https://nickvvedenskyi.com/#grow-through-customers',
+            '@id': 'https://www.nickvvedenskyi.com/#grow-through-customers',
             name: 'Grow Through Your Customers',
             description: 'Retention and expansion. Churn interviews, retention playbook, customer health signals, expansion map.',
-            provider: { '@id': 'https://nickvvedenskyi.com/#person' },
+            provider: { '@id': 'https://www.nickvvedenskyi.com/#person' },
             serviceType: 'Customer Retention Consulting'
           },
           price: '3000',
@@ -119,10 +119,10 @@ const jsonLdGraph: Record<string, unknown>[] = [
           '@type': 'Offer',
           itemOffered: {
             '@type': 'Service',
-            '@id': 'https://nickvvedenskyi.com/#revenue-unlock',
+            '@id': 'https://www.nickvvedenskyi.com/#revenue-unlock',
             name: 'Revenue Unlock',
             description: 'Pricing, packaging, upsells and monetization review. Revenue structure review, pricing recommendations, quick wins, test plan.',
-            provider: { '@id': 'https://nickvvedenskyi.com/#person' },
+            provider: { '@id': 'https://www.nickvvedenskyi.com/#person' },
             serviceType: 'Revenue Optimization'
           },
           price: '2000',
@@ -132,10 +132,10 @@ const jsonLdGraph: Record<string, unknown>[] = [
           '@type': 'Offer',
           itemOffered: {
             '@type': 'Service',
-            '@id': 'https://nickvvedenskyi.com/#launch-sprint',
+            '@id': 'https://www.nickvvedenskyi.com/#launch-sprint',
             name: 'Launch Sprint',
             description: 'Full go-to-market: research, interviews, ICP, messaging, channel plan with CAC math, launch and experiments map.',
-            provider: { '@id': 'https://nickvvedenskyi.com/#person' },
+            provider: { '@id': 'https://www.nickvvedenskyi.com/#person' },
             serviceType: 'Go-to-Market Strategy'
           },
           price: '7000',
@@ -149,7 +149,7 @@ const jsonLdGraph: Record<string, unknown>[] = [
 if (showFaqSchema) {
   jsonLdGraph.push({
     '@type': 'FAQPage',
-    '@id': 'https://nickvvedenskyi.com/#faq',
+    '@id': 'https://www.nickvvedenskyi.com/#faq',
     mainEntity: faq.map(item => ({
       '@type': 'Question',
       name: item.q[locale],
@@ -176,8 +176,8 @@ if (showFaqSchema) {
     <link rel="manifest" href="/site.webmanifest" />
     <link rel="canonical" href={canonicalUrl.href} />
     <link rel="alternate" hreflang={locale} href={canonicalUrl.href} />
-    <link rel="alternate" hreflang={altLocale} href={new URL(altPath, 'https://nickvvedenskyi.com').href} />
-    <link rel="alternate" hreflang="x-default" href="https://nickvvedenskyi.com/" />
+    <link rel="alternate" hreflang={altLocale} href={new URL(altPath, 'https://www.nickvvedenskyi.com').href} />
+    <link rel="alternate" hreflang="x-default" href="https://www.nickvvedenskyi.com/" />
     <link rel="alternate" type="text/markdown" href="/llms-full.txt" />
     <title>{title}</title>
     {description && <meta name="description" content={description} />}
@@ -190,12 +190,12 @@ if (showFaqSchema) {
     <meta property="og:locale" content={locale === 'uk' ? 'uk_UA' : 'en_US'} />
     <meta property="og:locale:alternate" content={locale === 'uk' ? 'en_US' : 'uk_UA'} />
     <meta property="og:site_name" content="Nick Vvedenskyi" />
-    <meta property="og:image" content={`https://nickvvedenskyi.com/og-${locale === 'uk' ? 'uk' : 'en'}.png`} />
+    <meta property="og:image" content={`https://www.nickvvedenskyi.com/og-${locale === 'uk' ? 'uk' : 'en'}.png`} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content={locale === 'uk' ? 'Nick Vvedenskyi — Revenue & Marketing для Tech/AI продуктів' : 'Nick Vvedenskyi — Revenue & Marketing for Tech/AI Products'} />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:image" content={`https://nickvvedenskyi.com/og-${locale === 'uk' ? 'uk' : 'en'}.png`} />
+    <meta name="twitter:image" content={`https://www.nickvvedenskyi.com/og-${locale === 'uk' ? 'uk' : 'en'}.png`} />
 
     <!-- JSON-LD -->
     <script type="application/ld+json" set:html={JSON.stringify({

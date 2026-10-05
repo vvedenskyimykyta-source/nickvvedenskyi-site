@@ -7,7 +7,7 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://nickvvedenskyi.com',
+  site: 'https://www.nickvvedenskyi.com',
   trailingSlash: 'ignore',
 
   i18n: {
