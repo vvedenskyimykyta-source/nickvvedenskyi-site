@@ -121,7 +121,7 @@ export const uk = {
   notReady: 'Не готовий до дзвінка? Отримай безкоштовну пораду',
 
   // Footer
-  footerTagline: 'Revenue & Marketing для Tech/AI продуктів',
+  footerTagline: 'Revenue & Marketing для Tech та AI продуктів',
   altHero: 'Нік Введенський, консультант з revenue та маркетингу для tech і AI продуктів',
   altAbout1: 'Нік Введенський за столиком у ресторані ввечері',
   altAbout2: 'Нік Введенський на даху в Парижі, позаду Опера Гарньє',

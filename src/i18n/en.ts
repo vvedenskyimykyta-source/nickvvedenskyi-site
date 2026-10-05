@@ -119,7 +119,7 @@ export const en = {
   notReady: 'Not ready for a call? Get free advice',
 
   // Footer
-  footerTagline: 'Revenue & Marketing for Tech/AI Products',
+  footerTagline: 'Revenue & Marketing for Tech and AI Products',
   altHero: 'Nick Vvedenskyi, revenue and marketing consultant for tech and AI products',
   altAbout1: 'Nick Vvedenskyi at a restaurant table during an evening out',
   altAbout2: 'Nick Vvedenskyi on a rooftop in Paris with the Palais Garnier behind him',
