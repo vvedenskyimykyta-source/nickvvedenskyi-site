@@ -256,7 +256,19 @@ const tallyUrl = `https://tally.so/r/${locale === 'en' ? import.meta.env.PUBLIC_
     }
     .cta-row {
       padding: 0 20px;
-      gap: 36px;
+      gap: 24px;
     }
+    /* #book lands at the top of the section; keep the buttons there, not the photo,
+       and keep the pair tight enough that both land above the fold. */
+    .cta-main { order: 1; }
+    .cta-aside { order: 2; }
+    .cta-title { font-size: 34px; }
+    .cta-text { font-size: 16px; margin-top: 14px; }
+    .cta-cards { margin-top: 24px; gap: 14px; }
+    .cta-card { padding: 20px; gap: 10px; }
+    .cta-card-title { font-size: 22px; }
+    .cta-card-text { font-size: 15px; }
+    .cta-icon { width: 40px; height: 40px; border-radius: 12px; }
+    .cta-note { font-size: 22px; }
   }
 </style>

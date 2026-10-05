@@ -70,11 +70,7 @@ const stats = [
 
     <!-- Photo column -->
     <div class="hero-enter relative justify-self-center w-full max-w-[470px]" style="--enter-i:1">
-      <div
-        class="absolute"
-        style="inset:24px -24px -24px 24px;border-radius:36px;background:linear-gradient(140deg,#B1F171,#99D4FF)"
-        aria-hidden="true"
-      ></div>
+      <div class="hero-plate" aria-hidden="true"></div>
 
       <div
         class="relative overflow-hidden"
@@ -91,11 +87,8 @@ const stats = [
         />
       </div>
 
-      <div
-        class="absolute bg-white"
-        style="right:-56px;bottom:20px;padding:14px 20px 12px;border-radius:18px;box-shadow:0 18px 40px -18px rgba(26,26,46,.35);transform:rotate(4deg);max-width:320px"
-      >
-        <div class="font-hand flex flex-col" style="font-size:24px;line-height:1.1;color:#1A1A2E;gap:4px">
+      <div class="hero-note">
+        <div class="font-hand hero-note-text">
           <span>{t(locale, 'heroNote')}</span>
           <span>{t(locale, 'heroNoteSecondary')}</span>
         </div>
@@ -152,6 +145,33 @@ const stats = [
     overflow: clip;
   }
 
+
+  .hero-plate {
+    position: absolute;
+    inset: 24px -24px -24px 24px;
+    border-radius: 36px;
+    background: linear-gradient(140deg, #B1F171, #99D4FF);
+  }
+  .hero-note {
+    position: absolute;
+    right: -56px;
+    bottom: 20px;
+    background: #FFFFFF;
+    padding: 14px 20px 12px;
+    border-radius: 18px;
+    box-shadow: 0 18px 40px -18px rgba(26, 26, 46, .35);
+    transform: rotate(4deg);
+    max-width: 320px;
+  }
+  .hero-note-text {
+    display: flex;
+    flex-direction: column;
+    font-size: 24px;
+    line-height: 1.1;
+    color: #1A1A2E;
+    gap: 4px;
+  }
+
   .hero-highlight {
     background: linear-gradient(transparent 60%, #B1F171 60%, #B1F171 92%, transparent 92%);
   }
@@ -161,6 +181,16 @@ const stats = [
       opacity: 1;
       transform: none;
     }
+  }
+
+  @media (max-width: 767px) {
+    #hero { padding: 40px 0 32px; }
+    #hero > .grid { padding-left: 20px; padding-right: 20px; gap: 32px; }
+    /* The note card hangs off the frame on desktop; on a phone that falls off screen. */
+    .hero-note { right: 4px; bottom: 12px; max-width: 250px; padding: 12px 16px 10px; }
+    .hero-note-text { font-size: 19px; }
+    .hero-plate { inset: 20px -10px -14px 20px; }
+    #hero .max-w-\[1240px\].px-8 { padding-left: 20px; padding-right: 20px; }
   }
 </style>
 

@@ -279,6 +279,17 @@ const locale = getLocale(Astro.currentLocale);
     max-width: 860px;
     transform: rotate(-1deg);
   }
+
+  @media (max-width: 767px) {
+    .tst { padding: 64px 0; }
+    .tst-inner { padding: 0 20px; }
+    .tst-title { font-size: 30px; }
+    .tst-carousel { margin-top: 28px; }
+    /* Arrows sit outside the rail by design; off a phone screen they are unreachable,
+       and the rail is swipeable anyway. */
+    .tst-arrow { display: none; }
+    .tst-note { font-size: 22px; margin-top: 28px; }
+  }
 </style>
 
 <script>

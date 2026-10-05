@@ -486,6 +486,52 @@ const timelineLabel = locale === 'en' ? 'Timeline' : 'Термін';
     background: #7FD62A;
     color: #1A1A2E;
   }
+
+  @media (max-width: 767px) {
+    .pipeline { padding: 64px 0 72px; }
+    .pipeline-inner { padding: 0 20px; }
+    .pipeline-title { font-size: 32px; }
+    .pipeline-eyebrow { font-size: 26px; }
+    .pipeline-row { margin-top: 32px; gap: 20px; }
+
+    /* Steps become a swipeable strip: tapping one updates the panel right below,
+       instead of making you scroll down for the content and back up for the next step. */
+    .pipeline-hint { align-self: center; }
+    .pipeline-steps {
+      flex-direction: row;
+      gap: 10px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+      padding-bottom: 4px;
+      margin: 0 -20px;
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+    .pipeline-steps::-webkit-scrollbar { display: none; }
+    .pipeline-step {
+      flex: 0 0 auto;
+      scroll-snap-align: start;
+      background: #FFFFFF;
+      box-shadow: 0 6px 18px -10px rgba(26, 26, 46, .22);
+      padding: 10px 14px;
+      gap: 10px;
+    }
+    .pipeline-step-text { gap: 2px; }
+    .pipeline-step-name { font-size: 15px; white-space: nowrap; }
+    .pipeline-step-sub { display: none; }
+    .pipeline-step-arrow { display: none; }
+    .pipeline-dot { width: 32px; height: 32px; font-size: 14px; }
+    /* The connector belongs to the vertical layout only. */
+    .pipeline-track, .pipeline-track-fill { display: none; }
+
+    .pipeline-panel-head { padding: 24px 20px 20px; }
+    .pipeline-panel-title { font-size: 28px; }
+    .pipeline-panel-line { font-size: 17px; }
+    .pipeline-panel-body { padding: 24px 20px; gap: 24px; }
+    .pipeline-cta { margin-top: 36px; }
+    .pipeline-cta-btn { min-width: 0; width: 100%; padding: 18px 28px; font-size: 17px; }
+  }
 </style>
 
 <script>

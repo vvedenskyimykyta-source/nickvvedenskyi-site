@@ -228,6 +228,15 @@ const pad = (n: number) => String(n).padStart(2, '0');
     margin-left: 0;
     transition: margin-left .15s linear;
   }
+
+  @media (max-width: 767px) {
+    .cases { padding: 64px 0; }
+    .cases-inner { padding: 0 20px; }
+    .cases-title { font-size: 32px; }
+    .cases-head { align-items: flex-start; gap: 16px; }
+    .cases-track { padding: 8px 20px 24px; scroll-padding: 0 20px; }
+    .cases-card-title { font-size: 21px; }
+  }
 </style>
 
 <script>

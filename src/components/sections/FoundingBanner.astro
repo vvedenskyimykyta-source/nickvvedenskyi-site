@@ -198,4 +198,15 @@ const locale = getLocale(Astro.currentLocale);
     transform: rotate(-3deg);
     margin-top: 8px;
   }
+
+  @media (max-width: 767px) {
+    .founding-inner { padding: 0 20px; }
+    .founding-card { padding: 32px 24px; gap: 24px; }
+    .founding-badge { font-size: 68px; }
+    .founding-title { font-size: 26px; }
+    .founding-row { gap: 20px; }
+    /* Stop the button and note from being pushed off the right edge. */
+    .founding-cta { margin-left: 0; align-items: flex-start; width: 100%; }
+    .founding-note { font-size: 22px; }
+  }
 </style>

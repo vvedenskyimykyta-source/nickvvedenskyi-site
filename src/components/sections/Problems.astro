@@ -252,6 +252,17 @@ const stepIndexFor = (ctaEn: string) => services.findIndex(s => s.name === ctaEn
   .problems-closing-accent {
     color: #4E8F0F;
   }
+
+  @media (max-width: 767px) {
+    #problems { padding: 64px 0; }
+    #problems > .max-w-\[1240px\] { padding-left: 20px; padding-right: 20px; }
+    .problems-title { font-size: 32px; }
+    .problems-intro { font-size: 17px; }
+    .problems-head { margin-bottom: 28px; }
+    .problem-card, .problem-cta { padding: 24px; min-height: 0; }
+    .problem-text { font-size: 19px; }
+    .problems-closing { font-size: 20px; margin-top: 32px; }
+  }
 </style>
 
 <script>
