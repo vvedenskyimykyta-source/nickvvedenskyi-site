@@ -30,6 +30,9 @@ export default defineConfig({
 
   integrations: [
     sitemap({
+      // The privacy pages render noindex, so listing them would only earn
+      // "Submitted URL marked noindex" warnings in Search Console.
+      filter: (page) => !/\/privacy\/?$/.test(page),
       i18n: {
         defaultLocale: 'en',
         locales: { en: 'en', uk: 'uk' },
