@@ -179,7 +179,13 @@ html[lang="uk"] {
   .handwritten {
     font-family: var(--font-hand);
     color: var(--color-text-secondary);
-    font-weight: 400;
+    font-weight: 500;
+  }
+
+  /* The design ships Caveat only at 500 and 600, so its unweighted handwriting
+     resolves to 500; the variable face here would otherwise render a true 400. */
+  .font-hand {
+    font-weight: 500;
   }
 }
 

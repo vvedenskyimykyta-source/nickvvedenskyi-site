@@ -1,52 +1,153 @@
 ---
 import { t, getLocale } from '../../i18n';
 import { howSteps, howFacts } from '../../data/howIWork';
+import Reveal from '../Reveal.astro';
 
 const locale = getLocale(Astro.currentLocale);
 ---
 
-<section id="how-i-work" class="py-24 md:py-28" aria-labelledby="how-i-work-heading">
-  <div class="mx-auto max-w-[1240px] px-4 md:px-8">
-    <p class="font-hand text-[22px] text-text-secondary mb-4" style="transform: rotate(-2deg); transform-origin: left;">
-      {t(locale, 'howNote')}
-    </p>
+<section id="how-i-work" class="how" aria-labelledby="how-i-work-heading">
+  <div class="how-inner">
+    <div class="font-hand how-eyebrow">{t(locale, 'howNote')}</div>
 
-    <h2 id="how-i-work-heading" class="font-display text-[clamp(2rem,4vw,2.5rem)] font-bold text-dark tracking-[-0.035em]">{t(locale, 'howTitle')}</h2>
+    <Reveal>
+      <h2 id="how-i-work-heading" class="font-display how-title">{t(locale, 'howTitle')}</h2>
+    </Reveal>
 
-    <!-- Steps -->
-    <div class="mt-10 grid gap-6 md:grid-cols-4">
-      {howSteps.map((step, i) => (
-        <div class="relative">
-          {i < howSteps.length - 1 && (
-            <div class="hidden md:block absolute top-6 left-[calc(50%+28px)] right-[-24px] border-t-2 border-dashed border-dark/10" aria-hidden="true" />
-          )}
-          <div class="rounded-[28px] bg-white border border-dark/[0.06] p-5 md:text-center h-full">
-            <div class="flex md:justify-center">
-              <div
-                class="flex h-12 w-12 items-center justify-center rounded-full font-display text-lg font-bold text-dark"
-                style={`background: ${step.badgeBg}`}
-              >
-                {step.num}
-              </div>
+    <div class="how-steps">
+      {howSteps.map(step => (
+        <Reveal>
+          <div class="how-step">
+            <div class="how-step-top">
+              <span class="font-display how-badge" style={`background:${step.badgeBg}`}>{step.num}</span>
+              <span class="how-dash" aria-hidden="true"></span>
             </div>
-            <h3 class="mt-4 font-display text-lg font-bold text-dark">{step.title[locale]}</h3>
-            <p class="mt-2 text-text-secondary leading-relaxed text-sm">{step.text[locale]}</p>
+            <h3 class="font-display how-step-title">{step.title[locale]}</h3>
+            <p class="how-step-text">{step.text[locale]}</p>
           </div>
-        </div>
+        </Reveal>
       ))}
     </div>
 
-    <!-- Facts -->
-    <div class="mt-12 grid gap-px bg-dark/[0.05] rounded-2xl overflow-hidden sm:grid-cols-2 lg:grid-cols-4">
-      {howFacts.map(fact => (
-        <div class="bg-white p-5 flex items-start gap-3 h-full">
-          <div
-            class="flex-shrink-0 mt-1 w-3 h-3 rounded-full"
-            style={`background: ${fact.dotColor}`}
-          />
-          <p class="text-sm text-text-secondary leading-relaxed">{fact.text[locale]}</p>
-        </div>
-      ))}
-    </div>
+    <Reveal>
+      <div class="how-facts">
+        {howFacts.map(fact => (
+          <div class="how-fact">
+            <span class="how-fact-dot" style={`background:${fact.dotColor}`}></span>
+            <span class="how-fact-text">{fact.text[locale]}</span>
+          </div>
+        ))}
+      </div>
+    </Reveal>
   </div>
 </section>
+
+<style>
+  .how {
+    padding: 110px 0 100px;
+  }
+  .how-inner {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  .how-eyebrow {
+    font-size: 28px;
+    line-height: 1.2;
+    color: #4E8F0F;
+    transform: rotate(-2deg);
+    transform-origin: left;
+    display: inline-block;
+    margin-bottom: 10px;
+  }
+  .how-title {
+    font-weight: 700;
+    font-size: clamp(36px, 4vw, 54px);
+    line-height: 1.04;
+    letter-spacing: -0.035em;
+    margin: 0;
+    max-width: 720px;
+    text-wrap: balance;
+    color: #1A1A2E;
+  }
+
+  .how-steps {
+    margin-top: 56px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
+    gap: 20px;
+    position: relative;
+  }
+  .how-step {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .how-step-top {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .how-badge {
+    width: 52px;
+    height: 52px;
+    border-radius: 16px;
+    display: grid;
+    place-items: center;
+    font-weight: 700;
+    font-size: 22px;
+    color: #1A1A2E;
+    flex: 0 0 auto;
+  }
+  .how-dash {
+    flex: 1;
+    height: 2px;
+    background: repeating-linear-gradient(90deg, rgba(26, 26, 46, .2) 0 6px, transparent 6px 12px);
+  }
+  .how-step-title {
+    margin: 8px 0 0;
+    font-weight: 700;
+    font-size: 23px;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: #1A1A2E;
+  }
+  .how-step-text {
+    margin: 0;
+    font-size: 15.5px;
+    line-height: 1.6;
+    color: #454545;
+  }
+
+  .how-facts {
+    margin-top: 56px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
+    gap: 1px;
+    background: rgba(26, 26, 46, .08);
+    border-radius: 24px;
+    overflow: hidden;
+    border: 1px solid rgba(26, 26, 46, .08);
+  }
+  .how-fact {
+    background: #FFFFFF;
+    padding: 24px 24px 26px;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+  .how-fact-dot {
+    flex: 0 0 auto;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-top: 7px;
+  }
+  .how-fact-text {
+    font-size: 15.5px;
+    line-height: 1.5;
+    color: #1A1A2E;
+  }
+</style>

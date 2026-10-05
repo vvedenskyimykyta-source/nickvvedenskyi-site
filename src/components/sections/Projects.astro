@@ -1,146 +1,263 @@
 ---
 import { t, getLocale } from '../../i18n';
 import { projects } from '../../data/projects';
+import Reveal from '../Reveal.astro';
 
 const locale = getLocale(Astro.currentLocale);
-const INITIAL_LIMIT = 21;
-
-function seededRandom(seed: number) {
-  const x = Math.sin(seed) * 10000;
-  return x - Math.floor(x);
-}
+const DESKTOP_LIMIT = 21;
+const MOBILE_LIMIT = 6;
+const pad = (n: number) => String(n).padStart(2, '0');
 ---
 
-<section id="projects" class="relative py-[60px] md:py-[100px] bg-dark text-white" style="scroll-margin-top: 5rem;">
-  <div class="mx-auto max-w-[1240px] px-4 md:px-8">
-    <div class="flex items-end gap-4 mb-2">
-      <span class="font-display text-[clamp(4rem,10vw,7rem)] font-bold leading-none tracking-[-0.03em]" style="background: linear-gradient(135deg, #B1F171, #99D4FF); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
-        {projects.length}
-      </span>
-    </div>
-    <h2 id="projects-heading" class="font-display text-[clamp(2rem,4vw,2.5rem)] font-bold text-white tracking-[-0.035em]">{t(locale, 'projectsTitle')}</h2>
-    <p class="mt-3 text-sm text-white/60">{t(locale, 'projectsSub')}</p>
+<section id="projects" class="proj" aria-labelledby="projects-heading">
+  <div class="proj-glow" aria-hidden="true"></div>
 
-    <div class="mt-10">
-      <div id="projects-cloud" class="flex flex-wrap justify-center gap-3 md:gap-4">
-        {projects.map((p, i) => {
-          const rotation = (seededRandom(i * 37 + 7) * 6 - 3).toFixed(1);
-          const isExtra = i >= INITIAL_LIMIT;
-          return (
-            <a
-              href={p.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              class={`project-sticker inline-flex items-center rounded-full bg-white/5 border border-white/10 px-4 py-2 font-display text-sm md:text-base font-medium text-white touch-manipulation min-h-[44px] ${isExtra ? 'projects-extra' : ''}`}
-              style={`--sticker-rot: ${rotation}deg;`}
-              data-event="outbound_project"
-              data-name={p.name}
-              data-rotation={rotation}
-            >
-              {p.name}
-              <span class="project-arrow ml-1.5 opacity-0 transition-opacity duration-200">↗</span>
-            </a>
-          );
-        })}
-      </div>
-      {projects.length > INITIAL_LIMIT && (
-        <div class="mt-6 text-center" id="projects-toggle-wrap">
-          <button
-            id="projects-toggle"
-            class="text-sm font-medium text-green-light hover:text-green transition-colors touch-manipulation min-h-[44px] px-4"
-            data-event="projects_show_all"
-          >
-            {t(locale, 'projectsShowAll')}
-          </button>
+  <div class="proj-grid">
+    <div class="proj-side">
+      <Reveal>
+        <div class="proj-count-wrap">
+          <div class="font-display proj-count">{projects.length}</div>
+          <span class="font-mono proj-badge">
+            <span class="proj-badge-dot" aria-hidden="true"></span>{t(locale, 'projectsBadge')}
+          </span>
         </div>
-      )}
+        <h2 id="projects-heading" class="font-display proj-title">{t(locale, 'projectsTitle')}</h2>
+        <p class="proj-sub">
+          {t(locale, 'projectsSub')}<br />{t(locale, 'projectsSub2')}
+        </p>
+      </Reveal>
+    </div>
+
+    <div class="proj-main">
+      <div class="proj-list" id="proj-list">
+        {projects.map((p, i) => (
+          <a
+            href={p.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            class:list={[
+              'proj-chip',
+              i >= MOBILE_LIMIT && 'beyond-mobile',
+              i >= DESKTOP_LIMIT && 'beyond-desktop',
+            ]}
+            data-event="outbound_project"
+            data-name={p.name}
+          >
+            <span class="font-mono proj-chip-num">{pad(i + 1)}</span>
+            <span class="proj-chip-name">{p.name}</span>
+            <span class="proj-chip-arrow" aria-hidden="true">↗</span>
+          </a>
+        ))}
+      </div>
+
+      <button
+        type="button"
+        id="proj-toggle"
+        class="proj-toggle"
+        data-more={t(locale, 'projectsShowAll')}
+        data-less={t(locale, 'projectsShowLess')}
+        data-event="projects_show_all"
+      >
+        {t(locale, 'projectsShowAll')}
+      </button>
     </div>
   </div>
 </section>
 
 <style>
-  .project-sticker {
-    opacity: 0;
-    transform: translateY(8px) rotate(var(--sticker-rot, 0deg));
-    transition: opacity 300ms ease, transform 400ms cubic-bezier(0.2, 0.8, 0.2, 1), border-color 200ms, box-shadow 200ms;
+  .proj {
+    padding: 100px 0;
+    background: #1A2036;
+    color: #FFFFFF;
+    position: relative;
+    overflow: hidden;
+    overflow: clip;
+    scroll-margin-top: 5rem;
   }
-  .project-sticker.sticker-in {
-    opacity: 1;
-    transform: rotate(var(--sticker-rot, 0deg));
-  }
-  .project-sticker:hover {
-    transform: rotate(0deg) translateY(-2px) !important;
-    border-color: var(--color-green-light) !important;
-    box-shadow: 0 4px 12px rgba(110, 195, 25, 0.15);
-  }
-  .project-sticker:hover .project-arrow {
-    opacity: 1;
-  }
-
-  @media (hover: none) {
-    .project-sticker .project-arrow {
-      opacity: 1;
-    }
-    .project-sticker.sticker-in {
-      transform: rotate(0deg) !important;
-    }
+  .proj-glow {
+    position: absolute;
+    width: 800px;
+    height: 800px;
+    left: -300px;
+    top: -400px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(153, 212, 255, .22), rgba(153, 212, 255, 0) 70%);
+    pointer-events: none;
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    .project-sticker {
-      opacity: 1;
-      transform: rotate(var(--sticker-rot, 0deg));
-      transition: border-color 200ms, box-shadow 200ms;
-    }
+  .proj-grid {
+    position: relative;
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 32px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+    gap: 48px;
+    align-items: start;
+  }
+  .proj-side {
+    position: sticky;
+    top: 96px;
+  }
+  .proj-main {
+    grid-column: span 2;
+    min-width: 0;
   }
 
-  .projects-extra {
+  .proj-count-wrap {
+    position: relative;
+    display: inline-block;
+    padding-top: 18px;
+  }
+  .proj-count {
+    font-weight: 700;
+    font-size: clamp(104px, 13vw, 180px);
+    line-height: .8;
+    letter-spacing: -0.07em;
+    background: linear-gradient(135deg, #B1F171, #99D4FF);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    padding-bottom: 12px;
+  }
+  /* Anchored to the number's right edge so it tracks the clamped font size. */
+  .proj-badge {
+    position: absolute;
+    top: 12px;
+    left: 100%;
+    margin-left: -8px;
+    transform: rotate(6deg);
+    background: #B1F171;
+    color: #1A2036;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    padding: 7px 12px;
+    border-radius: 999px;
+    box-shadow: 0 10px 24px -10px rgba(177, 241, 113, .7);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+  }
+  .proj-badge-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #1A2036;
+  }
+
+  .proj-title {
+    font-weight: 700;
+    font-size: 40px;
+    line-height: 1.05;
+    letter-spacing: -0.035em;
+    margin: 20px 0 0;
+  }
+  .proj-sub {
+    font-size: 16px;
+    line-height: 1.55;
+    color: #CCE9FF;
+    margin: 16px 0 0;
+    max-width: 340px;
+  }
+
+  .proj-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+    gap: 8px;
+  }
+  .proj-chip {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 16px;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, .05);
+    border: 1px solid rgba(255, 255, 255, .08);
+    color: #FFFFFF;
+    font-weight: 500;
+    font-size: 15px;
+    transition: background .2s ease, border-color .2s ease;
+  }
+  .proj-chip:hover {
+    background: rgba(177, 241, 113, .12);
+    border-color: rgba(177, 241, 113, .4);
+    color: #FFFFFF;
+  }
+  .proj-chip-num {
+    font-size: 11px;
+    color: #99D4FF;
+  }
+  .proj-chip-name {
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .proj-chip-arrow {
+    color: #B1F171;
+    font-size: 13px;
+  }
+
+  /* Collapsed: 21 on desktop, 6 on phones. */
+  .proj-list:not(.is-open) .beyond-desktop {
     display: none;
   }
-  .projects-expanded .projects-extra {
-    display: inline-flex;
+
+  .proj-toggle {
+    margin-top: 20px;
+    width: 100%;
+    padding: 16px;
+    border-radius: 14px;
+    border: 1px dashed rgba(255, 255, 255, .25);
+    background: transparent;
+    color: #FFFFFF;
+    font-weight: 600;
+    font-size: 15px;
+    transition: border-color .2s ease, color .2s ease;
+  }
+  .proj-toggle:hover {
+    border-color: #B1F171;
+    color: #B1F171;
+  }
+
+  @media (max-width: 767px) {
+    .proj {
+      padding: 64px 0;
+    }
+    .proj-grid {
+      padding: 0 20px;
+      gap: 32px;
+    }
+    /* One column: a stuck side panel would just cover the list. */
+    .proj-side {
+      position: static;
+    }
+    .proj-main {
+      grid-column: auto;
+    }
+    .proj-list {
+      grid-template-columns: 1fr;
+    }
+    .proj-list:not(.is-open) .beyond-mobile {
+      display: none;
+    }
+    .proj-title {
+      font-size: 32px;
+    }
   }
 </style>
 
 <script>
-  const stickers = document.querySelectorAll<HTMLElement>('.project-sticker');
-  if (stickers.length && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    const obs = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (!entry.isIntersecting) return;
-        const container = entry.target;
-        container.querySelectorAll<HTMLElement>('.project-sticker:not(.projects-extra)').forEach((s, i) => {
-          setTimeout(() => s.classList.add('sticker-in'), i * 40);
-        });
-        obs.unobserve(container);
-      });
-    }, { threshold: 0.1 });
-    const cloud = document.getElementById('projects-cloud');
-    if (cloud) obs.observe(cloud);
-  } else {
-    stickers.forEach(s => s.classList.add('sticker-in'));
-  }
+  const list = document.getElementById('proj-list');
+  const toggle = document.getElementById('proj-toggle') as HTMLButtonElement | null;
 
-  const toggle = document.getElementById('projects-toggle');
-  const cloud = document.getElementById('projects-cloud');
-  const wrap = document.getElementById('projects-toggle-wrap');
-  if (toggle && cloud) {
-    let expanded = false;
+  if (list && toggle) {
     toggle.addEventListener('click', () => {
-      expanded = !expanded;
-      if (expanded) {
-        cloud.classList.add('projects-expanded');
-        const extras = cloud.querySelectorAll<HTMLElement>('.projects-extra');
-        extras.forEach((s, i) => {
-          setTimeout(() => s.classList.add('sticker-in'), i * 40);
-        });
-        toggle.textContent = toggle.dataset.lessText || 'Show less';
-      } else {
-        cloud.classList.remove('projects-expanded');
-        toggle.textContent = toggle.dataset.moreText || 'Show all';
-      }
+      const open = list.classList.toggle('is-open');
+      toggle.textContent = open ? toggle.dataset.less! : toggle.dataset.more!;
     });
-    toggle.dataset.moreText = toggle.textContent || '';
-    toggle.dataset.lessText = document.documentElement.lang === 'uk' ? 'Показати менше' : 'Show less';
   }
 </script>

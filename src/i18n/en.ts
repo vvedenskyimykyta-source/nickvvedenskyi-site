@@ -32,10 +32,12 @@ export const en = {
   problemsTitle: 'Things I keep running into',
   problemsIntro: 'I have walked into businesses and these conversations happen in almost every single one. The words change, the pattern does not.',
   problemsCtaTitle: 'Something else?',
-  problemsCtaText: 'Every business has its own version of stuck. Let us figure out yours together.',
+  problemsCtaText: 'Every business has its own version of stuck.',
+  problemsCtaText2: 'Let us figure out yours together.',
   problemsCtaTag: 'Custom approach',
   problemsCtaButton: 'Talk to me',
-  problemsClosing: 'There is always a shortcut: copy what worked for someone else, run twelve tests, chase a trend. The ones who make it are the ones who walk that road next to their customers, not ahead of them.',
+  problemsClosing: 'There is always a shortcut: copy what worked for someone else, run twelve tests, chase a trend. ',
+  problemsClosingAccent: 'The ones who make it are the ones who walk that road next to their customers, not ahead of them.',
 
   // Pipeline divider
   pipelineDivider: 'ok, so what do I actually do about it',
@@ -51,15 +53,17 @@ export const en = {
   of: 'of',
 
   // Founding
-  foundingBadge: '-30%',
+  foundingBadge: '−30%',
   foundingTitle: 'A deal that makes us both look good',
-  foundingText: 'One condition: let me write up our work as a case study (you approve it before anything goes live) and leave an honest review. You get a lower price, I get proof that this works. Fair trade.',
+  foundingCondition: 'One condition:',
+  foundingText: ' let me write up our work as a case study (you approve it before anything goes live) and leave an honest review. You get a lower price, I get proof that this works. Fair trade.',
   foundingButton: "Let's talk",
   foundingNote: 'you save money, I get a story to tell',
 
   // Cases
   casesTitle: 'Cases',
   casesSub: 'Work that worked',
+  casesResult: 'Result',
 
   // About
   aboutTitle: 'About',
@@ -76,10 +80,12 @@ export const en = {
   // Testimonials
   testimonialsTitle: 'People who worked with me for years and still pick up the phone',
   testimonialsSub: 'Nothing edited, nothing reworded. If they said it, it stays exactly as they said it.',
-  testimonialsBottom: 'Some of these are colleagues, some are clients, some are both. I keep all of them because every perspective on how I work tells you something different.',
-  readOnLinkedin: 'Read on LinkedIn',
-  readMore: 'read more',
-  readLess: 'less',
+  testimonialsBottom: 'Some of these are colleagues, some are clients, some are both.',
+  testimonialsBottom2: 'I keep all of them because every perspective on how I work tells you something different.',
+  readOnLinkedin: 'LinkedIn',
+  readMore: 'Read the full recommendation',
+  readLess: 'Show less',
+  linkedinRecommendation: 'LinkedIn recommendation',
   translatedFrom: 'translated from Ukrainian',
 
   // How I work
@@ -88,7 +94,9 @@ export const en = {
 
   // Projects
   projectsTitle: 'Here is what they looked like.',
-  projectsSub: 'B2B and B2C, from pre-launch startups to companies doing real $$$. Retention, growth, positioning, monetization.',
+  projectsSub: 'B2B and B2C, from pre-launch startups to companies doing\u00A0 real $$$.',
+  projectsSub2: 'Retention, growth, positioning, monetization.',
+  projectsBadge: 'projects',
   projectsShowAll: 'Show all 44 projects',
   projectsShowLess: 'Show less',
 
@@ -112,6 +120,12 @@ export const en = {
 
   // Footer
   footerTagline: 'Revenue & Marketing for Tech/AI Products',
+  altHero: 'Nick Vvedenskyi, revenue and marketing consultant for tech and AI products',
+  altAbout1: 'Nick Vvedenskyi at a restaurant table during an evening out',
+  altAbout2: 'Nick Vvedenskyi on a rooftop in Paris with the Palais Garnier behind him',
+  altAbout3: 'Nick Vvedenskyi on sand dunes wrapped in a Ukrainian flag',
+  altCta: 'Nick Vvedenskyi, studio portrait on a blue background',
+  footerRights: 'All rights reserved.',
   footerPrivacy: 'Privacy',
   footerCookies: 'Cookie settings',
   footerMade: 'Made in Spain with too much coffee and a stubborn belief that customers are people.',

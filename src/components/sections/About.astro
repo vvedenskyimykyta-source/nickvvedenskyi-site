@@ -1,57 +1,291 @@
 ---
 import { Image } from 'astro:assets';
 import { t, getLocale } from '../../i18n';
-import lifeImg from '../../assets/images/nick-life.jpg';
+import Reveal from '../Reveal.astro';
+import about1 from '../../assets/images/about-1.jpg';
+import about2 from '../../assets/images/about-2.jpg';
+import about3 from '../../assets/images/about-3.jpg';
 
 const locale = getLocale(Astro.currentLocale);
+const photos = [
+  { src: about1, alt: t(locale, 'altAbout1') },
+  { src: about2, alt: t(locale, 'altAbout2') },
+  { src: about3, alt: t(locale, 'altAbout3') },
+];
 ---
 
-<section id="about" class="py-24 md:py-28" style="background: #F4F4F4; scroll-margin-top: 72px;" aria-labelledby="about-heading">
-  <div class="mx-auto max-w-[1240px] px-4 md:px-8">
-    <div class="flex flex-col gap-10 lg:flex-row lg:gap-16 lg:items-start">
-      <!-- Photo -->
-      <div class="relative flex-shrink-0 lg:w-[340px] xl:w-[380px] lg:sticky lg:top-[90px]">
-        <div class="relative mx-auto w-[260px] sm:w-[300px] lg:w-full">
-          <div class="relative w-full rounded-[32px] overflow-hidden" style="aspect-ratio: 4/5; box-shadow: 0 30px 60px -30px rgba(26,32,54,0.3);">
-            <Image
-              src={lifeImg}
-              alt="Nick Vvedenskyi"
-              widths={[260, 300, 380, 520, 600, 760]}
-              sizes="(max-width: 640px) 260px, (max-width: 1024px) 300px, 380px"
-              class="w-full h-full object-cover object-[center_25%]"
-              loading="lazy"
-            />
+<section id="about" class="about" aria-labelledby="about-heading">
+  <div class="about-grid">
+    <div class="about-sticky">
+     <Reveal>
+      <div class="about-frame" id="about-frame">
+        {photos.map((photo, i) => (
+          <Image
+            src={photo.src}
+            alt={photo.alt}
+            widths={[440, 556, 1112]}
+            sizes="(max-width: 520px) 100vw, 556px"
+            class:list={['about-photo', i === 0 ? 'is-active' : '']}
+            data-photo={i}
+            loading="eager"
+          />
+        ))}
+
+        <div class="about-overlay">
+          <div class="about-dots" id="about-dots">
+            {photos.map((_, i) => (
+              <button
+                type="button"
+                class:list={['about-dot', i === 0 ? 'is-active' : '']}
+                data-dot={i}
+                aria-label={`Show photo ${i + 1}`}
+              ></button>
+            ))}
+          </div>
+          <div class="about-arrows">
+            <button type="button" id="about-prev" class="about-arrow about-arrow-prev" aria-label="Previous photo">←</button>
+            <button type="button" id="about-next" class="about-arrow about-arrow-next" aria-label="Next photo">→</button>
           </div>
         </div>
       </div>
 
-      <!-- Text -->
-      <div class="flex-1">
-        <p class="font-mono text-xs uppercase tracking-[0.15em] text-text-secondary mb-4">{t(locale, 'aboutTitle')}</p>
-        <div class="flex flex-wrap gap-2 mb-4">
-          <span class="rounded-full bg-white px-3 py-1 text-sm font-medium text-dark border border-dark/[0.06]">{t(locale, 'aboutTag1')}</span>
-          <span class="rounded-full bg-white px-3 py-1 text-sm font-medium text-dark border border-dark/[0.06]">{t(locale, 'aboutTag2')}</span>
-          <span class="rounded-full bg-white px-3 py-1 text-sm font-medium text-dark border border-dark/[0.06]">{t(locale, 'aboutTag3')}</span>
-        </div>
-
-        <h2 id="about-heading" class="font-display text-[clamp(2rem,4vw,2.5rem)] font-bold text-dark tracking-[-0.035em]">{t(locale, 'aboutSub')}</h2>
-
-        <div class="mt-6 space-y-4">
-          <p class="text-text-secondary leading-relaxed max-w-[58ch]">{t(locale, 'aboutPanel0')}</p>
-          <p class="text-text-secondary leading-relaxed max-w-[58ch]">{t(locale, 'aboutPanel1')}</p>
-          <p class="text-text-secondary leading-relaxed max-w-[58ch]">{t(locale, 'aboutPanel2')}</p>
-        </div>
+      <div class="about-tags">
+        <span class="about-tag">{t(locale, 'aboutTag1')}</span>
+        <span class="about-tag">{t(locale, 'aboutTag2')}</span>
+        <span class="about-tag">{t(locale, 'aboutTag3')}</span>
       </div>
+     </Reveal>
     </div>
 
-    <!-- Belief block -->
-    <div class="mt-16 md:mt-20">
-      <div class="rounded-[28px] p-8 md:p-12" style="background: linear-gradient(135deg, #B1F171 0%, #99D4FF 100%);">
-        <p class="font-display text-[clamp(1.75rem,3.5vw,2.75rem)] font-bold text-dark leading-[1.15] max-w-[30ch]">
-          {t(locale, 'aboutBelief')}
-        </p>
-        <p class="mt-3 text-dark/70 max-w-[48ch]">{t(locale, 'aboutBeliefSub')}</p>
+    <div class="about-col">
+     <Reveal>
+      <div class="font-mono about-kicker">{t(locale, 'aboutTitle')}</div>
+      <h2 id="about-heading" class="font-display about-title">{t(locale, 'aboutSub')}</h2>
+
+      <div class="about-text">
+        <p class="font-display about-lead">{t(locale, 'aboutPanel0')}</p>
+        <p>{t(locale, 'aboutPanel1')}</p>
+        <p>{t(locale, 'aboutPanel2')}</p>
       </div>
+
+      <div class="about-belief">
+        <div class="font-hand about-belief-title">{t(locale, 'aboutBelief')}</div>
+        <p class="font-display about-belief-text">{t(locale, 'aboutBeliefSub')}</p>
+      </div>
+     </Reveal>
     </div>
   </div>
 </section>
+
+<style>
+  .about {
+    scroll-margin-top: 72px;
+    padding: 20px 0 110px;
+  }
+  .about-grid {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 32px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 440px), 1fr));
+    gap: 64px;
+    align-items: start;
+  }
+  .about-sticky {
+    position: sticky;
+    top: 96px;
+  }
+  .about-col {
+    padding-top: 12px;
+  }
+
+  .about-frame {
+    position: relative;
+    aspect-ratio: 4/5;
+    border-radius: 32px;
+    overflow: hidden;
+    overflow: clip;
+    background: #CCE9FF;
+  }
+  .about-photo {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    opacity: 0;
+    transition: opacity .8s ease;
+  }
+  .about-photo.is-active {
+    opacity: 1;
+  }
+
+  .about-overlay {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: linear-gradient(rgba(26, 32, 54, 0), rgba(26, 32, 54, .45));
+  }
+  .about-dots {
+    display: flex;
+    gap: 6px;
+  }
+  .about-dot {
+    height: 8px;
+    width: 8px;
+    border-radius: 8px;
+    border: none;
+    padding: 0;
+    background: rgba(255, 255, 255, .6);
+    transition: all .3s ease;
+  }
+  .about-dot.is-active {
+    width: 22px;
+    background: #6EC319;
+  }
+
+  .about-arrows {
+    margin-left: auto;
+    display: flex;
+    gap: 8px;
+  }
+  .about-arrow {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: none;
+    font-size: 16px;
+    transition: background .2s ease, color .2s ease;
+  }
+  .about-arrow-prev {
+    background: rgba(255, 255, 255, .9);
+    color: #1A1A2E;
+  }
+  .about-arrow-prev:hover {
+    background: #FFFFFF;
+  }
+  .about-arrow-next {
+    background: #1A2036;
+    color: #FFFFFF;
+  }
+  .about-arrow-next:hover {
+    background: #6EC319;
+    color: #1A1A2E;
+  }
+
+  .about-tags {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 16px;
+  }
+  .about-tag {
+    font-size: 14px;
+    padding: 8px 14px;
+    border-radius: 999px;
+    background: #F4F4F4;
+    color: #1A1A2E;
+  }
+
+  .about-kicker {
+    font-size: 13px;
+    color: #454545;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+  }
+  .about-title {
+    font-weight: 700;
+    font-size: clamp(44px, 5vw, 72px);
+    line-height: 1;
+    letter-spacing: -0.045em;
+    margin: 10px 0 32px;
+    color: #1A1A2E;
+  }
+
+  .about-text {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    font-size: 18px;
+    line-height: 1.65;
+    color: #454545;
+    max-width: 580px;
+  }
+  .about-text p {
+    margin: 0;
+  }
+  .about-lead {
+    font-size: 21px;
+    line-height: 1.55;
+    color: #1A1A2E;
+    letter-spacing: -0.01em;
+  }
+
+  .about-belief {
+    margin-top: 40px;
+    border-radius: 28px;
+    padding: 32px;
+    background: linear-gradient(135deg, #CCE9FF, #E4F8CF);
+    position: relative;
+    overflow: hidden;
+    overflow: clip;
+    max-width: 580px;
+  }
+  .about-belief-title {
+    font-size: 38px;
+    line-height: 1;
+    color: #1A1A2E;
+    transform: rotate(-2deg);
+    transform-origin: left;
+  }
+  .about-belief-text {
+    margin: 16px 0 0;
+    font-size: 19px;
+    line-height: 1.45;
+    color: #1A1A2E;
+    font-weight: 500;
+  }
+</style>
+
+<script>
+  const frame = document.getElementById('about-frame');
+  const prev = document.getElementById('about-prev');
+  const next = document.getElementById('about-next');
+
+  if (frame && prev && next) {
+    const photos = Array.from(frame.querySelectorAll<HTMLElement>('.about-photo'));
+    const dots = Array.from(frame.querySelectorAll<HTMLElement>('.about-dot'));
+    const ROTATE_MS = 5000;
+    let index = 0;
+    let timer: ReturnType<typeof setInterval> | undefined;
+
+    const show = (i: number) => {
+      index = (i + photos.length) % photos.length;
+      photos.forEach((p, n) => p.classList.toggle('is-active', n === index));
+      dots.forEach((d, n) => d.classList.toggle('is-active', n === index));
+    };
+
+    const stop = () => { if (timer) clearInterval(timer); timer = undefined; };
+    const start = () => {
+      stop();
+      if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      timer = setInterval(() => show(index + 1), ROTATE_MS);
+    };
+    // Any manual pick restarts the clock, so the next auto-advance is a full interval away.
+    const jump = (i: number) => { show(i); start(); };
+
+    prev.addEventListener('click', () => jump(index - 1));
+    next.addEventListener('click', () => jump(index + 1));
+    dots.forEach((d, i) => d.addEventListener('click', () => jump(i)));
+
+    document.addEventListener('visibilitychange', () => document.hidden ? stop() : start());
+
+    new IntersectionObserver(([e]) => e.isIntersecting ? start() : stop(), { threshold: 0.2 }).observe(frame);
+  }
+</script>

@@ -2,144 +2,340 @@
 import { t, getLocale } from '../../i18n';
 import { testimonials } from '../../data/testimonials';
 import { site } from '../../data/site';
+import Reveal from '../Reveal.astro';
 
 const locale = getLocale(Astro.currentLocale);
 ---
 
-<section id="testimonials" class="py-24 md:py-28" style="background: #F4F4F4;" aria-labelledby="testimonials-heading">
-  <div class="mx-auto max-w-[1240px] px-4 md:px-8">
-    <h2 id="testimonials-heading" class="font-display text-[clamp(2rem,4vw,2.5rem)] font-bold text-dark tracking-[-0.035em] max-w-[28ch]">{t(locale, 'testimonialsTitle')}</h2>
-    <p class="mt-3 text-sm text-text-secondary max-w-[58ch]">{t(locale, 'testimonialsSub')}</p>
-  </div>
+<section id="testimonials" class="tst" aria-labelledby="testimonials-heading">
+  <div class="tst-glow" aria-hidden="true"></div>
 
-  <!-- Testimonials scroll container -->
-  <div class="mt-10 relative">
-    <div
-      id="testimonials-scroll"
-      class="flex gap-5 overflow-x-auto snap-x snap-mandatory pb-4 px-4 md:px-8 scrollbar-hide"
-      style="-webkit-overflow-scrolling: touch;"
-    >
-      <div class="shrink-0 w-0 md:w-[calc((100vw-1240px)/2)]" aria-hidden="true"></div>
-      {testimonials.map((item, i) => {
-        const quote = item.quote[locale] || item.quote.en;
-        const initials = item.name
-          ? (item.name[locale] || item.name.en).split(' ').map(w => w[0]).join('')
-          : (item.role[locale] || item.role.en).split(' ').map(w => w[0]).join('').slice(0, 2);
+  <div class="tst-inner">
+    <Reveal>
+      <div class="tst-head">
+        <h2 id="testimonials-heading" class="font-display tst-title">{t(locale, 'testimonialsTitle')}</h2>
+        <p class="tst-sub">{t(locale, 'testimonialsSub')}</p>
+      </div>
+    </Reveal>
 
-        return (
-          <div class="flex-shrink-0 snap-start w-[85vw] max-w-sm md:w-[380px]">
-            <article class="relative flex h-full flex-col rounded-3xl bg-white border border-dark/[0.06] p-6">
-              <span class="font-display text-[56px] leading-none text-green font-bold select-none" aria-hidden="true">"</span>
+    <div class="tst-carousel">
+      <div class="tst-track" id="tst-track">
+        {testimonials.map(item => {
+          const quote = item.quote[locale] || item.quote.en;
+          const name = item.name ? (item.name[locale] || item.name.en) : null;
+          const role = item.role[locale] || item.role.en;
+          return (
+            <figure class="tst-card">
+              <div class="font-display tst-mark" aria-hidden="true">&ldquo;</div>
 
-              {item.translated && locale === 'en' && (
-                <span class="mb-2 inline-flex self-start rounded-full bg-amber/20 text-dark px-3 py-0.5 text-xs font-medium">
-                  {t(locale, 'translatedFrom')}
+              <div class="tst-body">
+                <blockquote class="tst-quote" cite={site.linkedinRecommendations}>
+                  {quote.split('\n\n').map(para => <p>{para}</p>)}
+                </blockquote>
+                <div class="tst-fade" aria-hidden="true"></div>
+              </div>
+
+              <button type="button" class="tst-toggle" data-more={t(locale, 'readMore')} data-less={t(locale, 'readLess')}>
+                {t(locale, 'readMore')}
+              </button>
+
+              <figcaption class="tst-caption">
+                <span class="tst-who">
+                  <span class="tst-role">{name ?? role}</span>
+                  <span class="tst-meta">{name ? role : t(locale, 'linkedinRecommendation')}</span>
                 </span>
-              )}
+                {!item.isPersonal && (
+                  <a
+                    href={site.linkedinRecommendations}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="tst-link"
+                    data-event="outbound_linkedin"
+                    data-location="testimonials"
+                  >
+                    {t(locale, 'readOnLinkedin')} ↗
+                  </a>
+                )}
+              </figcaption>
+            </figure>
+          );
+        })}
+      </div>
 
-              <blockquote cite={site.linkedinRecommendations} class="testimonial-quote flex-1">
-                <p class="text-text-secondary leading-relaxed line-clamp-6 testimonial-text whitespace-pre-line text-sm">{quote}</p>
-                <button class="testimonial-expand mt-2 text-sm font-medium text-green hover:text-green-hover touch-manipulation hidden">
-                  {t(locale, 'readMore')}
-                </button>
-              </blockquote>
-
-              <footer class="mt-4 pt-4 border-t border-dark/[0.06] flex items-center gap-3">
-                <div
-                  class="w-9 h-9 rounded-full flex items-center justify-center text-sm font-bold text-dark shrink-0"
-                  style={`background: ${item.avatarBg || '#CCE9FF'}`}
-                >
-                  {initials}
-                </div>
-                <div>
-                  {item.isPersonal && item.name && (
-                    <p class="font-bold text-sm text-dark">{item.name[locale] || item.name.en}</p>
-                  )}
-                  <p class="text-sm text-text-secondary">{item.role[locale]}</p>
-                </div>
-              </footer>
-
-              {!item.isPersonal && (
-                <a
-                  href={site.linkedinRecommendations}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="mt-3 inline-flex items-center text-xs font-medium text-green hover:text-green-hover transition-colors touch-manipulation min-h-[44px]"
-                  data-event="outbound_linkedin"
-                  data-location="testimonials"
-                >
-                  {t(locale, 'readOnLinkedin')} ↗
-                </a>
-              )}
-            </article>
-          </div>
-        );
-      })}
-      <div class="shrink-0 w-4 md:w-[calc((100vw-1240px)/2)]" aria-hidden="true"></div>
+      <button type="button" id="tst-prev" class="tst-arrow tst-arrow-prev" aria-label="Previous testimonial">←</button>
+      <button type="button" id="tst-next" class="tst-arrow tst-arrow-next" aria-label="Next testimonial">→</button>
     </div>
 
-    <!-- Scroll dots -->
-    <div id="testimonials-dots" class="mt-6 flex justify-center gap-2" aria-hidden="true">
-      {testimonials.map((_, i) => (
-        <button
-          class={`testimonial-dot h-1.5 rounded-full transition-all duration-300 ${i === 0 ? 'bg-green w-6' : 'bg-dark/10 w-3'}`}
-          data-dot-index={i}
-        />
-      ))}
-    </div>
-  </div>
-
-  <div class="mx-auto max-w-[1240px] px-4 md:px-8 mt-8">
-    <p class="text-sm text-text-secondary max-w-[58ch]">{t(locale, 'testimonialsBottom')}</p>
+    <Reveal>
+      <p class="font-hand tst-note">
+        {t(locale, 'testimonialsBottom')}<br />{t(locale, 'testimonialsBottom2')}
+      </p>
+    </Reveal>
   </div>
 </section>
 
+<style>
+  .tst {
+    padding: 100px 0;
+    background: #F4F4F4;
+    position: relative;
+    overflow: hidden;
+    overflow: clip;
+  }
+  .tst-glow {
+    position: absolute;
+    width: 700px;
+    height: 700px;
+    right: -260px;
+    bottom: -360px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(177, 241, 113, .5), rgba(177, 241, 113, 0) 70%);
+    pointer-events: none;
+  }
+  .tst-inner {
+    position: relative;
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  .tst-head {
+    max-width: 820px;
+  }
+  .tst-title {
+    font-weight: 700;
+    font-size: clamp(34px, 3.8vw, 52px);
+    line-height: 1.05;
+    letter-spacing: -0.035em;
+    margin: 0;
+    text-wrap: balance;
+    color: #1A1A2E;
+  }
+  .tst-sub {
+    font-size: 17px;
+    line-height: 1.55;
+    color: #454545;
+    margin: 18px 0 0;
+    max-width: 640px;
+  }
+
+  .tst-carousel {
+    position: relative;
+    margin-top: 44px;
+  }
+  .tst-track {
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    padding: 4px 0 12px;
+    /* Soften the clipped edges; JS drops a side's fade once you reach that end. */
+    --fade-l: 0px;
+    --fade-r: 56px;
+    -webkit-mask-image: linear-gradient(to right, transparent 0, #000 var(--fade-l), #000 calc(100% - var(--fade-r)), transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0, #000 var(--fade-l), #000 calc(100% - var(--fade-r)), transparent 100%);
+  }
+  .tst-track::-webkit-scrollbar {
+    display: none;
+  }
+
+  .tst-card {
+    margin: 0;
+    flex: 0 0 clamp(min(82%, 320px), calc((100% - 72px) / 3.18), 100%);
+    scroll-snap-align: start;
+    background: #FFFFFF;
+    border-radius: 24px;
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    box-shadow: 0 1px 2px rgba(26, 26, 46, .04);
+  }
+  .tst-mark {
+    font-size: 56px;
+    line-height: .6;
+    height: 24px;
+    color: #6EC319;
+  }
+
+  .tst-body {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+    transition: height .3s ease;
+  }
+  .tst-body.is-open {
+    height: auto;
+  }
+  .tst-quote {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    font-size: 15.5px;
+    line-height: 1.6;
+    color: #1A1A2E;
+  }
+  .tst-quote p {
+    margin: 0;
+  }
+  .tst-fade {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 56px;
+    background: linear-gradient(rgba(255, 255, 255, 0), #FFFFFF);
+    transition: opacity .3s ease;
+  }
+  .tst-body.is-open .tst-fade {
+    opacity: 0;
+  }
+
+  .tst-toggle {
+    align-self: start;
+    background: none;
+    border: none;
+    padding: 0;
+    font-size: 14px;
+    font-weight: 600;
+    color: #4E8F0F;
+  }
+
+  .tst-caption {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-top: 1px solid rgba(26, 26, 46, .08);
+    padding-top: 16px;
+  }
+  .tst-who {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .tst-role {
+    font-weight: 600;
+    font-size: 15px;
+    color: #1A1A2E;
+  }
+  .tst-meta {
+    font-size: 13px;
+    color: #454545;
+  }
+  .tst-link {
+    margin-left: auto;
+    font-size: 13px;
+    font-weight: 600;
+    color: #454545;
+    white-space: nowrap;
+  }
+
+  .tst-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    font-size: 18px;
+    transition: all .2s ease;
+  }
+  .tst-arrow-prev {
+    left: -26px;
+    border: 1.5px solid rgba(26, 26, 46, .15);
+    background: #FFFFFF;
+    color: #1A1A2E;
+    box-shadow: 0 10px 24px -12px rgba(26, 26, 46, .35);
+  }
+  .tst-arrow-prev:hover {
+    border-color: #1A1A2E;
+  }
+  .tst-arrow-next {
+    right: -26px;
+    border: none;
+    background: #1A2036;
+    color: #FFFFFF;
+    box-shadow: 0 10px 24px -12px rgba(26, 26, 46, .5);
+  }
+  .tst-arrow-next:hover {
+    background: #6EC319;
+    color: #1A1A2E;
+  }
+  .tst-arrow:disabled {
+    opacity: .3;
+    cursor: default;
+  }
+
+  .tst-note {
+    margin: 36px auto 0;
+    text-align: center;
+    font-size: 28px;
+    line-height: 1.2;
+    color: #454545;
+    max-width: 860px;
+    transform: rotate(-1deg);
+  }
+</style>
+
 <script>
-  document.querySelectorAll('.testimonial-quote').forEach(container => {
-    const text = container.querySelector('.testimonial-text') as HTMLElement;
-    const btn = container.querySelector('.testimonial-expand') as HTMLButtonElement;
-    if (!text || !btn) return;
+  // Expand / collapse each quote
+  document.querySelectorAll<HTMLButtonElement>('.tst-toggle').forEach(btn => {
+    const body = btn.parentElement?.querySelector<HTMLElement>('.tst-body');
+    const quote = body?.querySelector<HTMLElement>('.tst-quote');
+    if (!body || !quote) return;
 
-    const readMoreText = btn.textContent || '';
-
-    requestAnimationFrame(() => {
-      if (text.scrollHeight > text.clientHeight + 2) {
-        btn.classList.remove('hidden');
-      }
-    });
+    // Nothing is clipped, so the control would be a lie.
+    if (quote.scrollHeight <= body.clientHeight + 2) {
+      btn.style.display = 'none';
+      body.querySelector<HTMLElement>('.tst-fade')!.style.opacity = '0';
+      return;
+    }
 
     btn.addEventListener('click', () => {
-      const isExpanded = !text.classList.contains('line-clamp-6');
-      text.classList.toggle('line-clamp-6');
-      btn.textContent = isExpanded ? readMoreText : '↑';
+      const open = body.classList.toggle('is-open');
+      btn.textContent = open ? btn.dataset.less! : btn.dataset.more!;
     });
   });
 
-  const scrollContainer = document.getElementById('testimonials-scroll');
-  const dots = document.querySelectorAll<HTMLButtonElement>('.testimonial-dot');
+  // Carousel
+  const track = document.getElementById('tst-track');
+  const prev = document.getElementById('tst-prev') as HTMLButtonElement | null;
+  const next = document.getElementById('tst-next') as HTMLButtonElement | null;
 
-  if (scrollContainer && dots.length) {
-    const children = scrollContainer.children;
-    const updateDots = () => {
-      const scrollLeft = scrollContainer.scrollLeft;
-      const childWidth = (children[1] as HTMLElement)?.offsetWidth ?? 1;
-      const gap = 20;
-      const active = Math.round(scrollLeft / (childWidth + gap));
-      dots.forEach((dot, i) => {
-        dot.classList.toggle('bg-green', i === active);
-        dot.classList.toggle('w-6', i === active);
-        dot.classList.toggle('bg-dark/10', i !== active);
-        dot.classList.toggle('w-3', i !== active);
+  if (track && prev && next) {
+    const cards = Array.from(track.querySelectorAll<HTMLElement>('.tst-card'));
+
+    const activeIndex = () => {
+      let best = 0, min = Infinity;
+      cards.forEach((c, i) => {
+        const d = Math.abs(c.offsetLeft - track.scrollLeft);
+        if (d < min) { min = d; best = i; }
       });
+      return best;
     };
-    scrollContainer.addEventListener('scroll', updateDots, { passive: true });
-    updateDots();
 
-    dots.forEach((dot, i) => {
-      dot.addEventListener('click', () => {
-        const childWidth = (children[1] as HTMLElement)?.offsetWidth ?? 1;
-        scrollContainer.scrollTo({ left: i * (childWidth + 20), behavior: 'smooth' });
-      });
-    });
+    const sync = () => {
+      const atStart = track.scrollLeft <= 1;
+      const atEnd = track.scrollLeft >= track.scrollWidth - track.clientWidth - 1;
+      track.style.setProperty('--fade-l', atStart ? '0px' : '56px');
+      track.style.setProperty('--fade-r', atEnd ? '0px' : '56px');
+      prev.disabled = atStart;
+      next.disabled = atEnd;
+    };
+
+    const go = (dir: -1 | 1) => {
+      const card = cards[Math.max(0, Math.min(cards.length - 1, activeIndex() + dir))];
+      if (card) track.scrollTo({ left: card.offsetLeft - cards[0].offsetLeft, behavior: 'smooth' });
+    };
+
+    prev.addEventListener('click', () => go(-1));
+    next.addEventListener('click', () => go(1));
+    track.addEventListener('scroll', sync, { passive: true });
+    addEventListener('resize', sync);
+    sync();
   }
 </script>

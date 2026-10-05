@@ -1,31 +1,165 @@
 ---
 import { t, getLocale } from '../../i18n';
 import { faq } from '../../data/faq';
+import Reveal from '../Reveal.astro';
 
 const locale = getLocale(Astro.currentLocale);
 ---
 
-<section id="faq" class="py-24 md:py-28" aria-labelledby="faq-heading">
-  <div class="mx-auto max-w-[780px] px-4 md:px-8">
-    <h2 id="faq-heading" class="font-display text-[clamp(2rem,4vw,2.5rem)] font-bold text-dark tracking-[-0.035em]">{t(locale, 'faqTitle')}</h2>
-    <p class="mt-2 text-text-secondary">{t(locale, 'faqSub')}</p>
+<section id="faq" class="faq" aria-labelledby="faq-heading">
+  <div class="faq-grid">
+    <div class="faq-side">
+      <Reveal>
+        <div class="font-mono faq-kicker">{t(locale, 'faqTitle')}</div>
+        <h2 id="faq-heading" class="font-display faq-title">{t(locale, 'faqSub')}</h2>
+      </Reveal>
+    </div>
 
-    <div class="mt-10 divide-y divide-dark/[0.08]">
-      {faq.map(item => (
-        <details class="group py-5">
-          <summary class="flex cursor-pointer items-center justify-between gap-4 font-display text-[21px] font-bold text-dark touch-manipulation min-h-[44px] list-none [&::-webkit-details-marker]:hidden">
-            <span>{item.q[locale]}</span>
-            <span class="flex-shrink-0 w-8 h-8 rounded-full bg-bg flex items-center justify-center transition-colors duration-300 group-open:bg-green-light">
-              <svg class="h-4 w-4 text-dark transition-transform duration-300 group-open:rotate-45" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-                <path d="M8 3v10M3 8h10"/>
-              </svg>
-            </span>
-          </summary>
-          <div class="faq-answer overflow-hidden">
-            <p class="mt-3 text-text-secondary leading-relaxed pr-12 max-w-[58ch]">{item.a[locale]}</p>
+    <div class="faq-list">
+      {faq.map((item, i) => (
+        <div class="faq-item">
+          <button
+            type="button"
+            class:list={['faq-q', i === 0 && 'is-open']}
+            aria-expanded={i === 0 ? 'true' : 'false'}
+            aria-controls={`faq-a-${i}`}
+          >
+            <span class="font-display faq-q-text">{item.q[locale]}</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class:list={['faq-a', i === 0 && 'is-open']} id={`faq-a-${i}`}>
+            <div class="faq-a-clip">
+              <p class="faq-a-text">{item.a[locale]}</p>
+            </div>
           </div>
-        </details>
+        </div>
       ))}
     </div>
   </div>
 </section>
+
+<style>
+  .faq {
+    scroll-margin-top: 72px;
+    padding: 40px 0 120px;
+  }
+  .faq-grid {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 32px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+    gap: 48px;
+    align-items: start;
+  }
+  .faq-kicker {
+    font-size: 13px;
+    color: #454545;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+  }
+  .faq-title {
+    font-weight: 700;
+    font-size: clamp(36px, 4vw, 52px);
+    line-height: 1.04;
+    letter-spacing: -0.035em;
+    margin: 10px 0 0;
+    color: #1A1A2E;
+  }
+
+  .faq-list {
+    grid-column: span 2;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid rgba(26, 26, 46, .1);
+  }
+  .faq-item {
+    border-bottom: 1px solid rgba(26, 26, 46, .1);
+  }
+
+  .faq-q {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 24px 0;
+    background: none;
+    border: none;
+    text-align: left;
+    color: #1A1A2E;
+  }
+  .faq-q-text {
+    flex: 1;
+    font-weight: 600;
+    font-size: 21px;
+    letter-spacing: -0.015em;
+  }
+  .faq-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-size: 20px;
+    background: #F4F4F4;
+    transition: all .25s ease;
+    flex: 0 0 auto;
+  }
+  .faq-q.is-open .faq-icon {
+    background: #B1F171;
+    transform: rotate(45deg);
+  }
+
+  .faq-a {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows .3s ease;
+  }
+  .faq-a.is-open {
+    grid-template-rows: 1fr;
+  }
+  .faq-a-clip {
+    overflow: hidden;
+  }
+  .faq-a-text {
+    margin: 0;
+    padding: 0 56px 26px 0;
+    font-size: 16.5px;
+    line-height: 1.65;
+    color: #454545;
+    max-width: 720px;
+  }
+
+  @media (max-width: 767px) {
+    .faq {
+      padding: 24px 0 72px;
+    }
+    .faq-grid {
+      padding: 0 20px;
+      gap: 28px;
+    }
+    .faq-list {
+      grid-column: auto;
+    }
+    .faq-q-text {
+      font-size: 18px;
+    }
+    .faq-a-text {
+      padding-right: 16px;
+    }
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>('.faq-q').forEach(btn => {
+    const answer = btn.nextElementSibling;
+    if (!answer) return;
+
+    btn.addEventListener('click', () => {
+      const open = btn.classList.toggle('is-open');
+      answer.classList.toggle('is-open', open);
+      btn.setAttribute('aria-expanded', String(open));
+    });
+  });
+</script>
