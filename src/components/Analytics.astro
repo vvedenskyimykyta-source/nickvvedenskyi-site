@@ -87,10 +87,12 @@ const gtmId = import.meta.env.PUBLIC_GTM_ID || '';
     };
 
     function updateConsent(accepted: boolean) {
-      window.dataLayer = window.dataLayer || [];
-      (window as any).dataLayer.push(['consent', 'update', {
+      // Consent Mode reads the arguments object that gtag() pushes. A plain array
+      // lands in the dataLayer as an ordinary message and GTM ignores it, which
+      // leaves analytics denied however many times the visitor accepts.
+      (window as any).gtag?.('consent', 'update', {
         analytics_storage: accepted ? 'granted' : 'denied',
-      }]);
+      });
     }
 
     cc.run({
