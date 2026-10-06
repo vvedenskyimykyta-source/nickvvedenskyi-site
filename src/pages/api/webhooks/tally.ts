@@ -2,6 +2,7 @@ export const prerender = false;
 
 import type { APIRoute } from 'astro';
 import { createHmac } from 'node:crypto';
+import { upsertContact } from '../../../lib/brevo';
 
 export const POST: APIRoute = async ({ request }) => {
   try {
@@ -48,33 +49,30 @@ export const POST: APIRoute = async ({ request }) => {
     const utmSource = getField('utm_source') || '';
     const utmMedium = getField('utm_medium') || '';
     const utmCampaign = getField('utm_campaign') || '';
+    // Where the visit actually came from, and which page the link was clicked on.
+    const referrer = getField('referrer') || '';
+    const sourcePage = getField('source_page') || '';
 
-    const brevoKey = import.meta.env.BREVO_API_KEY;
-    const brevoListId = import.meta.env.BREVO_LIST_QUIZ_ID;
+    const result = await upsertContact({
+      email,
+      listId: import.meta.env.BREVO_LIST_QUIZ_ID,
+      attributes: {
+        FIRSTNAME: firstName,
+        COMPANY: company,
+        MAIN_PROBLEM: mainProblem,
+        STAGE: stage,
+        UTM_SOURCE: utmSource,
+        UTM_MEDIUM: utmMedium,
+        UTM_CAMPAIGN: utmCampaign,
+        REFERRER: referrer,
+        SOURCE_PAGE: sourcePage,
+        LANGUAGE: language,
+      },
+    });
 
-    if (brevoKey) {
-      await fetch('https://api.brevo.com/v3/contacts', {
-        method: 'POST',
-        headers: {
-          'api-key': brevoKey,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email,
-          attributes: {
-            FIRSTNAME: firstName,
-            COMPANY: company,
-            MAIN_PROBLEM: mainProblem,
-            STAGE: stage,
-            UTM_SOURCE: utmSource,
-            UTM_MEDIUM: utmMedium,
-            UTM_CAMPAIGN: utmCampaign,
-            LANGUAGE: language,
-          },
-          listIds: brevoListId ? [Number(brevoListId)] : [],
-          updateEnabled: true,
-        }),
-      });
+    if (!result.ok) {
+      console.error('Tally webhook — Brevo failed:', result.message);
+      return new Response(result.message, { status: result.status });
     }
 
     return new Response('OK', { status: 200 });

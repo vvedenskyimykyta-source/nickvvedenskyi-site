@@ -2,6 +2,7 @@ export const prerender = false;
 
 import type { APIRoute } from 'astro';
 import { createHmac } from 'node:crypto';
+import { upsertContact } from '../../../lib/brevo';
 
 export const POST: APIRoute = async ({ request }) => {
   try {
@@ -44,26 +45,15 @@ export const POST: APIRoute = async ({ request }) => {
       responses['Company website']?.value ??
       '';
 
-    const brevoKey = import.meta.env.BREVO_API_KEY;
-    const brevoListId = import.meta.env.BREVO_LIST_BOOKED_ID;
+    const result = await upsertContact({
+      email,
+      listId: import.meta.env.BREVO_LIST_BOOKED_ID,
+      attributes: { FIRSTNAME: firstName, COMPANY: company },
+    });
 
-    if (brevoKey) {
-      await fetch('https://api.brevo.com/v3/contacts', {
-        method: 'POST',
-        headers: {
-          'api-key': brevoKey,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email,
-          attributes: {
-            FIRSTNAME: firstName,
-            COMPANY: company,
-          },
-          listIds: brevoListId ? [Number(brevoListId)] : [],
-          updateEnabled: true,
-        }),
-      });
+    if (!result.ok) {
+      console.error('Cal webhook — Brevo failed:', result.message);
+      return new Response(result.message, { status: result.status });
     }
 
     return new Response('OK', { status: 200 });

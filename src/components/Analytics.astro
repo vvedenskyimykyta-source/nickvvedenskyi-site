@@ -40,6 +40,36 @@ const gtmId = import.meta.env.PUBLIC_GTM_ID || '';
     }
   }
 
+  // Remember where the visit came from, once. Later page views inside the site
+  // would otherwise overwrite it with our own hostname.
+  try {
+    if (!sessionStorage.getItem('referrer')) {
+      const ref = document.referrer;
+      const external = ref && new URL(ref).hostname !== location.hostname;
+      sessionStorage.setItem('referrer', external ? new URL(ref).hostname : 'direct');
+    }
+  } catch {}
+
+  // Tally only ever sees what the link hands it, so attribution has to ride in
+  // the query string. Built at click time, in capture, before navigation.
+  document.addEventListener('click', (e) => {
+    const link = (e.target as HTMLElement).closest<HTMLAnchorElement>('a[href*="tally.so/r/"]');
+    if (!link) return;
+    try {
+      const url = new URL(link.href);
+      for (const key of utmKeys) {
+        const v = params.get(key) || sessionStorage.getItem(key);
+        if (v && !url.searchParams.has(key)) url.searchParams.set(key, v);
+      }
+      if (!url.searchParams.has('referrer')) {
+        url.searchParams.set('referrer', sessionStorage.getItem('referrer') || 'direct');
+      }
+      url.searchParams.set('source_page', location.pathname);
+      url.searchParams.set('lang', document.documentElement.lang || 'en');
+      link.href = url.toString();
+    } catch {}
+  }, true);
+
   // dataLayer event listener for data-event attributes
   document.addEventListener('click', (e) => {
     const el = (e.target as HTMLElement).closest<HTMLElement>('[data-event]');
