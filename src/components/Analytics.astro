@@ -50,10 +50,21 @@ const gtmId = import.meta.env.PUBLIC_GTM_ID || '';
     }
   } catch {}
 
-  // Tally only ever sees what the link hands it, so attribution has to ride in
-  // the query string. Built at click time, in capture, before navigation.
+  // Remember which section sent someone toward the booking area, so a journey
+  // that starts at the pipeline and ends on the final CTA is not just "final".
   document.addEventListener('click', (e) => {
-    const link = (e.target as HTMLElement).closest<HTMLAnchorElement>('a[href*="tally.so/r/"]');
+    const anchor = (e.target as HTMLElement).closest<HTMLAnchorElement>('a[href="#book"][data-location]');
+    if (anchor?.dataset.location) {
+      try { sessionStorage.setItem('cta_origin', anchor.dataset.location); } catch {}
+    }
+  }, true);
+
+  // Tally and Cal only ever see what the link hands them, so attribution has to
+  // ride in the query string. Built at click time, in capture, before navigation.
+  document.addEventListener('click', (e) => {
+    const link = (e.target as HTMLElement).closest<HTMLAnchorElement>(
+      'a[href*="tally.so/r/"], a[href*="cal.com/"]'
+    );
     if (!link) return;
     try {
       const url = new URL(link.href);
@@ -66,6 +77,14 @@ const gtmId = import.meta.env.PUBLIC_GTM_ID || '';
       }
       url.searchParams.set('source_page', location.pathname);
       url.searchParams.set('lang', document.documentElement.lang || 'en');
+
+      // Which button converted: where they landed, and where they set off from.
+      const here = link.dataset.location || '';
+      let origin = '';
+      try { origin = sessionStorage.getItem('cta_origin') || ''; } catch {}
+      const cta = origin && origin !== here ? `${origin}->${here}` : here;
+      if (cta) url.searchParams.set('cta_location', cta);
+
       link.href = url.toString();
     } catch {}
   }, true);

@@ -74,6 +74,7 @@ export const POST: APIRoute = async ({ request }) => {
     // Where the visit actually came from, and which page the link was clicked on.
     const referrer = getField('referrer') || '';
     const sourcePage = getField('source_page') || '';
+    const ctaLocation = getField('cta_location') || '';
 
     const result = await upsertContact({
       email,
@@ -88,6 +89,7 @@ export const POST: APIRoute = async ({ request }) => {
         UTM_CAMPAIGN: utmCampaign,
         REFERRER: referrer,
         SOURCE_PAGE: sourcePage,
+        CTA_LOCATION: ctaLocation,
         LANGUAGE: language,
       },
     });
