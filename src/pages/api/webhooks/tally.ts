@@ -14,18 +14,25 @@ export const POST: APIRoute = async ({ request }) => {
     const signature = request.headers.get('tally-signature');
     const body = await request.text();
 
-    // Fail closed. This endpoint writes straight into the mailing list, so an
-    // unset secret must stop it rather than quietly leave it open to anyone.
-    const secret = import.meta.env.TALLY_SIGNING_SECRET;
-    if (!secret) {
-      console.error('Tally webhook — TALLY_SIGNING_SECRET is not set on this deployment');
+    // Each Tally form signs with its own secret, and both forms post here, so
+    // a signature counts as valid when it matches any configured secret.
+    // Fail closed: this endpoint writes straight into the mailing list.
+    const secrets = [
+      import.meta.env.TALLY_SIGNING_SECRET,
+      import.meta.env.TALLY_SIGNING_SECRET_UK,
+    ].filter((v): v is string => typeof v === 'string' && v.length > 0);
+
+    if (secrets.length === 0) {
+      console.error('Tally webhook — no TALLY_SIGNING_SECRET set on this deployment');
       return new Response('Webhook signing secret is not configured', { status: 503 });
     }
     if (!signature) {
       return new Response('Missing signature', { status: 401 });
     }
-    const expected = createHmac('sha256', secret).update(body).digest('base64');
-    if (signature !== expected) {
+    const matches = secrets.some(
+      secret => createHmac('sha256', secret).update(body).digest('base64') === signature
+    );
+    if (!matches) {
       return new Response('Invalid signature', { status: 401 });
     }
 
