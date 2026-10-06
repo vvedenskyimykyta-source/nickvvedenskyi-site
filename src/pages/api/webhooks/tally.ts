@@ -14,15 +14,19 @@ export const POST: APIRoute = async ({ request }) => {
     const signature = request.headers.get('tally-signature');
     const body = await request.text();
 
+    // Fail closed. This endpoint writes straight into the mailing list, so an
+    // unset secret must stop it rather than quietly leave it open to anyone.
     const secret = import.meta.env.TALLY_SIGNING_SECRET;
-    if (secret) {
-      if (!signature) {
-        return new Response('Missing signature', { status: 401 });
-      }
-      const expected = createHmac('sha256', secret).update(body).digest('base64');
-      if (signature !== expected) {
-        return new Response('Invalid signature', { status: 401 });
-      }
+    if (!secret) {
+      console.error('Tally webhook — TALLY_SIGNING_SECRET is not set on this deployment');
+      return new Response('Webhook signing secret is not configured', { status: 503 });
+    }
+    if (!signature) {
+      return new Response('Missing signature', { status: 401 });
+    }
+    const expected = createHmac('sha256', secret).update(body).digest('base64');
+    if (signature !== expected) {
+      return new Response('Invalid signature', { status: 401 });
     }
 
     const payload = JSON.parse(body);

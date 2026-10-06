@@ -14,15 +14,17 @@ export const POST: APIRoute = async ({ request }) => {
     const body = await request.text();
 
     const secret = import.meta.env.CAL_WEBHOOK_SECRET;
-    if (secret) {
-      const signature = request.headers.get('x-cal-signature-256');
-      if (!signature) {
-        return new Response('Missing signature', { status: 401 });
-      }
-      const expected = createHmac('sha256', secret).update(body).digest('hex');
-      if (signature !== expected) {
-        return new Response('Invalid signature', { status: 401 });
-      }
+    if (!secret) {
+      console.error('Cal webhook — CAL_WEBHOOK_SECRET is not set on this deployment');
+      return new Response('Webhook signing secret is not configured', { status: 503 });
+    }
+    const signature = request.headers.get('x-cal-signature-256');
+    if (!signature) {
+      return new Response('Missing signature', { status: 401 });
+    }
+    const expected = createHmac('sha256', secret).update(body).digest('hex');
+    if (signature !== expected) {
+      return new Response('Invalid signature', { status: 401 });
     }
 
     const payload = JSON.parse(body);
