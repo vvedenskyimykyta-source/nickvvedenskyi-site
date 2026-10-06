@@ -37,18 +37,29 @@ export const POST: APIRoute = async ({ request }) => {
     }
 
     const payload = JSON.parse(body);
-    const fields = payload.data?.fields ?? [];
+    const fields: unknown[] = payload.data?.fields ?? [];
 
-    const getField = (label: string): string => {
-      const f = fields.find((f: { label: string }) =>
-        f.label.toLowerCase().includes(label.toLowerCase())
-      );
-      return f?.value ?? '';
+    // Tally mixes field types in one array: some carry a null label, and choice
+    // fields answer with an array rather than a string. Both used to throw here.
+    const asText = (value: unknown): string => {
+      if (value == null) return '';
+      if (Array.isArray(value)) return value.filter(v => typeof v === 'string' || typeof v === 'number').join(', ');
+      if (typeof value === 'string' || typeof value === 'number' || typeof value === 'boolean') return String(value);
+      return '';
     };
 
-    const email = getField('email') || payload.data?.respondentEmail;
-    if (!email) {
-      return new Response('No email found', { status: 400 });
+    const getField = (label: string): string => {
+      const needle = label.toLowerCase();
+      const match = fields.find((f): f is { label: string; value: unknown } => {
+        const l = (f as { label?: unknown })?.label;
+        return typeof l === 'string' && l.toLowerCase().includes(needle);
+      });
+      return asText(match?.value);
+    };
+
+    const email = getField('email') || asText(payload.data?.respondentEmail);
+    if (!email.includes('@')) {
+      return new Response('No usable email in payload', { status: 400 });
     }
 
     const firstName = getField('name') || getField("ім'я") || email.split('@')[0];
@@ -88,7 +99,10 @@ export const POST: APIRoute = async ({ request }) => {
 
     return new Response('OK', { status: 200 });
   } catch (err) {
+    // Hand the reason back: Tally shows the response body in its delivery log,
+    // which is the only place this is visible without Vercel logs.
+    const reason = err instanceof Error ? err.message : String(err);
     console.error('Tally webhook error:', err);
-    return new Response('Internal error', { status: 500 });
+    return new Response(`Webhook error: ${reason}`, { status: 500 });
   }
 };
