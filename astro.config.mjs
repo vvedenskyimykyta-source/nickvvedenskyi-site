@@ -10,13 +10,6 @@ export default defineConfig({
   site: 'https://www.nickvvedenskyi.com',
   trailingSlash: 'ignore',
 
-  // Astro emits sitemap-index.xml, but /sitemap.xml is where people and tools
-  // look first. Declared here so the adapter routes it; a vercel.json rewrite
-  // is overridden by the adapter's own routing.
-  redirects: {
-    '/sitemap.xml': '/sitemap-index.xml',
-  },
-
   i18n: {
     defaultLocale: 'en',
     locales: ['en', 'uk'],
