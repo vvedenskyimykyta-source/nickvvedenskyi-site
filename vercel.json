@@ -1,5 +1,12 @@
 {
   "redirects": [],
+  "rewrites": [
+    {
+      "comment": "Astro emits sitemap-index.xml; /sitemap.xml is where people and tools look first. Served, not redirected, so crawlers get the file straight away.",
+      "source": "/sitemap.xml",
+      "destination": "/sitemap-index.xml"
+    }
+  ],
   "headers": [
     {
       "source": "/(.*)",
